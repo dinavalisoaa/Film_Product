@@ -25,6 +25,9 @@ public class Main {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         HibernateDao dao = (HibernateDao) context.getBean("hibernateDAO");
        Film is=new Film();
+//       Personnage age=new Personnage();
+//       age.setNom("ttt");
+//       age.setPhoto("342");
        is.setTitre("TITaNIC");
        dao.create(is);
 
