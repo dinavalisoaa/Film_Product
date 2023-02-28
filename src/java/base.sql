@@ -64,12 +64,12 @@ CREATE TABLE Tournage (
     dateDebut date default current_date
     );
 insert into Configuration(cle,valeur)values('HeureDebut','8:00:00');
-insert into Configuration(cle,valeur)values('FinDebut','18:00:00');
+insert into Configuration(cle,valeur)values('HeureFin','18:00:00');
 insert into Configuration(cle,valeur)values('PauseScene','00:5:00');
-insert into Configuration(cle,valeur)values('DebutPause','12:00:00');
-insert into Configuration(cle,valeur)values('DebutPause','14:00:00');
+insert into Configuration(cle,valeur)values('DebutBreak','12:00:00');
+insert into Configuration(cle,valeur)values('FinBreak','14:00:00');
 
 
-
-
+insert into Plateau(nom,description)values('Mer','Dans la mer');
+insert into Scene(titre,numero,plateauid,filmid)values('Rencontre entre Jack et Rose',1,1,1);
 
