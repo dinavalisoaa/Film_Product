@@ -183,11 +183,13 @@ public class Main {
 //            System.out.println(""+temp);
 //            
 //        }
-        ArrayList<Planning> in = setPlanning(dao, 2);
-        for (int i = 0; i < in.size(); i++) {
-            Planning get = in.get(i);
-            System.out.println("" + get.getDebut() + "    " + get.getFin() + "  " + get.getSceneId());
-        }
+//        ArrayList<Planning> in = setPlanning(dao, 2);
+                ArrayList<Integer> in =SceneService.distinct(dao, 1);
+        System.out.println(""+in.size());
+//        for (int i = 0; i < in.size(); i++) {
+//            Planning get = in.get(i);
+//            System.out.println("" + get.getDebut() + "    " + get.getFin() + "  " + get.getSceneId());
+//        }
 //        SceneService a = new SceneService(dao);
 //        V_DureeDialogueService sa = new V_DureeDialogueService(dao);
 //

@@ -1,12 +1,19 @@
+<%@page import="model.Film"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
+<%@page import="dao.HibernateDao"%>
+<%@page import="service.PlateauService"%>
+<%@page import="model.Scene"%>
+<%@page import="model.Plateau"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Dgocky – DJ Party & Night Club HTML Template </title>
+    <title> Dgocky â DJ Party & Night Club HTML Template </title>
     <!-- favicon -->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- bootstrap -->
@@ -36,23 +43,25 @@
             <hr>
         </div>
     </div>
+    
+    <%
+    List<Film>film=(List<Film>)request.getAttribute("film");
+    %>
     <!-- preloader end -->
     
-    <!-- header begin -->
-    <div class="header">
+    <!-- header begin --><div class="header">
         <div class="container">
             <div class="row">
                 <div class="col-xl-4 col-lg-4 d-xl-flex d-lg-flex align-items-center">
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
-                            <div class="logo">
-                                <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                            </div>
+                            
+                                <h1><a href="index.html">E-FILM</a></h1>
+                            
                         </div>
                         <div class="d-xl-none d-lg-none d-block col-6">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="fas fa-bars"></i>
                             </button>
                         </div>
@@ -64,29 +73,16 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about.html">About <span
-                                                class="sr-only">(current)</span></a>
+                                        <a class="nav-link " href="about.html">About <span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="event.html">Event</a>
+                                        <a class="nav-link active" href="movie.html">Movie</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Gallery</a>
+                                        <a class="nav-link" href="gallery.html">Scene</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Schedule</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="blog.html">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="faq.html">Faq</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="contact.html">Contact</a>
+                                        <a class="nav-link" href="planning">Planning</a>
                                     </li>
                                 </ul>
                             </div>
@@ -106,7 +102,7 @@
                     <div class="breadcrump-content">
                         <span class="page-name">Home</span>
                         <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                        <span class="page-name">Contact</span>
+                        <span class="page-name">Schedule</span>
                     </div>
                 </div>
             </div>
@@ -114,6 +110,69 @@
     </div>
     <!-- breadcrump end -->
 
+    <!-- event schedule begin -->
+    <div class="event-schedule">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-8">
+                    <div class="section-title text-center">
+                        <h2>Planning</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        </div>
+                </div>
+                <div class="col-xl-9 col-lg-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            
+                            <div id="accordion">
+                                <%
+                                for (int idx = 0; idx < film.size(); idx++) {
+                                        Film elem = film.get(idx);
+                                        %>
+                                        
+                                <div class="card">
+                                    
+                                    <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
+                                        <div class="part-img">
+                                            <img src="assets/img/gallery-1.jpg" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <h3><%=elem.getTitre() %></h3>
+                                            <h2>
+                                            </h2>
+                                            <a class="btn btn-danger" href="voirPlanning?id=<%=elem.getId() %>&jour=2&&titre=<%=elem.getTitre() %>">Voir Planning</a>
+                                        </div>
+                                    </div>
+                            
+                                    
+                                </div>
+                                
+                                        <%
+                                    }
+                                %>
+                                
+                            </div>
+
+                        </div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- event schedule end -->
+
+    <!-- countdown begin -->
+    
+    <!-- subscribe newsletter end -->
+    
     <!-- contact begin -->
     <div class="contact">
         <div class="container">
@@ -156,29 +215,6 @@
         </div>
     </div>
     <!-- contact end -->
-
-    <div class="direct-contact d-none">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8">
-                    <div class="add-space section-title text-center">
-                        <h2>Direct Contact Us</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8">
-                    <div class="address-area">
-                        <ul>
-                            <li><i class="fas fa-id-card"></i> 4653 Angus Road, New York</li>
-                            <li><i class="fas fa-phone"></i> 567-987-1234</li>
-                            <li><i class="fas fa-envelope"></i> Yourmail95h@demo.com</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- footer begin -->
     <div class="footer">
@@ -225,7 +261,7 @@
         </div>
     </div>
     <!-- footer end -->
-
+    
     <!-- jquery -->
     <script src="assets/js/jquery.js"></script>
     <!-- bootstrap -->
@@ -241,5 +277,5 @@
     <!-- main -->
     <script src="assets/js/main.js"></script>
 </body>
-
+    
 </html>

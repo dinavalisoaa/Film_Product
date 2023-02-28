@@ -1,3 +1,16 @@
+<%@page import="model.Emotion"%>
+<%@page import="model.Personnage"%>
+<%@page import="model.Dialogue"%>
+<%@page import="dao.HibernateDao"%>
+<%@page import="service.PlateauService"%>
+<%@page import="model.Scene"%>
+<%@page import="model.Plateau"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    List<Personnage> personnage = (List<Personnage>) request.getAttribute("personnage");
+    List<Emotion> emotion = (List<Emotion>) request.getAttribute("emotion");
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -11,6 +24,8 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/liste-scene.css">
+
     <!-- fontawesome icon  -->
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
     <!-- flaticon css -->
@@ -92,7 +107,7 @@
                     <div class="breadcrump-content">
                         <span class="page-name">Home</span>
                         <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                        <span class="page-name">Gallery</span>
+                        <span class="page-name">Ajout scene</span>
                     </div>
                 </div>
             </div>
@@ -106,79 +121,56 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="add-space section-title text-center">
-                        <h2>Movies</h2>
+                        <h2>Ajout Dialogue</h2>
+                        <div class="scene-container">
+                            <form action="add_dialogue" method="get" class="form-scene"> 
+                                <div class="form-scene-content">
+                                    <input type="hidden" name="idScene" value="<%=request.getParameter("idScene")%>">
+                                    <div class="form-scene-item">
+                                        <label for="personnage">Personnage</label>
+                                        <select id="personnage" name="personnage">
+                                            <% for (int idx = 0; idx < personnage.size(); idx++) { %>
+                                            <option value="<%=personnage.get(idx).getId()%>"><%=personnage.get(idx).getNom()%></option>
+                                            <% } %>
+                                        </select>                         
+                                    </div>
+                                <div class="form-scene-item">
+                                    <label for="texte">Texte</label>
+                                    <textarea id="texte" name="contenu"></textarea>
+                                </div>
+                                <div class="form-scene-item">
+                                    <label for="duree">Duree</label>
+                                    <input type="time" name="duree" id="duree"/>
+                                </div>
+                                <div class="form-scene-item">
+                                    <label for="emotion">Emotion</label>
+                                    <select id="emotion" name="emotion">
+                                        <% for (int idx = 0; idx < emotion.size(); idx++) { %>
+                                        <option value="<%=emotion.get(idx).getId()%>"><%=emotion.get(idx).getType()%></option>
+                                        <% } %>
+                                    </select>                         
+                                </div>
+                                <div class="form-scene-item">
+                                    <label for="action">Action</label>
+                                    <textarea id="texte" name="action"></textarea>                    
+                                </div>
+                                <div class="form-scene-item">
+                                    <button type="submit">Ajouter</button>
+                                </div>    
+                            </form>
+                            <a id="lien" href="dialogue?idScene=<%=request.getParameter("idScene")%>" style="background: linear-gradient(90deg, #6c6b6b 100%, #cacaca 56%, #f7f7f7 0%);">Voir la liste</a>
+                        </div>
+                           
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-1.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-5.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-2.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-3.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-6.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 d-xl-block d-lg-block d-none">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-4.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-7.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- gallery end -->
-
+           
     <!-- footer begin -->
     <div class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-xl-5 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                    <div class="logo">
-                        <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                    </div>
+                    
                 </div>
                 <div class="col-xl-7 col-lg-8">
                     <div class="footer-menu">

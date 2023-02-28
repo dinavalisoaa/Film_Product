@@ -1,0 +1,47 @@
+@use 'body.scss';
+
+.sidebar-smooth{
+    border-radius: body.$radius;
+    background-color: body.$bg-dark-element;
+    height: body.$max;
+    width: 15%;
+    color: body.$color-dark;
+    padding: 30px;
+
+    .big-title{
+        text-align: center;
+    }
+
+    .list-item{
+        display: flex;
+        flex-direction: column;
+        color: rgb(163, 163, 163);
+        
+        div{
+            display: flex;
+            padding: 15px 0px;
+            transition: 300ms;
+
+            &:hover{
+                color: rgb(255, 255, 255);
+                cursor: pointer;
+            }
+
+            .icon{
+                margin-right: 10%;
+
+                &::before{
+                    content: "";
+                    border-left: solid rgb(238, 238, 238) 4px;
+                    margin-right: 5px;
+                    box-shadow: 0px 0px 5px rgb(255, 255, 255);
+                    border-radius: 10px 10px 0px 0px;
+                }
+            }
+
+            p{
+                margin: 0;
+            }
+        }
+    }
+}

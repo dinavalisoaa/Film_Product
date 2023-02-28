@@ -1,3 +1,13 @@
+<%@page import="model.Plateau"%>
+<%@page import="service.PlateauService"%>
+<%@page import="service.FilmService"%>
+<%@page import="dao.HibernateDao"%>
+<%@page import="model.Scene"%>
+<%@page import="java.util.List"%>
+<%
+    List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
+    List<Scene> scene = (List<Scene>) request.getAttribute("scene");
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -108,7 +118,6 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="add-space section-title text-center">
-                        <h2>Title</h2>
                         <div class="detailImg">
                             <img src="assets/img/gallery-1.jpg" alt="">
                         </div>
@@ -117,39 +126,59 @@
             </div>
             <div class="add-space section-title spacing" >
                 <h2 class="title-scene" style="font-size: 50px;">Scene</h2>
-                <a href="ajoutScene.html"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
+                <a href="scene?film=<%=request.getParameter("film")%>"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
             </div>
             <div class="row">
+                <table width="800">
+                <form action="liste_scene" method="get">
+                    <tr>
+                    <input type="hidden" name="search" value="1">
+                    <input type="hidden" name="film" value="<%=request.getParameter("film")%>">
+                    <td><input type="text" name="mot"></td>
+                    <td><select name="plateau">
+                        <option value="">Plateau</option>
+                    <% for (int idx = 0; idx < plateau.size(); idx++) { %>
+                    <option value="<%=plateau.get(idx).getId()%>"><%=plateau.get(idx).getNom()%></option>
+                    <% } %>
+                        </select></td>
+                        <td><input type="date" name="date"></td>
+                        <td><div class="form-scene-item">
+                            <button type="submit">Rechercher</button>
+                            </div></td>    
+                    </tr>
+                </form>
+                </table>
+            </div>
+                    <br/><br/>
+            <div class="row">
                 <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <% for (int idx = 0; idx < scene.size(); idx++) { %>
                     <div class="single-img" id="card-scene">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="dialogue?idScene=<%=scene.get(idx).getId()%>"><i class="far fa-eye"></i></a>
                         </div>
-                        <b style="color: white">Titre</b>
+                        <b style="color: white"><%=scene.get(idx).getTitre()%></b>
+                        <br/>
+                        <i><%=new PlateauService((HibernateDao) request.getAttribute("dao")).getPlateauById(scene.get(idx).getPlateauId()).getNom()%></i>
                     </div>
-                    <div class="single-img" id="card-scene">
-                        <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
-                        </div>
-                        <b style="color: white">Titre</b>
-                    </div>
+                    <% } %>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-sm-6">
+<!--                <div class="col-xl-4 col-lg-4 col-sm-6">
                     <div class="single-img" id="card-scene" >
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="DetailScene.html"><i class="far fa-eye"></i></a>
                         </div>
                         <b style="color: white">Titre</b>
                     </div>
                     <div class="single-img" id="card-scene">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="DetailScene.html"><i class="far fa-eye"></i></a>
                         </div>
                         <b style="color: white">Titre</b>
                     </div>
                     <div class="single-img" id="card-scene">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="DetailScene.html"><i class="far fa-eye"></i></a>
                         </div>
                         <b style="color: white">Titre</b>
                     </div>
@@ -157,17 +186,17 @@
                 <div class="col-xl-4 col-lg-4 d-xl-block d-lg-block d-none">
                     <<div class="single-img" id="card-scene">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="DetailScene.html"><i class="far fa-eye"></i></a>
                         </div>
                         <b style="color: white">Titre</b>
                     </div>
                     <div class="single-img" id="card-scene">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="DetailScene.html"><i class="far fa-eye"></i></a>
                         </div>
                         <b style="color: white">Titre</b>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

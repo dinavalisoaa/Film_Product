@@ -1,3 +1,17 @@
+<%@page import="model.Emotion"%>
+<%@page import="model.Personnage"%>
+<%@page import="service.EmotionService"%>
+<%@page import="service.PersonnageService"%>
+<%@page import="service.SceneService"%>
+<%@page import="service.DialogueService"%>
+<%@page import="dao.HibernateDao"%>
+<%@page import="model.Dialogue"%>
+<%@page import="java.util.List"%>
+<%
+    List<Dialogue> dialogue = (List<Dialogue>) request.getAttribute("dialogue");
+    List<Personnage> personnage = (List<Personnage>) request.getAttribute("personnage");
+    List<Emotion> emotion = (List<Emotion>) request.getAttribute("emotion");
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -11,6 +25,8 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/liste-scene.css">
+
     <!-- fontawesome icon  -->
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
     <!-- flaticon css -->
@@ -46,7 +62,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
                             
-                                <h1 href="index.html">E-FILM</h1>
+                                <h1><a href="index.html">E-FILM</a></h1>
                             
                         </div>
                         <div class="d-xl-none d-lg-none d-block col-6">
@@ -72,7 +88,7 @@
                                         <a class="nav-link" href="gallery.html">Scene</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Planning</a>
+                                        <a class="nav-link" href="planning">Planning</a>
                                     </li>
                                 </ul>
                             </div>
@@ -106,67 +122,73 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="add-space section-title text-center">
-                        <h2>Movies</h2>
                     </div>
                 </div>
+            </div>
+            <div class="add-space section-title spacing" >
+                <h2 class="title-scene" style="font-size: 50px;">Dialogue</h2>
+                <a href="dialogue_formulaire?idScene=<%=request.getParameter("idScene")%>"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
             </div>
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-1.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-5.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-2.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-3.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-6.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 d-xl-block d-lg-block d-none">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-4.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-7.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
+                <table width="1000">
+                <form action="dialogue" method="get">
+                    <tr>
+                    <input type="hidden" name="search" value="1">
+                    <input type="hidden" name="idScene" value="<%=request.getParameter("idScene")%>">
+                    <td><input type="text" name="mot"></td>
+                    <td><select name="personnage">
+                        <option value="">Personnage</option>
+                    <% for (int idx = 0; idx < personnage.size(); idx++) { %>
+                    <option value="<%=personnage.get(idx).getId()%>"><%=personnage.get(idx).getNom()%></option>
+                    <% } %>
+                        </select></td>
+                        <td><select name="emotion">
+                        <option value="">Emotion</option>
+                    <% for (int idx = 0; idx < emotion.size(); idx++) { %>
+                    <option value="<%=emotion.get(idx).getId()%>"><%=emotion.get(idx).getType()%></option>
+                    <% } %>
+                            </select></td>
+                            <td><div class="form-scene-item">
+                            <button type="submit">Rechercher</button>
+                            </div></td>    
+                    </tr>
+                </form>
+                </table>
             </div>
+                            <br/><br/>
+            <% for (int idx = 0; idx < dialogue.size(); idx++) { %>
+            <div class="dialogue-container">
+                    <p><%=dialogue.get(idx).getContenu()%></p>
+                    <div class="info-tiers">
+                        <p><b>Durée:</b> <%=dialogue.get(idx).getDuree()%></p>
+                    </div>
+                </div>         
+            </div>
+            <% } %>
+<!--            <div class="dialogue-container">
+                <img src="assets/img/dj-2.jpg"/>
+                <div class="info"><b>Nom</b>
+                <p>Texte</p>
+                <div class="info-tiers">
+                    <p><b>Emotion:</b>Joie</p>
+                    <p><b>Durée:</b>10s</p>
+                </div>
+               
+            </div>
+            
+            </div>-->
+<!--            <div class="dialogue-container">
+                <img src="assets/img/dj-3.jpg"/>
+                <div class="info"><b>Nom</b>
+                <p>Texte</p>
+                <div class="info-tiers">
+                    <p><b>Emotion:</b>Joie</p>
+                    <p><b>Durée:</b>10s</p>
+                </div>
+               
+            </div>
+            
+            </div>-->
         </div>
     </div>
     <!-- gallery end -->

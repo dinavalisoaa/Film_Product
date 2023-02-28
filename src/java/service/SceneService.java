@@ -23,23 +23,25 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author P14_A_111_Dina
  */
 public class SceneService {
+
     @Autowired
     HibernateDao dao;
-    
+
     public HibernateDao getDao() {
         return dao;
     }
-    
+
     public void setDao(HibernateDao dao) {
         this.dao = dao;
     }
-    
-    public SceneService(){}
-    
-    public SceneService(HibernateDao dao){
-        this.dao=dao;
+
+    public SceneService() {
     }
-    
+
+    public SceneService(HibernateDao dao) {
+        this.dao = dao;
+    }
+
     public void insertScene(Scene s) {
         try {
             dao.create(s);
@@ -47,12 +49,23 @@ public class SceneService {
             throw e;
         }
     }
-    
+
     public void updateScene(int id, String titre, int numero, int plateauId) {
-        String sql = "update Scene set titre='" + titre + "',numero="+ numero + ",plateauId=" + plateauId + " where Id=" + id;
+        String sql = "update Scene set titre='" + titre + "',numero=" + numero + ",plateauId=" + plateauId + " where Id=" + id;
         dao.updateBySql(sql);
     }
-    
+
+    public Scene getScene(int idFilm, int scene) {
+        String req = "from Scene where filmId = " + idFilm + "";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return (Scene) list.get(0);
+    }
+
     public List<Scene> listeScene(int idFilm) {
         String req = "from Scene where filmId = " + idFilm + " order by numero";
         List list = null;
@@ -63,7 +76,7 @@ public class SceneService {
         }
         return list;
     }
-    
+
     public int getLastNumero(int idFilm) {
         String req = "from Scene where filmId = " + idFilm + " order by numero DESC";
         List list = null;
@@ -73,21 +86,21 @@ public class SceneService {
             throw e;
         }
         int numero = 0;
-        if(list.size() != 0){
+        if (list.size() != 0) {
             numero = ((Scene) list.get(0)).getNumero();
         }
         return numero;
     }
-    
-    public List<Scene> recherche(int idFilm,String mot, String idPlateau, String date){
+
+    public List<Scene> recherche(int idFilm, String mot, String idPlateau, String date) {
         String req = "from Scene where 1=1";
-        if(mot != null){
+        if (mot != null) {
             req = req + " and (UPPER(titre) like UPPER('%" + mot + "%') or to_char(date, 'YYYY-MM-DD') like ('%" + mot + "%'))";
         }
-        if(idPlateau != null){
+        if (idPlateau != null) {
             req = req + " and plateauId = " + idPlateau;
         }
-        if(date.toString().equals("") == false){
+        if (date.toString().equals("") == false) {
             req = req + " and date = '" + date + "'";
         }
         req = req + " and filmId = " + idFilm;
@@ -99,36 +112,55 @@ public class SceneService {
         }
         return list;
     }
- 
 
-    public static ArrayList<Planning> setPlanning(HibernateDao dao, int filmId) throws Exception {
+    public static ArrayList<Integer> distinct(HibernateDao dao, int filmId) throws Exception {
+        ArrayList<Planning> bat = setPlanning(dao, filmId);
+        ArrayList<Integer> li = new ArrayList<>();
+        for (int i = 0; i < bat.size(); i++) {
+            Planning get = bat.get(i);
+            if (!li.contains(get.getDebut().getDayOfMonth())) {
+                li.add(get.getDebut().getDayOfMonth());
+            }
+
+        }
+        return li;
+    }
+
+    public ArrayList<Planning> setPlannings(HibernateDao dao, int filmId, int is) throws Exception {
         V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
-       ConfigurationService service = new ConfigurationService(dao);
+
         List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
         Timestamp tamp = null;
         Timestamp tamp_prec = null;
 
-        Timestamp tamp2 = null;
-        LocalDateTime date = null;
-        Timestamp val = su.get(0).getTotalDuree();
+        ConfigurationService service = new ConfigurationService(dao);
         Time heuredebut = service.getConfig("heuredebut").getValeur();
         Time heurefin = service.getConfig("heurefin").getValeur();
         Time pauses = service.getConfig("pausescene").getValeur();
-        int pause = pauses.getMinutes();
+        int pause = pauses.getHours();
 
         Time finbreak = service.getConfig("finbreak").getValeur();
         Time debutbreak = service.getConfig("debutbreak").getValeur();
 
+        Timestamp tamp2 = null;
+        LocalDateTime date = null;
+        Timestamp val = su.get(0).getTotalDuree();
+//        V_
+//         pause = 5;
         Date debut = Date.valueOf("2023-02-02");
         int year = debut.getYear();
         int mois = debut.getMonth();
         int jour = debut.getDate();
         LocalDateTime resultat = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
-         resultat=resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
+//        resultat = resultat.plusHours(8).plusMinutes(0);
+        resultat = resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
+
         resultat = resultat.minusMinutes(pause);
 
         LocalDateTime resultat_prec = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
+//        resultat_prec = resultat.plusHours(8).plusMinutes(0);
         resultat_prec = resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
+
         resultat_prec = resultat.minusMinutes(pause);
         int cpt = 0;
         int cpt2 = 0;
@@ -136,8 +168,12 @@ public class SceneService {
         Planning pla = new Planning();
         pla.setDebut(resultat.minusMinutes(val.getMinutes()).plusMinutes(pause));
         pla.setFin(resultat.minusMinutes(pause));
+        Scene da = getScene(filmId, su.get(0).getSceneId());
+        pla.setScene(da);
         LocalDateTime debuts1 = pla.getDebut();
         LocalDateTime fins1 = pla.getDebut();
+
+//        System.err.println( + " " + );
         pla.setSceneId(su.get(0).getSceneId());
         plan.add(pla);
         for (int i = 1; i < su.size(); i++) {
@@ -155,9 +191,9 @@ public class SceneService {
                 resultat_prec = resultat_prec.plusHours(tamp_prec.getHours()).plusMinutes(tamp_prec.getMinutes()).plusSeconds(tamp_prec.getSeconds());
                 resultat_prec = resultat_prec.minusMinutes(pause);
 
-                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, debutbreak.getHours(), debutbreak.getMinutes(), debutbreak.getSeconds()))) {
+                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, 12, 00, 00))) {
                     if (cpt < 1) {
-                        resultat = LocalDateTime.of(year, mois, jour, finbreak.getHours(), finbreak.getMinutes(), finbreak.getSeconds());
+                        resultat = LocalDateTime.of(year, mois, jour, 14, 00, 00);
                         resultat = resultat.minusMinutes(pause);
 ////
                         resultat = resultat.plusHours(tamp.getHours()).plusMinutes(tamp.getMinutes()).plusSeconds(tamp.getSeconds());
@@ -165,28 +201,172 @@ public class SceneService {
                         cpt++;
                     }
                 }
-                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, heurefin.getHours(), heurefin.getMinutes(), heurefin.getSeconds()))) {
+                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, 18, 00, 00))) {
                     if (cpt2 < 1) {
                         debut.setDate(debut.getDate() + 1);
+//                        resultat = LocalDateTime.of(debut.toLocalDate(), LocalTime.of(8, 0, 0));
                         resultat = LocalDateTime.of(debut.toLocalDate(), LocalTime.of(heuredebut.getHours(), heuredebut.getMinutes(), heuredebut.getSeconds()));
+
                         resultat = resultat.minusMinutes(pause);
+
+////
                         resultat = resultat.plusHours(tamp.getHours()).plusMinutes(tamp.getMinutes()).plusSeconds(tamp.getSeconds());
                         resultat = resultat.plusMinutes(pause);
                         cpt2++;
                     }
                 }
+////            }
+//LocalDateTime
+                Planning id = new Planning();
+                id.setSceneId(get.getSceneId());
+
+                Scene das = getScene(filmId, get.getSceneId());
+                id.setScene(das);
+                id.setDebut(resultat.minusHours(tamp_prec.getHours()).minusMinutes(tamp_prec.getMinutes()).minusSeconds(tamp_prec.getSeconds()).plusMinutes(pause));
+                id.setFin(resultat.minusMinutes(pause));
+                LocalDateTime debuts = id.getDebut();
+                LocalDateTime fins = id.getDebut();
+
+//                id.setDebut(LocalDateTime.of(2023, debuts.getMonth(), debuts.getDayOfMonth() , debuts.getHour(), debuts.getMinute(), debuts.getSecond()));
+//                id.setFin(LocalDateTime.of(2023, fins.getMonth(), fins.getDayOfMonth() , fins.getHour(), fins.getMinute(), fins.getSecond()));
+//                id.getDebut().s
+                plan.add(id);
+
+//            
+//            if (i > 0) {
+//                V_DureeDialogue get2 = su.get(i - 1);
+//                tamp2 = get2.getTotalDuree();
+//                date=date.plusHours(tamp2.getHours()).plusMinutes(tamp2.getMinutes()).plusSeconds(tamp2.getSeconds());
+//                System.out.println(date);
+//            }
+//            System.out.println(date.minusHours(0).minusMinutes(pause).minusSeconds(0));
+//            date
+            }
+        }
+        ArrayList<Planning> ning = new ArrayList<>();
+        for (int i = 0; i < plan.size(); i++) {
+            Planning get = plan.get(i);
+            if (get.getDebut().getDayOfMonth() == is) {
+                ning.add(get);
+            }
+        }
+        return ning;
+    }
+
+    public static ArrayList<Planning> setPlanning(HibernateDao dao, int filmId) throws Exception {
+        V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
+
+        List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
+        Timestamp tamp = null;
+        Timestamp tamp_prec = null;
+
+        ConfigurationService service = new ConfigurationService(dao);
+        Time heuredebut = service.getConfig("heuredebut").getValeur();
+        Time heurefin = service.getConfig("heurefin").getValeur();
+        Time pauses = service.getConfig("pausescene").getValeur();
+        int pause = pauses.getHours();
+
+        Time finbreak = service.getConfig("finbreak").getValeur();
+        Time debutbreak = service.getConfig("debutbreak").getValeur();
+
+        Timestamp tamp2 = null;
+        LocalDateTime date = null;
+        Timestamp val = su.get(0).getTotalDuree();
+//        V_
+//         pause = 5;
+        Date debut = Date.valueOf("2023-02-02");
+        int year = debut.getYear();
+        int mois = debut.getMonth();
+        int jour = debut.getDate();
+        LocalDateTime resultat = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
+//        resultat = resultat.plusHours(8).plusMinutes(0);
+        resultat = resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
+
+        resultat = resultat.minusMinutes(pause);
+
+        LocalDateTime resultat_prec = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
+//        resultat_prec = resultat.plusHours(8).plusMinutes(0);
+        resultat_prec = resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
+
+        resultat_prec = resultat.minusMinutes(pause);
+        int cpt = 0;
+        int cpt2 = 0;
+        ArrayList<Planning> plan = new ArrayList<Planning>();
+        Planning pla = new Planning();
+        pla.setDebut(resultat.minusMinutes(val.getMinutes()).plusMinutes(pause));
+        pla.setFin(resultat.minusMinutes(pause));
+
+        LocalDateTime debuts1 = pla.getDebut();
+        LocalDateTime fins1 = pla.getDebut();
+
+//        System.err.println( + " " + );
+        pla.setSceneId(su.get(0).getSceneId());
+        plan.add(pla);
+        for (int i = 1; i < su.size(); i++) {
+            V_DureeDialogue get = su.get(i);
+            tamp = get.getTotalDuree();
+
+            V_DureeDialogue prec = su.get(i);
+            tamp_prec = prec.getTotalDuree();
+            date = LocalDateTime.of(year, mois, jour, tamp.getHours(), tamp.getMinutes(), tamp.getSeconds());
+            LocalDateTime date2 = null;
+
+            {
+                resultat = resultat.plusHours(tamp.getHours()).plusMinutes(tamp.getMinutes()).plusSeconds(tamp.getSeconds());
+                resultat = resultat.minusMinutes(pause);
+                resultat_prec = resultat_prec.plusHours(tamp_prec.getHours()).plusMinutes(tamp_prec.getMinutes()).plusSeconds(tamp_prec.getSeconds());
+                resultat_prec = resultat_prec.minusMinutes(pause);
+
+                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, 12, 00, 00))) {
+                    if (cpt < 1) {
+                        resultat = LocalDateTime.of(year, mois, jour, 14, 00, 00);
+                        resultat = resultat.minusMinutes(pause);
+////
+                        resultat = resultat.plusHours(tamp.getHours()).plusMinutes(tamp.getMinutes()).plusSeconds(tamp.getSeconds());
+                        resultat = resultat.plusMinutes(pause);
+                        cpt++;
+                    }
+                }
+                if (resultat.minusMinutes(pause).isAfter(LocalDateTime.of(year, mois, jour, 18, 00, 00))) {
+                    if (cpt2 < 1) {
+                        debut.setDate(debut.getDate() + 1);
+//                        resultat = LocalDateTime.of(debut.toLocalDate(), LocalTime.of(8, 0, 0));
+                        resultat = LocalDateTime.of(debut.toLocalDate(), LocalTime.of(heuredebut.getHours(), heuredebut.getMinutes(), heuredebut.getSeconds()));
+
+                        resultat = resultat.minusMinutes(pause);
+
+////
+                        resultat = resultat.plusHours(tamp.getHours()).plusMinutes(tamp.getMinutes()).plusSeconds(tamp.getSeconds());
+                        resultat = resultat.plusMinutes(pause);
+                        cpt2++;
+                    }
+                }
+////            }
+//LocalDateTime
                 Planning id = new Planning();
                 id.setSceneId(get.getSceneId());
                 id.setDebut(resultat.minusHours(tamp_prec.getHours()).minusMinutes(tamp_prec.getMinutes()).minusSeconds(tamp_prec.getSeconds()).plusMinutes(pause));
                 id.setFin(resultat.minusMinutes(pause));
                 LocalDateTime debuts = id.getDebut();
                 LocalDateTime fins = id.getDebut();
+
+//                id.setDebut(LocalDateTime.of(2023, debuts.getMonth(), debuts.getDayOfMonth() , debuts.getHour(), debuts.getMinute(), debuts.getSecond()));
+//                id.setFin(LocalDateTime.of(2023, fins.getMonth(), fins.getDayOfMonth() , fins.getHour(), fins.getMinute(), fins.getSecond()));
+//                id.getDebut().s
                 plan.add(id);
 
+//            
+//            if (i > 0) {
+//                V_DureeDialogue get2 = su.get(i - 1);
+//                tamp2 = get2.getTotalDuree();
+//                date=date.plusHours(tamp2.getHours()).plusMinutes(tamp2.getMinutes()).plusSeconds(tamp2.getSeconds());
+//                System.out.println(date);
+//            }
+//            System.out.println(date.minusHours(0).minusMinutes(pause).minusSeconds(0));
+//            date
             }
         }
-
         return plan;
     }
-   
+
 }

@@ -1,3 +1,9 @@
+<%@page import="model.Scene"%>
+<%@page import="model.Plateau"%>
+<%@page import="java.util.List"%>
+<%
+    List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -71,7 +77,7 @@
                                         <a class="nav-link active" href="movie.html">Movie</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Scene</a>
+                                        <a class="nav-link" href="liste_scene?film=<%=request.getParameter("film")%>">Scene</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="schedule.html">Planning</a>
@@ -110,16 +116,19 @@
                     <div class="add-space section-title text-center">
                         <h2>Ajout scene</h2>
                         <div class="scene-container">
-                            <form  class="form-scene"> 
+                            <form action="add_scene" method="get" class="form-scene"> 
                                 <div class="form-scene-content">
+                                <input type="hidden" name="idFilm" value="<%=request.getParameter("film")%>">
                                 <div class="form-scene-item">
                                     <label for="titre">Titre</label>
                                     <input type="text" name="titre" id="titre"/>
                                 </div>
                                 <div class="form-scene-item">
                                 <label for="plateau">Plateau</label>
-                                <select id="plateau">
-                                    <option value="0">Plateau 1</option>
+                                <select id="plateau" name="plateau">
+                                    <% for (int idx = 0; idx < plateau.size(); idx++) { %>
+                                    <option value="<%=plateau.get(idx).getId()%>"><%=plateau.get(idx).getNom()%></option>
+                                    <% } %>
                                 </select>
                                 
                                 </div>
@@ -127,7 +136,7 @@
                                     <button type="submit">Ajouter</button>
                                 </div>    
                             </form>
-                            <a id="lien" href="filmDetail.html" style="background: linear-gradient(90deg, #6c6b6b 100%, #cacaca 56%, #f7f7f7 0%);">Annuler</a>
+                                    <a id="lien" href="liste_scene?film=<%=request.getParameter("film")%>" style="background: linear-gradient(90deg, #6c6b6b 100%, #cacaca 56%, #f7f7f7 0%);">Voir la liste</a>
                         </div>
                            
                     </div>

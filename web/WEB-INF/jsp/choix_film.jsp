@@ -122,9 +122,9 @@
                     <div class="single-img">
                         <img src="assets/img/gallery-1.jpg" alt="">
                         <div class="hover-effect">
-                            <a href="#"><i class="far fa-eye"></i></a>
+                            <a href="liste_scene?film=<%=film.get(idx).getId()%>"><i class="far fa-eye"></i></a>
                         </div>
-                        <h2 style="color: white">Titre</h2>
+                        <h2 style="color: white"><%=film.get(idx).getTitre()%></h2>
                     </div>
                     <% } %>
                 </div>

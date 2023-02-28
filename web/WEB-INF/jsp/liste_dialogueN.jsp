@@ -60,8 +60,6 @@
             <% for (int idx = 0; idx < dialogue.size(); idx++) { %>
             <tr>
                 <td><%=dialogue.get(idx).getNumero()%></td>
-                <td><img src="<%=new PersonnageService((HibernateDao) request.getAttribute("dao")).getPersonnageById(dialogue.get(idx).getId()).getPhoto()%>" alt=""></td>
-                <td><%=new PersonnageService((HibernateDao) request.getAttribute("dao")).getPersonnageById(dialogue.get(idx).getId()).getNom()%></td>
                 <td><%=dialogue.get(idx).getContenu()%></td>
                 <td><%=dialogue.get(idx).getDuree()%></td>
             </tr>

@@ -1,0 +1,15 @@
+.log-btn{
+    background: none;
+    border: 1px solid white;
+    color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 100px;  
+    transition: 1s; 
+}
+
+.log-btn:hover{
+    background: white;
+    border: none;
+    color: black;
+}

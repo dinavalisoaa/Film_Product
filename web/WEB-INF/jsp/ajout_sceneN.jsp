@@ -59,7 +59,6 @@
             <% for (int idx = 0; idx < scene.size(); idx++) { %>
             <tr>
                 <td><%=scene.get(idx).getTitre()%></td>
-                <td><%=new PlateauService((HibernateDao) request.getAttribute("dao")).getPlateauById(scene.get(idx).getPlateauId()).getNom()%></td>
                 <td>
                     <form action="dialogue" method="get">
                         <input type="hidden" value="<%=scene.get(idx).getId()%>" name="idScene">

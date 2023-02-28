@@ -1,12 +1,19 @@
+<%@page import="model.Film"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
+<%@page import="dao.HibernateDao"%>
+<%@page import="service.PlateauService"%>
+<%@page import="model.Scene"%>
+<%@page import="model.Plateau"%>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Dgocky – DJ Party & Night Club HTML Template </title>
+    <title> Dgocky â DJ Party & Night Club HTML Template </title>
     <!-- favicon -->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- bootstrap -->
@@ -36,6 +43,10 @@
             <hr>
         </div>
     </div>
+    
+    <%
+    List<Film>film=(List<Film>)request.getAttribute("film");
+    %>
     <!-- preloader end -->
     
     <!-- header begin -->
@@ -77,10 +88,10 @@
                                         <a class="nav-link" href="top-dj.html">Top DJ</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Schedule</a>
+                                        <a class="nav-link active" href="schedule.html">Schedule</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="blog.html">Blog</a>
+                                        <a class="nav-link" href="blog.html">Blog</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="faq.html">Faq</a>
@@ -106,7 +117,7 @@
                     <div class="breadcrump-content">
                         <span class="page-name">Home</span>
                         <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                        <span class="page-name">Blog Details</span>
+                        <span class="page-name">Schedule</span>
                     </div>
                 </div>
             </div>
@@ -114,118 +125,109 @@
     </div>
     <!-- breadcrump end -->
 
-    <!-- blog details begin -->
-    <div class="blog blog-details">
+    <!-- event schedule begin -->
+    <div class="event-schedule">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
-                    <div class="single-blog">
-                        <div class="part-img">
-                            <img src="assets/img/blog-4.jpg" alt="">
-                            <div class="date-on-img">
-                                <span class="date">04 may</span>
-                            </div>
+                    <div class="section-title text-center">
+                        <h2>Planning</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         </div>
-                        <div class="part-text">
-                            <h3>15 Free Productive Design Tools</h3>
-                            <p>Garcia, a versatil web designer. Phasellus vehicula the justo eg
-                                diam in posuere phasellus eget sem just the consequat gestass
-                                facilisis eleifend tempor metus. Phasellus vehicula justo egeted
-                                diames posuere.</p>
-                            <p>Affronting everything discretion men now own did. Still round match we to. Frankness pronounce daughters remainder
-                            extensive has but. Happiness cordially one determine concluded fat. Plenty season beyond by hardly giving of. Consulted
-                            or acuteness dejection an smallness if. Outward general passage another as it. Very his are come man walk one next.
-                            Delighted prevailed supported too not remainder perpetual who furnished. Nay affronting bed projection compliment
-                            instrument.</p>
-                            <p>Bringing unlocked me an striking ye perceive. Mr by wound hours oh happy. Me in resolution pianoforte continuing we.
-                            Most my no spot felt by no. He he in forfeited furniture sweetness he arranging. Me tedious so to behaved written
-                            account ferrars moments. Too objection for elsewhere her preferred allowance her. Marianne shutters mr steepest to me.
-                            Up mr ignorant produced distance although is sociable blessing. Ham whom call all lain like.</p>
-                            <span class="poster">Abu Ubaidah</span>
-                            <span class="date">20.02.2019 Sunday, 10:30am</span>
+                </div>
+                <div class="col-xl-9 col-lg-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            
+                            <div id="accordion">
+                                <%
+                                for (int idx = 0; idx < film.size(); idx++) {
+                                        Film elem = film.get(idx);
+                                        %>
+                                        
+                                <div class="card">
+                                    
+                                    <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
+                                        <div class="part-img">
+                                            <img src="assets/img/gallery-1.jpg" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <h3><%=elem.getTitre() %></h3>
+                                            <span class="time"><i class="fas fa-clock"></i> 10am - 12:30pm</span> <span class="location"><i class="fas fa-globe"></i> Location: Hall 1, Golden Road, Sylhet.BD</span>
+                                        </div>
+                                    </div>
+                            
+                                    
+                                </div>
+                                
+                                        <%
+                                    }
+                                %>
+                                
+                            </div>
+
+                        </div>
+                        
+
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- event schedule end -->
 
-                    <div class="comment-area">
-                        <h3>Comments</h3>
-                        <div class="single-comment">
-                            <div class="part-img">
-                                <img src="assets/img/commentor-1.jpg" alt="">
-                            </div>
-                            <div class="part-text">
-                                <span class="commentor-name">Roscoe Alexander</span>
-                                <p>Or kind rest bred with am shed then. In raptures building an
-                                bringing be. Elderly is detract tedious assured private so tovisited.
-                                Do travelling. Aenean sodales molestie justo morbi auctor velit orci urna hendrerit viverra lacinia.</p>
-                            </div>
-                        </div>
-                        <div class="single-comment">
-                            <div class="part-img">
-                                <img src="assets/img/commentor-2.jpg" alt="">
-                            </div>
-                            <div class="part-text">
-                                <span class="commentor-name">Roscoe Alexander</span>
-                                <p>Or kind rest bred with am shed then. In raptures building an
-                                    bringing be. Elderly is detract tedious assured private so tovisited.
-                                    Do travelling. Aenean sodales molestie justo morbi auctor velit orci urna hendrerit viverra lacinia.</p>
-                            </div>
-                        </div>
+    <!-- countdown begin -->
+    
+    <!-- subscribe newsletter end -->
+    
+    <!-- contact begin -->
+    <div class="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-10">
+                    <div class="add-space section-title text-center">
+                        <h2>Drop A Message</h2>
                     </div>
-
-                    <div class="comment-box">
-                        <h3>Leave A Comment</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-8">
+                    <div class="contact-form">
                         <form>
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
-                                    <input type="text" placeholder="Enter Your Name">
+                                    <input type="text" placeholder="Enter your name">
                                     <span></span>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
-                                    <input type="email" placeholder="Enter Your Email">
+                                    <input type="email" placeholder="Enter your email">
                                     <span></span>
                                 </div>
                                 <div class="col-xl-12 col-lg-12">
-                                    <textarea placeholder="Write a Message"></textarea>
-                                    <span class="textarea"></span>
+                                    <input type="text" placeholder="Enter your subject">
+                                    <span></span>
                                 </div>
                                 <div class="col-xl-12 col-lg-12">
-                                    <button type="submit">Send Us Now</button>
+                                    <textarea placeholder="Write a message"></textarea>
+                                    <span class="textarea"></span>
+                                </div>
+                                <div class="col-xl-6 col-lg-6">
+                                    <button>Send Us Now</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4">
-                    <div class="single-widget">
-                        <form>
-                            <input type="text" placeholder="Search">
-                            <span></span>
-                            <button type="submit"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-                    <div class="single-widget category">
-                        <h3>Category</h3>
-                        <ul>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Nightclub</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Dj Song</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Party</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Concert</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Bar Party</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i>Rock Concert</a></li>
-                        </ul>
-                    </div>
-                    <div class="single-widget">
-                        <form>
-                            <input type="email" placeholder="Subcribe">
-                            <span></span>
-                            <button type="submit"><i class="fas fa-rocket"></i></button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- blog details end -->
+    <!-- contact end -->
 
     <!-- footer begin -->
     <div class="footer">
@@ -288,5 +290,5 @@
     <!-- main -->
     <script src="assets/js/main.js"></script>
 </body>
-
+    
 </html>

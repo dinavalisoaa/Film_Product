@@ -1,0 +1,49 @@
+.head{
+    display: flex;
+    justify-content: space-around;
+    .title{
+        font-size: 30px;
+        .bold{
+            font-weight: bold;
+        }
+    }
+
+    .search-bar{
+        flex-grow: 1;
+        text-align: center;
+
+        input[type=text]{
+            width: 60%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+
+        }
+    }
+
+    .user-info{
+        display: flex;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: body.$bg-dark-element;
+        transition: 300ms;
+        height: fit-content;
+
+        &:hover{
+            cursor: pointer;
+            background-color: rgba(29, 29, 29, 0.808);
+        }
+
+        .img{
+            border-radius: 100%;
+            width: 35px;
+            height: 35px;
+            background-color: body.$bg-dark;
+        }
+        div{
+            h5, p {
+                margin: 0 auto;
+            }
+        }
+    }
+}

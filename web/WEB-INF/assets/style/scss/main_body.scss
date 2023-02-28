@@ -1,0 +1,33 @@
+.body{
+    .image-slider{
+        margin: auto;
+        width: 90%;
+        height: 500px;
+        margin-top: 10px;
+        border: .05px solid body.$bg-dark-element;
+        position: relative;
+    }
+
+    $animation-width : 30%;
+    $animation-width-end : 100%;
+
+    .title{
+        font-size: 26px;
+        width: $animation-width;
+        display: block;
+        padding-bottom: 10px;
+        border-bottom: 1px solid white;
+        animation: display 3s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes display {
+        0%{
+            width: $animation-width;
+        }
+
+        100%{
+            width: $animation-width-end;
+        }
+    }
+}

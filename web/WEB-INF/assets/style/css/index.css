@@ -1,0 +1,179 @@
+body {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(43, 43, 43);
+  color: white;
+  font-family: "Poppins";
+  display: flex;
+}
+
+.container {
+  position: relative;
+  margin: auto;
+  width: 80%;
+}
+
+.demo {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+
+.sidebar-smooth {
+  border-radius: 30px;
+  background-color: rgb(26, 26, 26);
+  height: 100%;
+  width: 15%;
+  color: white;
+  padding: 30px;
+}
+.sidebar-smooth .big-title {
+  text-align: center;
+}
+.sidebar-smooth .list-item {
+  display: flex;
+  flex-direction: column;
+  color: rgb(163, 163, 163);
+}
+.sidebar-smooth .list-item div {
+  display: flex;
+  padding: 15px 0px;
+  transition: 300ms;
+}
+.sidebar-smooth .list-item div:hover {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.sidebar-smooth .list-item div .icon {
+  margin-right: 10%;
+}
+.sidebar-smooth .list-item div .icon::before {
+  content: "";
+  border-left: solid rgb(238, 238, 238) 4px;
+  margin-right: 5px;
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
+  border-radius: 10px 10px 0px 0px;
+}
+.sidebar-smooth .list-item div p {
+  margin: 0;
+}
+
+.main {
+  width: 80%;
+  margin-left: 3%;
+}
+.main .head {
+  display: flex;
+  justify-content: space-around;
+}
+.main .head .title {
+  font-size: 30px;
+}
+.main .head .title .bold {
+  font-weight: bold;
+}
+.main .head .search-bar {
+  flex-grow: 1;
+  text-align: center;
+}
+.main .head .search-bar input[type=text] {
+  width: 60%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
+.main .head .user-info {
+  display: flex;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: rgb(26, 26, 26);
+  transition: 300ms;
+  height: fit-content;
+}
+.main .head .user-info:hover {
+  cursor: pointer;
+  background-color: rgba(29, 29, 29, 0.808);
+}
+.main .head .user-info .img {
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  background-color: rgb(43, 43, 43);
+}
+.main .head .user-info div h5, .main .head .user-info div p {
+  margin: 0 auto;
+}
+.main .body .image-slider {
+  margin: auto;
+  width: 90%;
+  height: 500px;
+  margin-top: 10px;
+  border: 0.05px solid rgb(26, 26, 26);
+  position: relative;
+}
+.main .body .title {
+  font-size: 26px;
+  width: 30%;
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid white;
+  animation: display 3s;
+  animation-fill-mode: forwards;
+}
+@keyframes display {
+  0% {
+    width: 30%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.main .padd-10 {
+  padding-top: 2%;
+}
+.main .card {
+  border-radius: 15px;
+  background-color: rgb(26, 26, 26);
+  padding: 5%;
+}
+.main .plan {
+  text-align: center;
+}
+.main .plan h1 {
+  margin: auto;
+  padding: 10px;
+  border-bottom: 1px solid white;
+  width: 30%;
+  animation: display 3s forwards;
+}
+.main .plan .plan-child {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.main .plan .plan-child .card {
+  margin-top: 20px;
+  border-radius: 15px;
+  background-color: rgb(43, 43, 43);
+  padding: 2%;
+  padding-right: 5%;
+  transition: 300ms;
+  position: relative;
+  top: 0px;
+}
+.main .plan .plan-child .card:hover {
+  cursor: pointer;
+  top: -10px;
+}
+
+.full {
+  z-index: 300;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.322);
+}
+
+/*# sourceMappingURL=index.css.map */

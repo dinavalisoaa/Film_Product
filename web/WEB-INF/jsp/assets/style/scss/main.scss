@@ -1,0 +1,60 @@
+@use 'body.scss';
+
+.main{
+    width: 80%;
+    margin-left: 3%;
+    
+    @import 'main_head.scss';
+    @import 'main_body.scss';
+
+    .padd-10{
+        padding: {
+            top: 2%;
+        };
+    }
+
+    .card{
+        border-radius:15px;
+        background-color: body.$bg-dark-element;
+        padding: 5%;
+    }
+
+    .plan {
+        text-align: center;
+
+        h1{
+            margin: auto;
+            padding: 10px;
+            border-bottom: 1px solid white;
+            width: 30%;
+            animation: display 3s forwards;
+        }
+
+        .plan-child{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            .card{
+                margin: {
+                    top:20px;
+                    // right: 10px;
+                }
+                border-radius:15px;
+                background-color: body.$bg-dark;
+                padding: 2% {
+                    right: 5%;
+                };
+                transition: 300ms;
+                position: relative;
+                top: 0px;
+    
+                &:hover{
+                    cursor: pointer;
+                    top: -10px;
+                }
+    
+            }
+        }
+    }
+    
+}

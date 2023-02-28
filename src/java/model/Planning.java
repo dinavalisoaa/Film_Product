@@ -20,6 +20,15 @@ public class Planning {
     int sceneId;
     LocalDateTime debut;
     LocalDateTime fin;
+Scene scene;
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 
     public int getSceneId() {
         return sceneId;

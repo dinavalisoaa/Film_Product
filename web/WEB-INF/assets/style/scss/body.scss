@@ -1,0 +1,42 @@
+$bg-dark:rgb(43, 43, 43);
+$bg-dark-element:rgb(26, 26, 26);
+$color-dark:white;
+$max:100%;
+
+$radius:30px;
+
+$font: "Poppins";
+
+@mixin bg-dark($transparancy : 1) {
+    background-color:rgb(43, 43, 43, $transparancy);
+}
+
+@mixin bg-dark-element($transparancy : 1) {
+    background-color:rgb(26, 26, 26, $transparancy);
+}
+
+body {
+    padding: {
+        left: 30px;
+        right: 30px;
+        top:10px;
+        bottom: 10px;
+    }
+    background-color: $bg-dark;
+    color: $color-dark;
+    font-family: $font;
+    display: flex;
+}
+
+.container{
+    position: relative;
+    margin: auto;
+    width: 80%;
+}
+
+.demo{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
