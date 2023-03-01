@@ -30,7 +30,6 @@ public class FilmService {
     public HibernateDao getDao() {
         return dao;
     }
-//    public void
     
     public void setDao(HibernateDao dao) {
         this.dao = dao;
