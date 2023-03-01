@@ -7,11 +7,8 @@ package service;
 
 import dao.HibernateDao;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import model.Configuration;
-import model.Scene;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -25,7 +22,19 @@ public class ConfigurationService {
     public HibernateDao getDao() {
         return dao;
     }
-    
+      public Configuration getConfig(String cle) {
+//        String req = "select sum(cast(scene.duree as interval)) as totalDuree,scene.sceneId from Dialogue as scene where scene.sceneId=" + id + " group by scene.sceneId ";
+//                System.out.println(req);
+        List list = null;
+
+        try {
+            list=dao.findBySql("from Configuration where lower(cle)=lower('"+cle+"')");
+        } catch (Exception e) {
+            throw e;
+        }
+        return (Configuration) list.get(0);
+    }
+
     public void setDao(HibernateDao dao) {
         this.dao = dao;
     }
@@ -36,18 +45,4 @@ public class ConfigurationService {
         this.dao=dao;
     }
     
-    public Configuration getConfig(String cle) {
-//        String req = "select sum(cast(scene.duree as interval)) as totalDuree,scene.sceneId from Dialogue as scene where scene.sceneId=" + id + " group by scene.sceneId ";
-//                System.out.println(req);
-        List list = null;
-        Query ry = null;
-
-        try {
-            list=dao.findBySql("from Configuration where lower(cle)=lower('"+cle+"')");
-        } catch (Exception e) {
-            throw e;
-        }
-        return (Configuration) list.get(0);
-    }
-
 }
