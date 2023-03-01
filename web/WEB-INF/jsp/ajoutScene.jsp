@@ -108,43 +108,26 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="add-space section-title text-center">
-                        <h2>Ajout Dialogue</h2>
+                        <h2>Ajout scene</h2>
                         <div class="scene-container">
                             <form  class="form-scene"> 
                                 <div class="form-scene-content">
-                                    <div class="form-scene-item">
-                                        <label for="personnage">Personnage</label>
-                                        <select id="personnage">
-                                            <option value="0">Personnage 1</option>
-                                        </select>                         
-                                    </div>
                                 <div class="form-scene-item">
-                                    <label for="texte">Texte</label>
-                                    <textarea id="texte" name="texte"></textarea>
+                                    <label for="titre">Titre</label>
+                                    <input type="text" name="titre" id="titre"/>
                                 </div>
                                 <div class="form-scene-item">
-                                    <label for="duree">Duree</label>
-                                    <input type="number" name="duree" id="duree" step=".01"/>
-                                </div>
-                                <div class="form-scene-item">
-                                    <label for="emotion">Emotion</label>
-                                    <select id="emotion" name="emotion">
-                                        <option value="0">Joie</option>
-                                        <option value="1">Colère</option>
-                                        <option value="2">Passion</option>
-                                    </select>                         
-                                </div>
-                                <div class="form-scene-item">
-                                    <label for="action">Action</label>
-                                    <textarea id="action" name="action">
-                                       
-                                    </textarea>                         
+                                <label for="plateau">Plateau</label>
+                                <select id="plateau">
+                                    <option value="0">Plateau 1</option>
+                                </select>
+                                
                                 </div>
                                 <div class="form-scene-item">
                                     <button type="submit">Ajouter</button>
                                 </div>    
                             </form>
-                            <a id="lien" href="DetailScene.html" style="background: linear-gradient(90deg, #6c6b6b 100%, #cacaca 56%, #f7f7f7 0%);">Annuler</a>
+                            <a id="lien" href="filmDetail.html" style="background: linear-gradient(90deg, #6c6b6b 100%, #cacaca 56%, #f7f7f7 0%);">Annuler</a>
                         </div>
                            
                     </div>
