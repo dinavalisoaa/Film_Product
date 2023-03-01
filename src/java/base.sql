@@ -123,4 +123,4 @@ $$
     end;
 $$;
 
-create or replace view v_dureedialogue as select cast(sum(cast(scene.duree as interval))as time)+cast(getConfig('pausescene')as interval) as totalDuree,scene.sceneid from dialogue as scene  group by scene.sceneid;
+create or replace view v_dureedialogue as select cast(sum(cast(scene.duree as interval))as time)+cast(getConfig('pausescene')as interval) as totalDuree,scene.sceneid from dialogue as scene  group by scene.sceneid order by scene.id;
