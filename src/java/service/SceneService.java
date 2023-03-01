@@ -12,12 +12,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import model.Planning;
 import model.Scene;
 import model.V_DureeDialogue;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -25,17 +23,87 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author P14_A_111_Dina
  */
 public class SceneService {
-
     @Autowired
     HibernateDao dao;
-
+    
     public HibernateDao getDao() {
         return dao;
     }
+    
+    public void setDao(HibernateDao dao) {
+        this.dao = dao;
+    }
+    
+    public SceneService(){}
+    
+    public SceneService(HibernateDao dao){
+        this.dao=dao;
+    }
+    
+    public void insertScene(Scene s) {
+        try {
+            dao.create(s);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public void updateScene(int id, String titre, int numero, int plateauId) {
+        String sql = "update Scene set titre='" + titre + "',numero="+ numero + ",plateauId=" + plateauId + " where Id=" + id;
+        dao.updateBySql(sql);
+    }
+    
+    public List<Scene> listeScene(int idFilm) {
+        String req = "from Scene where filmId = " + idFilm + " order by numero";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+    
+    public int getLastNumero(int idFilm) {
+        String req = "from Scene where filmId = " + idFilm + " order by numero DESC";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        int numero = 0;
+        if(list.size() != 0){
+            numero = ((Scene) list.get(0)).getNumero();
+        }
+        return numero;
+    }
+    
+    public List<Scene> recherche(int idFilm,String mot, String idPlateau, String date){
+        String req = "from Scene where 1=1";
+        if(mot != null){
+            req = req + " and (UPPER(titre) like UPPER('%" + mot + "%') or to_char(date, 'YYYY-MM-DD') like ('%" + mot + "%'))";
+        }
+        if(idPlateau != null){
+            req = req + " and plateauId = " + idPlateau;
+        }
+        if(date.toString().equals("") == false){
+            req = req + " and date = '" + date + "'";
+        }
+        req = req + " and filmId = " + idFilm;
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+ 
 
     public static ArrayList<Planning> setPlanning(HibernateDao dao, int filmId) throws Exception {
         V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
-        ConfigurationService service = new ConfigurationService(dao);
+       ConfigurationService service = new ConfigurationService(dao);
         List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
         Timestamp tamp = null;
         Timestamp tamp_prec = null;
@@ -45,8 +113,8 @@ public class SceneService {
         Timestamp val = su.get(0).getTotalDuree();
         Time heuredebut = service.getConfig("heuredebut").getValeur();
         Time heurefin = service.getConfig("heurefin").getValeur();
-        Time pauses = service.getConfig("pause").getValeur();
-        int pause = pauses.getDate();
+        Time pauses = service.getConfig("pausescene").getValeur();
+        int pause = pauses.getMinutes();
 
         Time finbreak = service.getConfig("finbreak").getValeur();
         Time debutbreak = service.getConfig("debutbreak").getValeur();
@@ -56,7 +124,7 @@ public class SceneService {
         int mois = debut.getMonth();
         int jour = debut.getDate();
         LocalDateTime resultat = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
-//        resultat = resultat.plusHours(9).plusMinutes(30);
+         resultat=resultat.plusHours(heuredebut.getHours()).plusMinutes(heuredebut.getMinutes());
         resultat = resultat.minusMinutes(pause);
 
         LocalDateTime resultat_prec = LocalDateTime.of(year, mois, jour, val.getHours(), val.getMinutes(), val.getSeconds());
@@ -120,59 +188,5 @@ public class SceneService {
 
         return plan;
     }
-
-    public void setDao(HibernateDao dao) {
-        this.dao = dao;
-    }
-
-    public SceneService() {
-    }
-//    pu
-
-    public SceneService(HibernateDao dao) {
-        this.dao = dao;
-    }
-
-    public void insertScene(Scene s) {
-        try {
-            dao.create(s);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    public void updateScene(int id, String titre, int numero, int plateauId) {
-        String sql = "update Scene set titre='" + titre + "',numero=" + numero + ",plateauId=" + plateauId + " where Id=" + id;
-        dao.updateBySql(sql);
-    }
-
-    public List<Scene> getDurer(int id) {
-        String req = "select sum(cast(scene.duree as interval)) as totalDuree,scene.sceneId from Dialogue as scene where scene.sceneId=" + id + " group by scene.sceneId ";
-//                System.out.println(req);
-        List list = null;
-        Query ry = null;
-
-        try {
-            ry = dao.findBySql2(Scene.class, req);
-            for (Iterator iterator = ry.iterate(); iterator.hasNext();) {
-                Object[] next = (Object[]) iterator.next();
-//                
-                System.out.println(next[0]);
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return list;
-    }
-
-    public List<Scene> listeScene(int idFilm) {
-        String req = "from Scene where filmId = " + idFilm;
-        List list = null;
-        try {
-            list = dao.findBySql(req);
-        } catch (Exception e) {
-            throw e;
-        }
-        return list;
-    }
+   
 }

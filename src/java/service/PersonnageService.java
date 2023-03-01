@@ -73,4 +73,20 @@ public class PersonnageService {
         }
         return base64;
     }
+    
+    public Personnage getPersonnageById(int id) {
+        Personnage p = new Personnage();
+        List list = allPersonnage();
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Personnage get = (Personnage) list.get(i);
+                if(get.getId() == id){
+                    p = get;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return p;
+    }
 }

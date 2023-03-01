@@ -9,6 +9,7 @@ import dao.HibernateDao;
 import java.util.ArrayList;
 import java.util.List;
 import model.Plateau;
+import model.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -49,5 +50,21 @@ public class PlateauService {
             throw e;
         }
         return list;
+    }
+    
+    public Plateau getPlateauById(int id) {
+        Plateau p = new Plateau();
+        List list = allPlateau();
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Plateau get = (Plateau) list.get(i);
+                if(get.getId() == id){
+                    p = get;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return p;
     }
 }
