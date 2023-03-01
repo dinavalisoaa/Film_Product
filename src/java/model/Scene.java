@@ -6,6 +6,9 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,18 +20,30 @@ import javax.persistence.Id;
  */
 @Entity
 public class Scene {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     int id;
+    @Column(name = "titre")
     String titre;
+    @Column(name = "numero")
     int numero;
+    @Column(name = "plateauId")
     int plateauId;
+    @Column(name = "filmId")
     int filmId;
-    Date date;
 
-    public int getId() {
-        return id;
+    public Timestamp getDurer() {
+        return durer;
     }
+
+    public void setDurer(Timestamp durer) {
+        this.durer = durer;
+    }
+    @Column(name = "dates")
+    Date date;
+    Timestamp durer;
 
     public void setId(int id) {
         this.id = id;
@@ -73,6 +88,5 @@ public class Scene {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
+
 }

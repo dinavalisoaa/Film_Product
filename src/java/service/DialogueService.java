@@ -8,6 +8,7 @@ package service;
 import dao.HibernateDao;
 import java.util.ArrayList;
 import java.util.List;
+import model.Dialogue;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -20,6 +21,11 @@ public class DialogueService {
     
     public HibernateDao getDao() {
         return dao;
+    }
+    public List<Dialogue>getAll()throws Exception{
+    
+       List<Dialogue> lis=dao.findBySql("from Dialogue");
+       return lis;
     }
     
     public void setDao(HibernateDao dao) {

@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Dialogue {
     String contenu;
     int personnageId;
     int sceneId;
-    Time duree;
+    Timestamp duree;
 
     public int getId() {
         return id;
@@ -57,11 +58,11 @@ public class Dialogue {
         this.sceneId = sceneId;
     }
 
-    public Time getDuree() {
+    public Timestamp getDuree() {
         return duree;
     }
 
-    public void setDuree(Time duree) {
+    public void setDuree(Timestamp duree) {
         this.duree = duree;
     }
     
