@@ -7,6 +7,7 @@ package model;
 
 import dao.HibernateDao;
 import java.sql.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,12 +24,29 @@ public class Scene {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "titre")
     String titre;
+        @Column(name = "numero")
+
     int numero;
+            @Column(name = "plateauId")
+
     int plateauId;
+                @Column(name = "filmId")
+
     int filmId;
     Date date;
-
+   
+// Plateau plateau;
+//
+//    public Plateau getPlateau(HibernateDao dao) {
+//    S
+//    }
+//
+//    public void setPlateau(Plateau plateau) {
+//        this.plateau = plateau;
+//    }
+ 
     public int getId() {
         return id;
     }
@@ -44,6 +62,9 @@ public class Scene {
     public void setTitre(String titre) {
         this.titre = titre;
     }
+//    public Plateau getPlateau()throws Exception{
+//        
+//    }
 
     public int getNumero() {
         return numero;

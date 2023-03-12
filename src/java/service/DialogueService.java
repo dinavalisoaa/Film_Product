@@ -47,9 +47,19 @@ public class DialogueService {
         String sql = "update Dialogue set contenu='" + contenu + "',personnageId="+ personnageId + ",sceneId=" + sceneId + ",duree='" + duree + "' where Id=" + id;
         dao.updateBySql(sql);
     }
-    
+                
+
     public List<Dialogue> listeDialogue(int idScene) {
         String req = "from Dialogue where sceneId = " + idScene + " order by numero";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    } public List<Dialogue> listeByFilm(int idScene) {
+        String req = "from Dialogue where sceneId in (select id From Scene where filmid="+idScene+")";
         List list = null;
         try {
             list = dao.findBySql(req);

@@ -164,7 +164,70 @@
                     </div>
                 </div>         
             </div>
-            <% } %>
+            <% } %><div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                         
+<div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
+                                        <div class="part-img">
+                                            <img src="assets/img/gallery-1.jpg" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <h3>Web Design Principles and Best Prectics</h3>
+                                            <span class="time"><i class="fas fa-clock"></i> 10am - 12:30pm</span> <span class="location"><i class="fas fa-globe"></i> Location: Hall 1, Golden Road, Sylhet.BD</span>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>Garcia, a versatil web designer. Phasellus vehicula the justo eg diam in posuere
+                                            phasellus eget sem just the consequat gestass facilisis eleifend tempor metus.
+                                            Phasellus vehicula justo egeted diames posuere sollicitu tincidunt nulla.</p>
+                                            <span class="name">Alison Burgass</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" role="button">
+                                        <div class="part-img">
+                                            <img src="assets/img/gallery-2.jpg" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <h3>15 Free Productive Design Tools</h3>
+                                            <span class="time"><i class="fas fa-clock"></i> 10am - 12:30pm</span> <span class="location"><i class="fas fa-globe"></i> Location: Hall 1, Golden Road, Sylhet.BD</span>
+                                        </div>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>Garcia, a versatil web designer. Phasellus vehicula the justo eg diam in posuere
+                                                phasellus eget sem just the consequat gestass facilisis eleifend tempor metus.
+                                                Phasellus vehicula justo egeted diames posuere sollicitu tincidunt nulla.</p>
+                                            <span class="name">Alison Burgass</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                        <div class="part-img">
+                                            <img src="assets/img/gallery-3.jpg" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <h3>Getting Start With Sketch App</h3>
+                                            <span class="time"><i class="fas fa-clock"></i> 10am - 12:30pm</span> <span class="location"><i class="fas fa-globe"></i> Location: Hall 1, Golden Road, Sylhet.BD</span>
+                                        </div>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>Garcia, a versatil web designer. Phasellus vehicula the justo eg diam in posuere
+                                                phasellus eget sem just the consequat gestass facilisis eleifend tempor metus.
+                                                Phasellus vehicula justo egeted diames posuere sollicitu tincidunt nulla.</p>
+                                            <span class="name">Alison Burgass</span>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div></div>
+                            </div>
 <!--            <div class="dialogue-container">
                 <img src="assets/img/dj-2.jpg"/>
                 <div class="info"><b>Nom</b>

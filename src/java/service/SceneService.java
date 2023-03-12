@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Film;
 import model.Planning;
+import model.Plateau;
 import model.Scene;
 import model.V_DureeDialogue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,17 @@ public class SceneService {
             throw e;
         }
         return list;
+    }
+
+    public  Plateau getPlateau(int id) {
+        List<Plateau>als=null;
+//        PlateauService seive=new PlateauService(dao);
+        try {
+           als=dao.findBySql("from where plateauId="+id);
+        } catch (Exception e) {
+            throw e;
+        }
+        return als.get(0);
     }
 
     public int getLastNumero(int idFilm) {
