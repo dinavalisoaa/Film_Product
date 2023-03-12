@@ -86,21 +86,22 @@ public class SceneController {
     public String listeScene(HttpServletRequest req, Model m) {
         PlateauService service = new PlateauService(dao);
         List<Plateau> liste = service.allPlateau();
-        int idFilm = Integer.parseInt(req.getParameter("film").trim());
-        SceneService scene_service = new SceneService(dao);
-        List<Scene> scene = null;
-        if(req.getParameter("search") == null){
-            scene = scene_service.listeScene(idFilm);
-        }
-        else{
-            String mot = req.getParameter("mot");
-            String idPlateau = req.getParameter("idPlateau");
-            String date = req.getParameter("date");
-            scene = scene_service.recherche(idFilm, mot, idPlateau, date);
-        }
-        m.addAttribute("plateau", liste);
-        m.addAttribute("scene", scene);
-        return "liste_scene";
+        System.out.println("----"+liste.get(0).getDescription());
+//        int idFilm = Integer.parseInt(req.getParameter("film").trim());
+//        SceneService scene_service = new SceneService(dao);
+//        List<Scene> scene = null;
+//        if(req.getParameter("search") == null){
+//            scene = scene_service.listeScene(idFilm);
+//        }
+//        else{
+//            String mot = req.getParameter("mot");
+//            String idPlateau = req.getParameter("idPlateau");
+//            String date = req.getParameter("date");
+//            scene = scene_service.recherche(idFilm, mot, idPlateau, date);
+//        }
+//        m.addAttribute("plateau", liste);
+//        m.addAttribute("scene", scene);
+        return "redirect:/";
     }
     
     @RequestMapping(value = "/add_scene")
