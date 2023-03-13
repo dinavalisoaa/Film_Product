@@ -16,7 +16,10 @@ CREATE TABLE Personnage (
 CREATE TABLE Plateau (
     id SERIAL NOT NULL PRIMARY KEY,
     nom VARCHAR(255),
-    description VARCHAR(255)
+    description VARCHAR(255),
+    longitude double precision,
+    latitude double precision,
+    etat int --disponibilite
 );
 
 CREATE TABLE Film (
