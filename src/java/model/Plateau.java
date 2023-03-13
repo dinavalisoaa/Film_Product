@@ -21,7 +21,16 @@ public class Plateau {
     int id;
     String nom;
     String description;
-
+//    Scene scene;
+//
+//    public Scene getScene() {
+//        return scene;
+//    }
+//
+//    public void setScene(Scene scene) {
+//        this.scene = scene;
+//    }
+    
     public int getId() {
         return id;
     }

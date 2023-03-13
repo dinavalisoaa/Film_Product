@@ -21,6 +21,7 @@ import javax.persistence.Entity;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import model.*;
 import service.DialogueService;
+import service.PlateauService;
 import service.SceneService;
 import service.V_DureeDialogueService;
 
@@ -144,7 +145,6 @@ public class Main {
         String fats = d.toString();
         String m1 = fats.split("T")[0];
         String m2 = fats.split("T")[1];
-
         return m1 + " " + m2;
     }
 
@@ -171,21 +171,24 @@ public class Main {
 //       age.setNom("ttt");
 //       age.setPhoto("342");
         is.setTitre("TITaNIC");
+        PlateauService vice=new PlateauService(dao);
+        vice.allPlateau();
+        System.out.println(vice.allPlateau().get(0).getDescription());
 //       dao.create(is);
-        DialogueService daos = new DialogueService(dao);
-//        select sum(cast(duree as interval)),dialogue.sceneid from dialogue group by dialogue.sceneid;
-//       List<Dialogue> lis=daos.getAll();
-//        for (int i = 0; i < lis.size(); i++) {
-//            Dialogue get = lis.get(i);
-//            System.out.println(get.getContenu());
-//            Timestamp temp=get.getDuree();
-//            temp.to
-//            System.out.println(""+temp);
-//            
-//        }
-//        ArrayList<Planning> in = setPlanning(dao, 2);
-                ArrayList<Integer> in =SceneService.distinct(dao, 1);
-        System.out.println(""+in.size());
+//        DialogueService daos = new DialogueService(dao);
+////        select sum(cast(duree as interval)),dialogue.sceneid from dialogue group by dialogue.sceneid;
+////       List<Dialogue> lis=daos.getAll();
+////        for (int i = 0; i < lis.size(); i++) {
+////            Dialogue get = lis.get(i);
+////            System.out.println(get.getContenu());
+////            Timestamp temp=get.getDuree();
+////            temp.to
+////            System.out.println(""+temp);
+////            
+////        }
+////        ArrayList<Planning> in = setPlanning(dao, 2);
+//                ArrayList<Integer> in =SceneService.distinct(dao, 1);
+//        System.out.println(""+in.size());
 //        for (int i = 0; i < in.size(); i++) {
 //            Planning get = in.get(i);
 //            System.out.println("" + get.getDebut() + "    " + get.getFin() + "  " + get.getSceneId());

@@ -44,49 +44,7 @@
     <!-- preloader end -->
 
     <!-- header begin -->
-    <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
-                            
-                                <h1 href="index.html">E-FILM</h1>
-                            
-                        </div>
-                        <div class="d-xl-none d-lg-none d-block col-6">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <i class="fas fa-bars"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-8 col-lg-8">
-                    <div class="mainmenu">
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="about.html">About <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="movie.html">Movie</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Scene</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Planning</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="header.jsp"></jsp:include>
     <!-- header end -->
 
     <!-- breadcrump begin -->
@@ -103,73 +61,37 @@
             </div>
         </div>
     </div>
-    <!-- breadcrump end -->
-
-    <!-- gallery begin -->
     <div class="gallery">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8">
-                    <div class="add-space section-title text-center">
-                        <h2>Movies</h2>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="add-space section-title text-center">
+                            <h2>Movies</h2>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                   
+                      <% for (int idx = 0; idx < film.size(); idx++) { %>
+                    <div class="col-xl-4 col-lg-4 col-sm-6">
+                        <div class="single-img" style="height:300px;">
+                            <img src="assets/img/gallery-7.jpg"" alt="">
+                            <div class="hover-effect">
+                                <a href="liste_scene?film=<%=film.get(idx).getId()%>#DINA1"><i class="fas fa-play"> 
+                                    <div class="date-on-img">
+                                </div></i>
+                                 <h2 style="color: white"><%=film.get(idx).getTitre()%></h2>    
+                                </a>
+                            </div>
+                        </div>           </div>
+                       <% } %>  
+                    </div>                  
+                
                 </div>
             </div>
-            <div class="row">
-<!--                <div class="col-xl-4 col-lg-4 col-sm-6">-->
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <% for (int idx = 0; idx < film.size(); idx++) { %>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-1.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="liste_scene?film=<%=film.get(idx).getId()%>"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white"><%=film.get(idx).getTitre()%></h2>
-                    </div>
-                    <% } %>
-                </div>
-<!--                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-2.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-3.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-6.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 d-xl-block d-lg-block d-none">
-                    <div class="single-img">
-                        <img src="assets/img/gallery-4.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                    <div class="single-img">
-                        <img src="assets/img/gallery-7.jpg" alt="">
-                        <div class="hover-effect">
-                            <a href="filmDetail.html"><i class="far fa-eye"></i></a>
-                        </div>
-                        <h2 style="color: white">Titre</h2>
-                    </div>
-                </div>
-            </div>-->
         </div>
-    </div>
+    <!-- gallery begin -->
+   
     <!-- gallery end -->
 
     <!-- footer begin -->

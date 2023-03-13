@@ -45,6 +45,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import service.DialogueService;
 import service.FilmService;
 import service.PlateauService;
 import service.SceneService;
@@ -86,11 +87,15 @@ public class SceneController {
     public String listeScene(HttpServletRequest req, Model m) {
         PlateauService service = new PlateauService(dao);
         List<Plateau> liste = service.allPlateau();
+        System.out.println("----"+liste.get(0).getDescription());
         int idFilm = Integer.parseInt(req.getParameter("film").trim());
         SceneService scene_service = new SceneService(dao);
-        List<Scene> scene = null;
+        DialogueService dia=new DialogueService(dao);
+        List<Scene> scene = null;        List<Dialogue> logue = null;
+
         if(req.getParameter("search") == null){
             scene = scene_service.listeScene(idFilm);
+            logue=dia.listeByFilm(idFilm);
         }
         else{
             String mot = req.getParameter("mot");
@@ -100,6 +105,11 @@ public class SceneController {
         }
         m.addAttribute("plateau", liste);
         m.addAttribute("scene", scene);
+        m.addAttribute("service",service);          m.addAttribute("diS",dia);    
+  
+        m.addAttribute("dialogue", logue);
+
+        
         return "liste_scene";
     }
     
