@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import dao.HibernateDao;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,50 +47,42 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import service.DialogueService;
 import service.FilmService;
 import service.PlateauService;
 import service.SceneService;
-
 /**
  *
  * @author Fanjava
  */
 @Controller
-public class PlanningController {
+public class CalendarController {
 
     @Autowired
     HibernateDao dao;
 
-    @RequestMapping(value = "/planning")
-    public String pageScene(HttpServletRequest req, Model m) {
-        FilmService ser = new FilmService(dao);
-        List<Film> fils = ser.allFilm();
-        m.addAttribute("film", fils);
-        return "planning";
-    }@RequestMapping(value = "/calendar")
-    public String cal(HttpServletRequest req, Model m) {
-//        FilmService ser = new FilmService(dao);
-//        List<Film> fils = ser.allFilm();
-//        m.addAttribute("film", fils);
-        return "index";
+    @RequestMapping(value = "/data")
+    public String pageScene(HttpServletRequest request, Model m) {
+        Gson son = new Gson();
+        String start = request.getParameter("start");
+        String end = request.getParameter("end");
+
+        ArrayList<Events> apla = new ArrayList();
+        ArrayList<Events> apla2 = new ArrayList();
+
+        apla.add(new Events(2, "Events", LocalDateTime.parse("2023-03-14T11:30:00"), LocalDateTime.parse("2023-03-14T12:00:00")));
+        apla.add(new Events(3, "Events", LocalDateTime.parse("2023-03-13T11:30:00"), LocalDateTime.parse("2023-03-13T12:00:00")));
+        for (int i = 0; i < apla.size(); i++) {
+            Events get = apla.get(i);
+//            if (LocalDateTime.parse(get.getEnd()).isAfter(LocalDateTime.parse(end)) && LocalDateTime.parse(get.getStart()).isBefore(LocalDateTime.parse(start)) ) {
+//                apla2.add(get);
+//            }
+
+        }
+        m.addAttribute("data", son.toJson(apla));
+        return "view";
+//       ArrayList
     }
 
-    @RequestMapping(value = "/voirPlanning")
-    public String voirPlanning(HttpServletRequest req, Model m) throws Exception {
-//        FilmService ser=new FilmService(dao);
-        SceneService ser = new SceneService(dao);
-        ArrayList<Planning> lifs =ser.setPlannings(dao, Integer.valueOf(req.getParameter("id")), Integer.valueOf(req.getParameter("jour")));
-        ArrayList<Integer> tinct = SceneService.distinct(dao,  Integer.valueOf(req.getParameter("id")));
-
-        m.addAttribute("film", lifs);
-                m.addAttribute("titre", req.getParameter("titre"));
-
-        m.addAttribute("distinct", tinct);
-                m.addAttribute("jour", req.getParameter("jour"));
-
-
-        m.addAttribute("id", Integer.valueOf(req.getParameter("id")));
-
-        return "voirPlanning";
-    }
 }
