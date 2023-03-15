@@ -229,6 +229,7 @@ public class HibernateDao {
         }
         return ry;
     }
+//    List<Pla
 
     public List findBySql(String req) {
         List liste = null;//new List();

@@ -21,6 +21,12 @@ public class Planning {
     LocalDateTime debut;
     LocalDateTime fin;
 Scene scene;
+public Planning(){}
+public Planning(int sec,LocalDateTime de,LocalDateTime fin){
+this.debut=de;
+this.fin=fin;
+sceneId=sec;
+}
 
     public Scene getScene() {
         return scene;
