@@ -21,6 +21,8 @@ public class Plateau {
     int id;
     String nom;
     String description;
+    double latitude;
+    double longitude;
 //    Scene scene;
 //
 //    public Scene getScene() {
@@ -30,6 +32,23 @@ public class Plateau {
 //    public void setScene(Scene scene) {
 //        this.scene = scene;
 //    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+    
     
     public int getId() {
         return id;
