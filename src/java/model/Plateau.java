@@ -5,6 +5,7 @@
  */
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,17 +20,40 @@ public class Plateau {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name="nom")
     String nom;
+    @Column(name="description")
     String description;
-//    Scene scene;
-//
-//    public Scene getScene() {
-//        return scene;
-//    }
-//
-//    public void setScene(Scene scene) {
-//        this.scene = scene;
-//    }
+    @Column(name="longitude")
+    private double longitude;
+    @Column(name="latitude")
+    private double latitude;
+    @Column(name="etat")
+    private int etat;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
     
     public int getId() {
         return id;

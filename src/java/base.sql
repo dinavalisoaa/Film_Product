@@ -103,3 +103,12 @@ VALUES
     ('MayDay'),
     ('Man Vs Bee'),
     ('Avalonia');
+
+ longitude double precision,
+    latitude double precision,
+    etat int --disponibilite
+
+ALTER TABLE Plateau
+ADD COLUMN longitude DOUBLE PRECISION,
+ADD COLUMN latitude DOUBLE PRECISION,
+ADD COLUMN etat INT;
