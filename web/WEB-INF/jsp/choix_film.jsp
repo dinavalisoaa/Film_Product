@@ -17,19 +17,21 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- fontawesome icon  -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <!--<link rel="stylesheet" href="assets/css/fontawesome.min.css">-->
     <!-- flaticon css -->
-    <link rel="stylesheet" href="assets/fonts/flaticon.css">
+    <!--<link rel="stylesheet" href="assets/fonts/flaticon.css">-->
     <!-- animate.css -->
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <!--<link rel="stylesheet" href="assets/css/animate.css">-->
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <!--<link rel="stylesheet" href="assets/css/owl.carousel.min.css">-->
     <!-- magnific popup -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <!--<link rel="stylesheet" href="assets/css/magnific-popup.css">-->
     <!-- stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!--<link rel="stylesheet" href="assets/css/style.css">-->
     <!-- responsive -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <!--<link rel="stylesheet"  href="assets/css/responsive.css">-->
+      <link href="assets/css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
+  <link href="assets/css/bootstrap-modal.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -66,12 +68,54 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-8">
                         <div class="add-space section-title text-center">
-                            <h2>Movies</h2>
+                            <h2>Movies
+                             <div class="responsive">
+            <h3>Responsive</h3>
+            <pre class="pre-scrollable prettyprint linenums" data-source="#responsive">
+            </pre>
+            <div class="text-center">
+            <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">View Demo</button>
+            </div>
+          </div>
+                            </h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                   
+                   <div id="responsive" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Responsive</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Some Input</h4>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+      </div>
+      <div class="col-md-6">
+        <h4>Some More Input</h4>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+        <p><input class="form-control" type="text" /></p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+  </div>
+</div>
                       <% for (int idx = 0; idx < film.size(); idx++) { %>
                     <div class="col-xl-4 col-lg-4 col-sm-6">
                         <div class="single-img" style="height:300px;">
@@ -154,6 +198,8 @@
     <script src="assets/js/wow.min.js"></script>
     <!-- main -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/bootstrap-modalmanager.js"></script>
+<script src="assets/js/bootstrap-modal.js"></script>
 </body>
 
 
