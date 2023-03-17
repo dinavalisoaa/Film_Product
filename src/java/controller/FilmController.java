@@ -6,6 +6,7 @@
 package controller;
 
 import dao.HibernateDao;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -45,6 +46,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import service.FilmService;
 
 /**
@@ -60,6 +62,38 @@ public class FilmController {
     @RequestMapping(value = "/")
     public String index(Model m) {
         return "redirect:choix_film";
+    }
+    @RequestMapping(value = "/fiches",method =RequestMethod.POST)
+     public String
+            AjoutFicheSubmit( @RequestParam(value = "filephoto_") CommonsMultipartFile file, HttpSession s,
+                    Model mod) throws Exception {
+//        if (df != null) {
+//            f.setDate2(Date.valueOf(df));
+//        } else {
+//            f.setDate2(f.getDate1());
+//        }
+//        f.setDateCreation(Date.valueOf(LocalDate.now()));
+//        f.setDatePub(null);
+//        f.setAdminId((int)s.getAttribute("idAuthor"));
+        byte[] data = file.getBytes();
+        String filePath = s.getServletContext().getRealPath("/") + "WEB-INF" + File.separator + "resources" + File.separator + "image" + File.separator;
+        try {
+            File dir = new File(filePath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+            stream.write(file.getBytes());
+            stream.close();
+//            f.setPhoto(file.getOriginalFilename());
+//            dao.save(f);
+            mod.addAttribute("response", "Insere");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mod.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/accueilAuthor";
     }
     
 //    @RequestMapping(value = "/")

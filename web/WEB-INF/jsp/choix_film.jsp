@@ -6,92 +6,116 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> E-Film </title>
-    <!-- favicon -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- fontawesome icon  -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-    <!-- flaticon css -->
-    <link rel="stylesheet" href="assets/fonts/flaticon.css">
-    <!-- animate.css -->
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> E-Film </title>
+        <!-- favicon -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- fontawesome icon  -->
+        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+        <!-- flaticon css -->
+        <link rel="stylesheet" href="assets/fonts/flaticon.css">
+        <!-- animate.css -->
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!-- Owl Carousel -->
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+        <!-- magnific popup -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- responsive -->
+        <link rel="stylesheet" href="assets/css/index.css">
 
-<body>
+        <link rel="stylesheet" href="assets/css/responsive.css">
+    </head>
 
-     <!-- preloader begin -->
-     <div class="preloader">
-        <div class="loader">
-            <hr>
-            <hr>
+    <body>
+
+        <!-- preloader begin -->
+        <div class="preloader">
+            <div class="loader">
+                <hr>
+                <hr>
+            </div>
         </div>
-    </div>
-    <!-- preloader end -->
+        <!-- preloader end -->
 
-    <!-- header begin -->
-    <jsp:include page="header.jsp"></jsp:include>
-    <!-- header end -->
+        <!-- header begin -->
+        <jsp:include page="header.jsp"></jsp:include>
+            <!-- header end -->
 
-    <!-- breadcrump begin -->
-    <div class="breadcrump">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="breadcrump-content">
-                        <span class="page-name">Home</span>
-                        <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                        <span class="page-name">Gallery</span>
+            <!-- breadcrump begin -->
+            <div class="breadcrump">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="breadcrump-content">
+                                <span class="page-name">Home</span>
+                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                                <span class="page-name">Gallery</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="gallery">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-8 col-lg-8">
-                        <div class="add-space section-title text-center">
-                            <h2>Movies</h2>
+            <div class="gallery">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="add-space section-title text-center">
+                                <h2>Movies
+                                </h2>
+                                <button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>
+
+                                <div class="idea-full"  id="idea-full">
+                                    <div class="idea-main-card" id="idea-main-card">
+                                        <div class="idea-card-head">
+                                            <h1>Ajout</h1>
+                                            <span class="idea-close" id="idea-close">&times</span>
+                                        </div>
+                                        <div class="idea-card-body">
+                                            <form action="fiches" method="POST" enctype="multipart/form-data">
+                                                <label for="formFile">Upload Your photo</label>
+                                                <p>
+                                                    <input class="form-control" name="filephoto" type="file" id="filephoto">
+                                                </p>         </div>
+                                            <div class="idea-form">
+                                                <input type="submit"  id="idea-close"  value="Valider">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                   
-                      <% for (int idx = 0; idx < film.size(); idx++) { %>
+
+                    <% for (int idx = 0; idx < film.size(); idx++) {%>
                     <div class="col-xl-4 col-lg-4 col-sm-6">
                         <div class="single-img" style="height:300px;">
                             <img src="assets/img/gallery-7.jpg"" alt="">
                             <div class="hover-effect">
                                 <a href="liste_scene?film=<%=film.get(idx).getId()%>#DINA1"><i class="fas fa-play"> 
-                                    <div class="date-on-img">
-                                </div></i>
-                                 <h2 style="color: white"><%=film.get(idx).getTitre()%></h2>    
+                                        <div class="date-on-img">
+                                        </div></i>
+                                    <h2 style="color: white"><%=film.get(idx).getTitre()%></h2>    
                                 </a>
                             </div>
                         </div>           </div>
-                       <% } %>  
-                    </div>                  
-                
-                </div>
+                        <% }%>  
+                </div>                  
+
             </div>
         </div>
+    </div>
     <!-- gallery begin -->
-   
+
     <!-- gallery end -->
 
     <!-- footer begin -->
@@ -139,8 +163,10 @@
         </div>
     </div>
     <!-- footer end -->
-    
+
     <!-- jquery -->
+
+    <script src="assets/js/index.js"></script>
     <script src="assets/js/jquery.js"></script>
     <!-- bootstrap -->
     <script src="assets/js/bootstrap.min.js"></script>
