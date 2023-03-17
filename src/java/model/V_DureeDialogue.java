@@ -21,14 +21,14 @@ public class V_DureeDialogue {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Timestamp totalDuree;
+    Time totalDuree;
     int sceneId;
 
-    public Timestamp getTotalDuree() {
+    public Time getTotalDuree() {
         return totalDuree;
     }
 
-    public void setTotalDuree(Timestamp totalDuree) {
+    public void setTotalDuree(Time totalDuree) {
         this.totalDuree = totalDuree;
     }
 

@@ -8,6 +8,8 @@ package model;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,9 +23,7 @@ import service.V_DureeDialogueService;
  */
 public class PlanningDate {
     private int filmId;
-    private LocalDateTime debut;
-    private LocalDateTime fin;
-    private ArrayList<Planning> lPlanning;
+    private ArrayList<Planning> lPlanning = new ArrayList();
     private ArrayList<Scene> lScene;
     private Position positionPersonne;
     private ArrayList<Time> heurePris;
@@ -59,21 +59,7 @@ public class PlanningDate {
         this.filmId = filmId;
     }
 
-    public LocalDateTime getDebut() {
-        return debut;
-    }
-
-    public void setDebut(LocalDateTime debut) {
-        this.debut = debut;
-    }
-
-    public LocalDateTime getFin() {
-        return fin;
-    }
-
-    public void setFin(LocalDateTime fin) {
-        this.fin = fin;
-    }
+   
 
     public ArrayList<Planning> getlPlanning() {
         if(this.lPlanning == null){
@@ -90,24 +76,53 @@ public class PlanningDate {
         ConfigurationService conf = new ConfigurationService();
         V_DureeDialogueService vs = new V_DureeDialogueService();
         Time heureDebut = conf.getConfig("heuredebut").getValeur();
+        Time heureFin = conf.getConfig("heurefin").getValeur();
         Calendar debutP = Calendar.getInstance();
         debutP.setTime(debutPlanning);
         Calendar finP = Calendar.getInstance();
-        /*for(int i = 0; i<this.getlScene().size(); i++){
-            Timestamp dureeTotal = vs.listeDureeDialogue(lScene.get(i).getId()).get(0).getTotalDuree();
-            heurePris.add(lScene.get(i).getHeure_ideal());
-            //heurePris.add(lScene.get(i).getHeure_ideal().);
-        }*/
         while(debutP.equals(finP)){
+            Time debutTravail = heureDebut;
             ArrayList<Plateau> disponible = new ArrayList();
             //Mijery plateau disponible amn'io date io
             
             //-----------------------------------------
             for(int i = 0; i< disponible.size(); i++){
-                
+                ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
+                for(int iscene = 0; iscene< scenes.size(); iscene++){
+                    Time dureeDialogue = scenes.get(iscene).getVdialogue().getTotalDuree();
+                    Date dateDeb = (Date) debutP.getTime();  
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                    LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb)+" "+heureDebut.toString());
+                    if(!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())){
+                        Planning plan  = new Planning();
+                        plan.setSceneId(scenes.get(iscene).getId());
+                        plan.setDebut(deb);
+                        debutTravail = new Time(heureDebut.getTime()+dureeDialogue.getTime());
+                        if(!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())){
+                             LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb)+" "+debutTravail.toString());
+                             plan.setFin(fin);
+                             plan.setScene(scenes.remove(iscene));
+                             this.lPlanning.add(plan);
+                        }
+                        else{
+                            LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb)+" "+debutTravail.toString());
+                            plan.setFin(fin);
+                        }
+                    }
+                }
             }
             debutP.add(Calendar.DAY_OF_MONTH, 1);
         }
+    }
+    
+    public ArrayList<Scene> getByPlateau(int idPlateau){
+        ArrayList<Scene> val = new ArrayList();
+        for(int i = 0; i< this.getlScene().size(); i++){
+            if(this.getlScene().get(i).getId() == idPlateau){
+                val.add(this.getlScene().get(i));
+            }
+        }
+        return val;
     }
     
 }

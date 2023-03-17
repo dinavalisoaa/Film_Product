@@ -13,8 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.PlateauService;
+import service.V_DureeDialogueService;
 
 /**
  *
@@ -39,7 +41,20 @@ public class Scene {
     Date date;
     @Column(name = "heure_ideal")
     private Time heure_ideal;
+    @Transient
+    private V_DureeDialogue vdialogue;
 
+    public V_DureeDialogue getVdialogue() {
+        if(this.vdialogue == null){
+            V_DureeDialogueService vs = new V_DureeDialogueService();
+        }
+        return vdialogue;
+    }
+
+    public void setVdialogue(V_DureeDialogue vdialogue) {
+        this.vdialogue = vdialogue;
+    }
+    
     public Time getHeure_ideal() {
         return heure_ideal;
     }

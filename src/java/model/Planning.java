@@ -20,7 +20,7 @@ public class Planning {
     int sceneId;
     LocalDateTime debut;
     LocalDateTime fin;
-Scene scene;
+    Scene scene;
 
     public Scene getScene() {
         return scene;
