@@ -57,7 +57,7 @@ public class PlateauController {
 
     @Autowired
     HibernateDao dao;
-    
+
     @RequestMapping(value = "/plateau")
     public String pagePlateau(Model m) {
         PlateauService service = new PlateauService(dao);
@@ -65,7 +65,37 @@ public class PlateauController {
         m.addAttribute("plateau", liste);
         return "ajout_plateauN";
     }
-    
+
+    @RequestMapping(value = "/liste_plateau")
+    public String liste_plateau(HttpServletRequest rq, Model m) {
+        PlateauService service = new PlateauService(dao);
+        List<Plateau> liste = service.allPlateau();
+       String date =LocalDate.now().toString();
+        if(rq.getParameter("date")!=null){
+            date=rq.getParameter("date");
+        }
+        List<Plateau> nD = service.allPlateauNonDispo(date);
+        m.addAttribute("plateau", liste);
+        m.addAttribute("dispo", nD);
+        m.addAttribute("date",date);
+        return "dispo_plateau";
+    }
+
+    @RequestMapping(value = "/liste_plateau_dispo")
+    public String liste_plateau_dispo(HttpServletRequest rq, Model m) {
+        PlateauService service = new PlateauService(dao);
+        List<Plateau> liste = service.allPlateau();
+                String date =LocalDate.now().toString();
+        if(rq.getParameter("date")!=null){
+            date=rq.getParameter("date");
+        }
+        List<Plateau> nD = service.allPlateauDispo(date);
+        m.addAttribute("plateau", liste);
+        m.addAttribute("dispo", nD);
+        m.addAttribute("date",date);
+        return "dispo_plateau";
+    }
+
     @RequestMapping(value = "/add_plateau")
     public String addPlateau(HttpServletRequest req, Model m) {
         PlateauService service = new PlateauService(dao);
@@ -76,5 +106,16 @@ public class PlateauController {
         p.setDescription(description);
         service.insertPlateau(p);
         return "redirect:plateau";
+    }
+
+    @RequestMapping(value = "/add_indispo")
+    public String add_indispo(HttpServletRequest req, Model m) {
+        PlateauService service = new PlateauService(dao);
+        PlateauIndisponible pI = new PlateauIndisponible();
+        pI.setDate1(Date.valueOf(req.getParameter("date1")));
+        pI.setDate2(Date.valueOf(req.getParameter("date2")));
+        pI.setPlateauId(Integer.parseInt(req.getParameter("plateauId")));
+        service.insertPlateauIndispo(pI);
+        return "redirect:liste_plateau";
     }
 }

@@ -68,8 +68,12 @@
                                         <a class="nav-link" href="gallery.html">Scene</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Planning</a>
+                                        <a class="nav-link" href="liste_plateau">Plateau</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="schedule.html">Plannification</a>
+                                    </li>
+                                  
                                 </ul>
                             </div>
                         </nav>

@@ -47,7 +47,32 @@ public class PlateauService {
             throw e;
         }
     }
-
+    
+    public void insertPlateauIndispo(PlateauIndisponible p) {
+        try {
+            dao.create(p);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+ public List<Plateau> allPlateauNonDispo(String date1) {
+        List<Plateau> list = null;
+        try {
+            list = dao.findBySql("from Plateau where id in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2)");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+ public List<Plateau> allPlateauDispo(String date1) {
+        List<Plateau> list = null;
+        try {
+          list = dao.findBySql("from Plateau where id not in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2)");
+          } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
     public List<Plateau> allPlateau() {
         List<Plateau> list = null;
         try {

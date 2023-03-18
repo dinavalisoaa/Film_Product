@@ -79,11 +79,16 @@
                                             <span class="idea-close" id="idea-close">&times</span>
                                         </div>
                                         <div class="idea-card-body">
-                                            <form action="fiches" method="POST" enctype="multipart/form-data">
-                                                <label for="formFile">Upload Your photo</label>
-                                                <p>
-                                                    <input class="form-control" name="filephoto" type="file" id="filephoto">
-                                                </p>         </div>
+                                                <div class="idea-form">
+                                                    <form action="<%= request.getContextPath()%>/upload" method="GET">
+                                                    <label>Titre:</label>
+                                                    <p>
+                                                        <input class="form-control" type="text" name="titre" placeholder="Titre" />
+                                                    </p>
+                                                    <label for="formFile">Upload Your photo</label>
+                                                    <p>
+                                                        <input class="form-control" name="file"  type="file" id="formFile">
+                                                    </p>         </div>
                                             <div class="idea-form">
                                                 <input type="submit"  id="idea-close"  value="Valider">
                                             </div>
@@ -99,7 +104,7 @@
                     <% for (int idx = 0; idx < film.size(); idx++) {%>
                     <div class="col-xl-4 col-lg-4 col-sm-6">
                         <div class="single-img" style="height:300px;">
-                            <img src="assets/img/gallery-7.jpg"" alt="">
+                            <img src="<%=film.get(idx).getPhoto() %>" alt="">
                             <div class="hover-effect">
                                 <a href="liste_scene?film=<%=film.get(idx).getId()%>#DINA1"><i class="fas fa-play"> 
                                         <div class="date-on-img">
