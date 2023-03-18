@@ -112,3 +112,36 @@ ALTER TABLE Plateau
 ADD COLUMN longitude DOUBLE PRECISION,
 ADD COLUMN latitude DOUBLE PRECISION,
 ADD COLUMN etat INT;
+
+
+INSERT INTO Personnage VALUES(DEFAULT,'Tolotra','.png');
+
+INSERT INTO Scene VALUES(DEFAULT,'scene1',1,1,1,null,1,null);
+INSERT INTO Scene VALUES(DEFAULT,'scene2',2,1,1,null,1,null);
+INSERT INTO Scene VALUES(DEFAULT,'scene3',3,1,1,null,1,null);
+INSERT INTO Scene VALUES(DEFAULT,'scene4',4,2,1,null,1,null);
+INSERT INTO Scene VALUES(DEFAULT,'scene5',5,2,1,null,1,null);
+INSERT INTO Scene VALUES(DEFAULT,'scene6',6,3,1,null,1,null);
+
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu1',1,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu2',1,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu3',1,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu4',1,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,1,'00:25:00',2,'action');
+
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu1',1,2,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu2',1,2,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu3',1,3,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu4',1,3,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,4,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,5,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,6,'00:25:00',2,'action');
+
+INSERT INTO Personnagescene VALUES(DEFAULT,1,1);
+INSERT INTO Personnagescene VALUES(DEFAULT,1,2);
+INSERT INTO Personnagescene VALUES(DEFAULT,1,3);
+INSERT INTO Personnagescene VALUES(DEFAULT,1,4);
+INSERT INTO Personnagescene VALUES(DEFAULT,1,5);
+INSERT INTO Personnagescene VALUES(DEFAULT,1,6);
+
+

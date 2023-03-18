@@ -8,14 +8,17 @@ package model;
 import dao.HibernateDao;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.PlateauService;
+import service.SceneService;
 import service.V_DureeDialogueService;
 
 /**
@@ -43,14 +46,13 @@ public class Scene {
     private Time heure_ideal;
     @Transient
     private V_DureeDialogue vdialogue;
-
-    public V_DureeDialogue getVdialogue() {
+    public V_DureeDialogue getVdialogue(HibernateDao dao) {
         if(this.vdialogue == null){
-            V_DureeDialogueService vs = new V_DureeDialogueService();
+            V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+            vdialogue = vs.listeDureeDialogue(id).get(0);
         }
         return vdialogue;
     }
-
     public void setVdialogue(V_DureeDialogue vdialogue) {
         this.vdialogue = vdialogue;
     }
@@ -113,5 +115,18 @@ public class Scene {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Scene(int id, String titre, int numero, int plateauId, int filmId, Date date) {
+        this.id = id;
+        this.titre = titre;
+        this.numero = numero;
+        this.plateauId = plateauId;
+        this.filmId = filmId;
+        this.date = date;
+    }
+    public Scene(){        
+    }
+    
+
 
 }
