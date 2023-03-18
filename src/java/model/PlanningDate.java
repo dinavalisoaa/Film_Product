@@ -87,6 +87,7 @@ public class PlanningDate {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ConfigurationService conf = new ConfigurationService(dao);
         V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+        PlateauService ps =  new PlateauService(dao);
         Time heureDebut = conf.getConfig("heuredebut").getValeur();
         Time heureFin = conf.getConfig("heurefin").getValeur();
         Calendar debutP = Calendar.getInstance();
@@ -96,9 +97,9 @@ public class PlanningDate {
         while (debutP.before(finP)) {
              System.out.println("date: "+debutP.getTime().toString());
             if (PlanningDate.isJourOuvrable(debutP) == true) {
-                ArrayList<HeurePris> listeHeurePris = new ArrayList();
                 Time debutTravail = heureDebut;
-                List<Plateau> disponible = new PlateauService(dao).allPlateauDispo(dateFormat.format(debutP.getTime()));
+                Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
+                List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
                       System.out.println("disponible:"+disponible.get(i).getId());
                     ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());

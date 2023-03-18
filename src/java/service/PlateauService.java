@@ -124,4 +124,16 @@ public class PlateauService {
         }
         return p;
     }
+    /*SELECT *, haversine_distance(-18.419416, 3.7749, latitude, longitude) as dist 
+FROM plateau 
+ORDER BY dist;*/
+     public List<Plateau> allPlateauDispo(double latitude,double longitude,String date1) {
+        List<Plateau> list = null;
+        try {
+          list = dao.findBySql(" from Plateau where id not in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2) ORDER BY haversine_distance("+latitude+", "+longitude+", latitude, longitude) ASC");
+          } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
 }
