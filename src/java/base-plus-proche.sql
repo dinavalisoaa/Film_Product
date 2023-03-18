@@ -34,6 +34,14 @@ INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Akorindrano', -18
 INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Ivato', -18.7992, 47.4786);
 INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Anosy', -18.419416, 38.7749);
 INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Analakely', -18.9102, 48.5213);
+
+
+INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Andoharanofotsy', -18.919416, 38.7749);
+INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Isoraka', -18.7992, 47.4786);
+INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Mahamasina', -18.419416, 38.7749);
+INSERT INTO plateau (nom, latitude, longitude) VALUES ('Plateu Isotry', -18.9102, 48.5213);
+
+
 SELECT * FROM plateau;
 
 -- CREATE OR REPLACE VIEW 

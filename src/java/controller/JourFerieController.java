@@ -46,7 +46,7 @@ import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.FilmService;
-import service.PersonnageService;
+import service.JourFerieService;
 import service.PlateauService;
 
 /**
@@ -54,45 +54,28 @@ import service.PlateauService;
  * @author Fanjava
  */
 @Controller
-public class PersonnageController {
+public class JourFerieController {
 
     @Autowired
     HibernateDao dao;
 
-    @RequestMapping(value = "/personnage")
-    public String pagePersonnage(Model m) {
-        PersonnageService service = new PersonnageService(dao);
-        List<Personnage> liste = service.allPersonnage();
-        m.addAttribute("Personnage", liste);
-        return "liste_personnage";
+    @RequestMapping(value = "/add_jour_ferie")
+    public String add(Model m,HttpServletRequest req) {
+        JourFerieService service = new JourFerieService(dao);
+        List<JourFerie> liste = service.allJourFerie();
+        JourFerie fre=new JourFerie();
+        fre.setJour(Integer.parseInt(req.getParameter("jour")));
+        fre.setMois(Integer.parseInt(req.getParameter("mois")));
+        service.insertJourFerie(fre);
+        m.addAttribute("JourFerie", liste);
+        return "redirect:liste_jour_ferie";
     }
-
-    @RequestMapping(value = "/up_personnage")
-    public String up(HttpServletRequest req, Model m) {
-        PersonnageService service = new PersonnageService(dao);
-        String file = req.getParameter("photo");
-        String id_s = req.getParameter("id");
-        int id=Integer.valueOf(id_s);
-        String photo = "data:image/png;base64, " + PersonnageService.convert(JourFerie.file() + "\\" + file);
-        String nom = req.getParameter("nom");
-        Personnage p = new Personnage();
-//        p.setNom(nom);
-//        p.setPhoto(photo);
-        service.update("update Personnage set photo='"+photo+"', nom='"+nom+"' where id="+id);
-        return "redirect:personnage";
-    }
-
-    @RequestMapping(value = "/add_personnage")
-    public String addPlateau(HttpServletRequest req, Model m) {
-        PersonnageService service = new PersonnageService(dao);
-        String file = req.getParameter("photo");
-        String photo = "data:image/png;base64, " + PersonnageService.convert(JourFerie.file() + "\\" + file);
-        String nom = req.getParameter("nom");
-        Personnage p = new Personnage();
-        p.setNom(nom);
-        p.setPhoto(photo);
-        service.insertPersonnage(p);
-        return "redirect:personnage";
+    @RequestMapping(value = "/liste_jour_ferie")
+    public String pagePlateau(Model m) {
+        JourFerieService service = new JourFerieService(dao);
+        List<JourFerie> liste = service.allJourFerie();
+        m.addAttribute("JourFerie", liste);
+        return "liste_jour_ferie";
     }
 
 }

@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import javax.imageio.ImageIO;
-import model.Personnage;
+import model.JourFerie;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author P14_A_111_Dina
  */
-public class PersonnageService {
+public class JourFerieService {
     @Autowired
     HibernateDao dao;
     
@@ -35,36 +35,30 @@ public class PersonnageService {
         this.dao = dao;
     }
     
-    public PersonnageService(){}
+    public JourFerieService(){}
     
-    public PersonnageService(HibernateDao dao){
+    public JourFerieService(HibernateDao dao){
         this.dao=dao;
     }
     
-    public void insertPersonnage(Personnage p) {
+    public void insertJourFerie(JourFerie f) {
         try {
-            dao.create(p);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-    public void update(String sql) {
-        try {
-            dao.updateBySql(sql);
+            dao.create(f);
         } catch (Exception e) {
             throw e;
         }
     }
     
-    public List<Personnage> allPersonnage() {
-        List<Personnage> list = null;
+    public List<JourFerie> allJourFerie() {
+        List<JourFerie> list = null;
         try {
-            list = dao.findAll(Personnage.class);
+            list = dao.findAll(JourFerie.class);
         } catch (Exception e) {
             throw e;
         }
         return list;
     }
+    
     
     public static String convert(String file) {
         String base64 = null;
@@ -81,12 +75,12 @@ public class PersonnageService {
         return base64;
     }
     
-    public Personnage getPersonnageById(int id) {
-        Personnage p = new Personnage();
-        List list = allPersonnage();
+    public JourFerie getJourFerieById(int id) {
+        JourFerie p = new JourFerie();
+        List list = allJourFerie();
         try {
             for (int i = 0; i < list.size(); i++) {
-                Personnage get = (Personnage) list.get(i);
+                JourFerie get = (JourFerie) list.get(i);
                 if(get.getId() == id){
                     p = get;
                 }

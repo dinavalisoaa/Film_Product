@@ -152,20 +152,31 @@
                                 </form>
                             </div>
                             <div class="comment-area">
-                                <h3>LDa
+  <h3>
+                                    <u>Liste des Disponibles </u>
                                 </h3>
+                                <h2>
+                                    <%LocalDate da=LocalDate.parse(request.getAttribute("date").toString());
+                                        %>
+                                        Date:<%=da %>
+                                </h2>
                                 <p>
                                     <button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>
 
-                                    <a href="liste_plateau?date=${date}" class="btn btn-danger">
+                                    <a href="liste_plateau?date=${date}" class="btn btn-theme">
+                                        <button>
                                         Indispo
+                                            
+                                        </button>    
                                         
                                     </a>
-                                    <a href="liste_plateau_dispo?date=${date}" class="btn btn-danger">
+                                    <a href="liste_plateau_dispo?date=${date}" class="btn btn-theme">
+                                     <button>
                                         Dispo
-                                    </a>
-
-                                </p>
+                                            
+                                        </button>    
+                                        
+                                    </a>                                
                                 <%
                                 for (int idx = 0; idx < dispo.size(); idx++) {
                                         Plateau elem = dispo.get(idx);
