@@ -100,6 +100,16 @@ public class SceneService {
         }
         return als.get(0);
     }
+    
+    public Scene getScene(int id) {
+        List<Scene> als=null;
+        try {
+           als=dao.findBySql("from Scene where id="+id);
+        } catch (Exception e) {
+            throw e;
+        }
+        return als.get(0);
+    }
 
     public int getLastNumero(int idFilm) {
         String req = "from Scene where filmId = " + idFilm + " order by numero DESC";
@@ -154,8 +164,8 @@ public class SceneService {
         V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
 
         List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
-        Timestamp tamp = null;
-        Timestamp tamp_prec = null;
+        Time tamp = null;
+        Time tamp_prec = null;
 
         ConfigurationService service = new ConfigurationService(dao);
         Time heuredebut = service.getConfig("heuredebut").getValeur();
@@ -170,7 +180,7 @@ public class SceneService {
 
         Timestamp tamp2 = null;
         LocalDateTime date = null;
-        Timestamp val = su.get(0).getTotalDuree();
+        Time val = su.get(0).getTotalDuree();
         Date debut = Date.valueOf(LocalDate.now());
         int year = debut.getYear();
         int mois = debut.getMonth();
@@ -263,8 +273,8 @@ public class SceneService {
         V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
 
         List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
-        Timestamp tamp = null;
-        Timestamp tamp_prec = null;
+        Time tamp = null;
+        Time tamp_prec = null;
 
         ConfigurationService service = new ConfigurationService(dao);
         Time heuredebut = service.getConfig("heuredebut").getValeur();
@@ -279,7 +289,7 @@ public class SceneService {
 
         Timestamp tamp2 = null;
         LocalDateTime date = null;
-        Timestamp val = su.get(0).getTotalDuree();
+        Time val = su.get(0).getTotalDuree();
 //        V_
 //         pause = 5;
         Date debut = Date.valueOf(LocalDate.now());

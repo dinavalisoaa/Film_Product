@@ -7,13 +7,16 @@ package model;
 
 import dao.HibernateDao;
 import java.sql.Date;
+import java.sql.Time;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.PlateauService;
+import service.V_DureeDialogueService;
 
 /**
  *
@@ -21,32 +24,45 @@ import service.PlateauService;
  */
 @Entity
 public class Scene {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "titre")
     String titre;
-        @Column(name = "numero")
+    @Column(name = "numero")
 
     int numero;
-            @Column(name = "plateauId")
+    @Column(name = "plateauId")
 
     int plateauId;
-                @Column(name = "filmId")
-
+    @Column(name = "filmId")
     int filmId;
     Date date;
-   
-// Plateau plateau;
-//
-//    public Plateau getPlateau(HibernateDao dao) {
-//    S
-//    }
-//
-//    public void setPlateau(Plateau plateau) {
-//        this.plateau = plateau;
-//    }
- 
+    @Column(name = "heure_ideal")
+    private Time heure_ideal;
+    @Transient
+    private V_DureeDialogue vdialogue;
+
+    public V_DureeDialogue getVdialogue() {
+        if(this.vdialogue == null){
+            V_DureeDialogueService vs = new V_DureeDialogueService();
+        }
+        return vdialogue;
+    }
+
+    public void setVdialogue(V_DureeDialogue vdialogue) {
+        this.vdialogue = vdialogue;
+    }
+    
+    public Time getHeure_ideal() {
+        return heure_ideal;
+    }
+
+    public void setHeure_ideal(Time heure_ideal) {
+        this.heure_ideal = heure_ideal;
+    }
+
     public int getId() {
         return id;
     }
@@ -97,5 +113,5 @@ public class Scene {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
 }

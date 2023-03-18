@@ -30,4 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+<<<<<<< HEAD
 nbproject/build-impl.xml
+=======
+*.xml
+nbproject/genfiles.properties
+*.xml
+>>>>>>> 06d056c10dfa3211f454cb741b7acf20cb872151

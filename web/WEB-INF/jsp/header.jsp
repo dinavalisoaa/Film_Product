@@ -71,7 +71,7 @@
                                         <a class="nav-link" href="liste_plateau">Plateau</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Plannification</a>
+                                        <a class="nav-link" href="liste_plannification">Plannification</a>
                                     </li>
                                   
                                 </ul>
