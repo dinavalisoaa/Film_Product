@@ -32,3 +32,4 @@ build/
 .vscode/
 *.xml
 nbproject/genfiles.properties
+*.xml
