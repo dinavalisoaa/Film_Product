@@ -30,3 +30,5 @@ build/
 
 ### VS Code ###
 .vscode/
+*.xml
+nbproject/genfiles.properties
