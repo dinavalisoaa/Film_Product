@@ -20,6 +20,17 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String titre;
+String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
 
     public int getId() {
         return id;
