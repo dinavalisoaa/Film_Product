@@ -70,14 +70,16 @@ public class PlateauController {
     public String liste_plateau(HttpServletRequest rq, Model m) {
         PlateauService service = new PlateauService(dao);
         List<Plateau> liste = service.allPlateau();
-       String date =LocalDate.now().toString();
-        if(rq.getParameter("date")!=null){
-            date=rq.getParameter("date");
+        String date = LocalDate.now().toString();
+        if (rq.getParameter("date") != null) {
+            date = rq.getParameter("date");
         }
         List<Plateau> nD = service.allPlateauNonDispo(date);
         m.addAttribute("plateau", liste);
         m.addAttribute("dispo", nD);
-        m.addAttribute("date",date);
+        m.addAttribute("date", date);
+        m.addAttribute("etat", 0);
+
         return "dispo_plateau";
     }
 
@@ -85,14 +87,16 @@ public class PlateauController {
     public String liste_plateau_dispo(HttpServletRequest rq, Model m) {
         PlateauService service = new PlateauService(dao);
         List<Plateau> liste = service.allPlateau();
-                String date =LocalDate.now().toString();
-        if(rq.getParameter("date")!=null){
-            date=rq.getParameter("date");
+        String date = LocalDate.now().toString();
+        if (rq.getParameter("date") != null) {
+            date = rq.getParameter("date");
         }
         List<Plateau> nD = service.allPlateauDispo(date);
         m.addAttribute("plateau", liste);
+        m.addAttribute("etat", 1);
+
         m.addAttribute("dispo", nD);
-        m.addAttribute("date",date);
+        m.addAttribute("date", date);
         return "dispo_plateau";
     }
 

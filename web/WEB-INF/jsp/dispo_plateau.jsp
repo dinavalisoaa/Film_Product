@@ -1,3 +1,8 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="javax.swing.text.DateFormatter"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.DateFormat"%>
 <!DOCTYPE html>
 <html lang="zxx">
     <!DOCTYPE html>
@@ -51,69 +56,7 @@
                     <hr>
                 </div>
             </div>
-            <!-- preloader end -->
-
-            <!-- header begin -->
-            <div class="header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
-                                    <div class="logo">
-                                        <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="d-xl-none d-lg-none d-block col-6">
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">
-                                        <i class="fas fa-bars"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-8">
-                            <div class="mainmenu">
-                                <nav class="navbar navbar-expand-lg">
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                        <ul class="navbar-nav mr-auto">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="about.html">About <span
-                                                        class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="event.html">Event</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="gallery.html">Gallery</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="schedule.html">Schedule</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="blog.html">Blog</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="faq.html">Faq</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="contact.html">Contact</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- header end -->
-
-            <!-- breadcrump begin -->
+            <jsp:include page="header.jsp"></jsp:include>
             <div class="breadcrump">
                 <div class="container">
                     <div class="row">
@@ -133,56 +76,113 @@
             <div class="blog blog-details">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-8 col-lg-8">
+                        <div class="col-xl-12 col-lg-12">
 
                             <div class="contact-form">
                                 <form action="liste_plateau" method="get">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6">
-                                            <input type="date" name="date"class="form-control">
+                                        <div class="col-xl-3 col-lg-3">
+                                            <input style="width:220px;" type="date" name="date"class="form-control">
                                             <span></span>
                                         </div>
 
-                                        <div class="col-xl-6 col-lg-6">
-                                            <button>Voir</button>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <button style="width:120px;" >Voir</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="comment-area">
-                                <h3>Liste des indisponible
+                                <h3>
+
+                                    <%   if (Integer.valueOf(request.getAttribute("etat").toString()) == 1) {
+                                    %>
+                                    Listes des Diponibles
+                                    <%
+                                    } else {
+                                    %>
+                                    Listes des Indiponibles
+                                    <%
+                                        }
+                                    %>
                                 </h3>
+                                <h2>
+                                    <%LocalDate da = LocalDate.parse(request.getAttribute("date").toString());
+                                    %>
+                                    Date:<%=da%>
+                                </h2>
                                 <p>
                                     <button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>
 
-                                    <a href="liste_plateau?date=${date}" class="btn btn-danger">
-                                        Indispo
-                                        
+                                    <a href="liste_plateau?date=${date}" class="btn btn-theme">
+                                        <button>
+                                            Indispo
+
+                                        </button>    
+
                                     </a>
-                                    <a href="liste_plateau_dispo?date=${date}" class="btn btn-danger">
-                                        Dispo
+                                    <a href="liste_plateau_dispo?date=${date}" class="btn btn-theme">
+                                        <button>
+                                            Dispo
+
+                                        </button>    
+
                                     </a>
 
                                 </p>
-                                <%
-                                for (int idx = 0; idx < dispo.size(); idx++) {
-                                        Plateau elem = dispo.get(idx);
-                                        %>
-                                 <div class="single-comment">
-                                    <div class="part-img">
-                                        <img src="assets/img/commentor-1.jpg" alt="">
-                                    </div>
-                                    <div class="part-text">
-                                        <span class="commentor-name">Roscoe Alexander</span>
-                                        <p>
-                                            <%=elem.getDescription() %>
-                                            
-                                        </p> </div>
-                                </div><%
+                                <style>
+                                    .containera {
+                                        display: grid;
+                                        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+                                        grid-auto-rows: minmax(80px, auto);
+                                        gap: 20px;
                                     }
-                                %>
-                               
-                                
+
+                                </style>
+                                <div class="containera">
+                                    <%
+                                        for (int idx = 0; idx < dispo.size(); idx++) {
+                                            Plateau elem = dispo.get(idx);
+                                    %>
+
+                                    <div class="box1"> <div class="">
+                                            <div class="part-img">
+                                                <img src="assets/img/banner-bottom-img.jpg" alt="">
+                                            </div>
+                                            <div class="part-text">
+                                                <span class="commentor-name">
+                                                    <%=elem.getNom()%>
+                                                </span>
+                                                <p>
+                                                    <%=elem.getDescription()%>
+
+                                                </p>
+                                                <h4 style="color:#ff3366 ">
+                                                    <%   if (Integer.valueOf(request.getAttribute("etat").toString()) == 1) {
+                                                    %>
+
+                                                    <a href="#" class="btn btn-success">
+                                                        Diponible
+                                                    </a>
+                                                    <%
+                                                    } else {
+                                                    %>
+
+                                                    <a href="#" class="btn btn-danger">
+                                                        Indisponible 
+                                                    </a>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </h4>
+                                            </div>
+                                        </div></div>
+                                        <%
+                                            }
+                                        %>
+
+                                </div>
+
                             </div>
 
                         </div>

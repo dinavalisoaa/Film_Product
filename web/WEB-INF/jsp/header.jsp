@@ -71,7 +71,13 @@
                                         <a class="nav-link" href="liste_plateau">Plateau</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="schedule.html">Plannification</a>
+                                        <a class="nav-link" href="personnage">Personnage</a>
+                                    </li>
+                                     <li class="nav-item">
+                                        <a class="nav-link" href="liste_jour_ferie">Jour Ferie</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="planning">Plannification</a>
                                     </li>
                                   
                                 </ul>

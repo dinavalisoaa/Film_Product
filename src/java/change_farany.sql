@@ -1,4 +1,4 @@
-create table plateauIndisponible(
+    create table plateauIndisponible(
     id serial primary key,
     plateauId int,
     foreign key(plateauId) references plateau(id),

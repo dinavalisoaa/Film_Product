@@ -25,7 +25,13 @@ public class JourFerie {
     public int getId() {
         return id;
     }
-
+    public static String mois(int i){
+        String[]s=new String[]{"Jan","Fev","Mars","Apr","Mai","Juin","Juillet","Aout","Sept","Oct","Nov","Dec"};
+        return s[i];
+    }
+ public static String file(){
+        return "D:\\itu\\img";
+    }
     public void setId(int id) {
         this.id = id;
     }
