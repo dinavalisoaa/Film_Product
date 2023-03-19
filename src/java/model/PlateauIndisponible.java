@@ -56,5 +56,5 @@ public class PlateauIndisponible {
         this.date2 = date2;
     }
  
-}
+
 }
