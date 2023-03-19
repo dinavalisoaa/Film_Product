@@ -30,3 +30,8 @@ build/
 
 ### VS Code ###
 .vscode/
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/project.properties
+nbproject/project.xml
+src/java/applicationContext.xml
