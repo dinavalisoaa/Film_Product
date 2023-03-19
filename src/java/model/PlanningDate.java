@@ -87,6 +87,7 @@ public class PlanningDate {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ConfigurationService conf = new ConfigurationService(dao);
         V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+        PlateauService ps =  new PlateauService(dao);
         Time heureDebut = conf.getConfig("heuredebut").getValeur();
         Time heureFin = conf.getConfig("heurefin").getValeur();
         Calendar debutP = Calendar.getInstance();
@@ -96,9 +97,9 @@ public class PlanningDate {
         while (debutP.before(finP)) {
              System.out.println("date: "+debutP.getTime().toString());
             if (PlanningDate.isJourOuvrable(debutP) == true) {
-                
                 Time debutTravail = heureDebut;
-                List<Plateau> disponible = new PlateauService(dao).allPlateauDispo(dateFormat.format(debutP.getTime()));
+                Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
+                List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
 //                      System.out.println("disponible:"+disponible.get(i).getId());
                     ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
@@ -113,20 +114,32 @@ public class PlanningDate {
                         if (!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
                             Planning plan = new Planning();
                             plan.setSceneId(scenes.get(iscene).getId());
-                            plan.setDebut(deb);
-                            LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
-                                    .plusMinutes(dureeDialogue.toLocalTime().getMinute())
-                                    .plusSeconds(dureeDialogue.toLocalTime().getSecond());
-                            Time adddebutTravail = Time.valueOf(addition);
-                            if (!adddebutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
-                                LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ adddebutTravail.toString());
-                                plan.setFin(fin);
-                                plan.setScene(scenes.get(iscene));
-                                lScene.remove(scenes.get(iscene));
-                                debutTravail = adddebutTravail;
-                                this.lPlanning.add(plan);
+                            if(scenes.get(iscene).getHeure_ideal() == null){
+                                    plan.setDebut(deb);
+                               LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
+                                       .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                       .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                               Time adddebutTravail = Time.valueOf(addition);
+                               if (!adddebutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
+                                   LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ adddebutTravail.toString());
+                                   plan.setFin(fin);
+                                   plan.setScene(scenes.get(iscene));
+                                   lScene.remove(scenes.get(iscene));
+                                   debutTravail = adddebutTravail;
+                                   this.lPlanning.add(plan);
+                               }
                             }
-                            
+                            else{
+                                deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ scenes.get(iscene).getHeure_ideal().toString());
+                                plan.setDebut(deb);
+                                LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
+                                       .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                       .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                                plan.setFin(LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ Time.valueOf(addition).toString()));  
+                                plan.setScene(scenes.get(iscene));
+                                   lScene.remove(scenes.get(iscene));
+                                   this.lPlanning.add(plan);
+                            }
                         }
                     }
                 }
