@@ -28,8 +28,6 @@ public class Plateau {
     private double longitude;
     @Column(name="latitude")
     private double latitude;
-//    @Column(name="etat")
-//    private int etat;
 
     public double getLongitude() {
         return longitude;
@@ -47,14 +45,6 @@ public class Plateau {
         this.latitude = latitude;
     }
 
-//    public int getEtat() {
-//        return etat;
-//    }
-//
-//    public void setEtat(int etat) {
-//        this.etat = etat;
-//    }
-    
     public int getId() {
         return id;
     }
@@ -72,9 +62,6 @@ public class Plateau {
     }
 
     public String getDescription() {
-        if(this.description==null){
-        return "Pas de description";
-        }
         return description;
     }
 

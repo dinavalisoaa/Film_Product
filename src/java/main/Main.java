@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import model.*;
 import service.DialogueService;
+import service.PlannificationService;
 import service.PlateauService;
 import service.SceneService;
 import service.V_DureeDialogueService;
@@ -89,6 +90,15 @@ for (int i = 0; i < lP.size(); i++) {
 //Plateau teau=new Plateau();
 //teau.setId(1);
 //        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
+//        Plateau teau=new Plateau();
+//        teau.setId(1);
+//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
+
+        PlannificationService service = new PlannificationService(dao);
+        List<Date> d = service.distinctDate();
+        for (int i = 0; i < d.size(); i++) {
+            System.out.println(d.get(i));
+        }
     }
 
 }

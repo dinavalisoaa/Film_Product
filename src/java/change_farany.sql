@@ -20,6 +20,7 @@ create table jourferie(
 insert into jourferie values (default,1,5);
 insert into jourferie values (default,25,12);
 alter table scene add column etat int default 0;
+
 create table Plannification(
     id serial primary key,
     "date" date,
