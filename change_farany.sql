@@ -34,4 +34,6 @@ alter table scene add column heure_ideal time;
 
 insert into configuration(cle,valeur)VALUES('pausescene','00:05:00');
 insert into configuration(cle,valeur)VALUES('heuredebut','08:00:00');
+insert into configuration(cle,valeur)VALUES('heurefin','20:00:00');
+
 

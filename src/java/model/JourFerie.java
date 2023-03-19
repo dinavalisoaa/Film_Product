@@ -32,6 +32,7 @@ public class JourFerie {
  public static String file(){
         return "D:\\itu\\img";
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -52,4 +53,5 @@ public class JourFerie {
         this.mois = mois;
     }
     
+}
 }

@@ -59,5 +59,10 @@ sceneId=sec;
     public void setFin(LocalDateTime fin) {
         this.fin = fin;
     }
+
+    @Override
+    public String toString() {
+        return "Planning{" + "sceneId=" + sceneId + ", debut=" + debut.toString() + ", fin=" + fin.toString() + "}";
+    }
     
 }
