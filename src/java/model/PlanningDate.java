@@ -100,13 +100,13 @@ public class PlanningDate {
                 Time debutTravail = heureDebut;
                 List<Plateau> disponible = new PlateauService(dao).allPlateauDispo(dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
-                      System.out.println("disponible:"+disponible.get(i).getId());
+//                      System.out.println("disponible:"+disponible.get(i).getId());
                     ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
-                     System.out.println("iscene:"+scenes.size());
+//                     System.out.println("iscene:"+scenes.size());
                     for (int iscene = 0; iscene < scenes.size(); iscene++) {
                        
                         Time dureeDialogue = scenes.get(iscene).getVdialogue(dao).getTotalDuree();
-                        System.out.println("dialogue:"+dureeDialogue.toString());
+//                        System.out.println("dialogue:"+dureeDialogue.toString());
                         Date dateDeb =new Date(debutP.getTime().getTime());
 
                         LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ debutTravail.toString());

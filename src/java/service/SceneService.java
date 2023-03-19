@@ -83,7 +83,7 @@ public class SceneService {
     public List<Scene> allScene() {
         List<Scene> list = null;
         try {
-            list = dao.findAll(Scene.class);
+            list = dao.findBySql("from Scene where id!=1 ");
         } catch (Exception e) {
             throw e;
         }
@@ -94,7 +94,7 @@ public class SceneService {
         List<Plateau>als=null;
 //        PlateauService seive=new PlateauService(dao);
         try {
-           als=dao.findBySql("from where plateauId="+id);
+           als=dao.findBySql("from plateau where plateauId="+id);
         } catch (Exception e) {
             throw e;
         }

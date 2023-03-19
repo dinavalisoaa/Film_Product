@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -64,15 +63,32 @@ public class Main {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         HibernateDao dao = (HibernateDao) context.getBean("hibernateDAO");
         Film is = new Film();
+        
+        PlanningDate Pd=new PlanningDate();
+        Pd.setFilmId(1);
+        SceneService dina=new SceneService(dao);
+        ArrayList<Scene>ls=(ArrayList<Scene>) dina.allScene();
+        Pd.setlScene(ls);
+        
+//        Pd.set
+        
+        Pd.setPlanning(dao,Date.valueOf("2023-03-19"), Date.valueOf("2023-03-29"));
+ArrayList<Planning>lP=Pd.getlPlanning();
+//        System.err.println(lP.size());
+for (int i = 0; i < lP.size(); i++) {
+            Planning get = lP.get(i);
+          System.err.println(get.getSceneId()+" "+get.getDebut()+" - "+get.getFin());  
+        }
+//Pd.get
 //       Personnage age=new Personnage();
 //       age.setNom("ttt");
 //       age.setPhoto("342");
-        is.setTitre("TITaNIC");
-        PlateauService vice=new PlateauService(dao);
+//        is.setTitre("TITaNIC");
+//        PlateauService vice=new PlateauService(dao);
 //        vice.allPlateau();
-Plateau teau=new Plateau();
-teau.setId(1);
-        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
+//Plateau teau=new Plateau();
+//teau.setId(1);
+//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
     }
 
 }
