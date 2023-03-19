@@ -30,5 +30,13 @@ public class HeurePris {
     public void setFin(LocalTime fin) {
         this.fin = fin;
     }
+
+    public HeurePris() {
+    }
+
+    public HeurePris(LocalTime debut, LocalTime fin) {
+        this.debut = debut;
+        this.fin = fin;
+    }
     
 }
