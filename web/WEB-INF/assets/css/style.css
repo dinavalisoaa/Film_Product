@@ -2244,5 +2244,10 @@ select{
       width: 100%;
   }
 }
+.intervalle{
+    margin-left:30%;
+    display: flex;
+    gap: 25px;
+}
 
 

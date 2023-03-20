@@ -145,7 +145,7 @@
                                             <h3><%=elem.getTitre() %></h3>
                                             <h2>
                                             </h2>
-                                            <a class="btn btn-danger" href="voirPlanning?id=<%=elem.getId() %>&jour=2&&titre=<%=elem.getTitre() %>">Voir Planning</a>
+                                            <a class="btn btn-danger" href="planningForm?idFilm=<%=elem.getId() %>">Créer Planning </a> <a style="margin-left: 10px" class="btn btn-danger" href="voirPlanning?id=<%=elem.getId() %>&jour=2&&titre=<%=elem.getTitre() %>">Voir Planning</a>
                                         </div>
                                     </div>
                             

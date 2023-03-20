@@ -124,9 +124,6 @@ public class PlateauService {
         }
         return p;
     }
-    /*SELECT *, haversine_distance(-18.419416, 3.7749, latitude, longitude) as dist 
-FROM plateau 
-ORDER BY dist;*/
      public List<Plateau> allPlateauDispo(double latitude,double longitude,String date1) {
         List<Plateau> list = null;
         try {

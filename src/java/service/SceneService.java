@@ -5,6 +5,7 @@
  */
 package service;
 
+import Util.Concat;
 import dao.HibernateDao;
 import java.sql.Date;
 import java.sql.Time;
@@ -260,7 +261,7 @@ public class SceneService {
     }
 
     public static ArrayList<Planning> setPlanning(HibernateDao dao, int filmId) throws Exception {
-        V_DureeDialogueService sa = new V_DureeDialogueService(dao);;
+        V_DureeDialogueService sa = new V_DureeDialogueService(dao);
 
         List<V_DureeDialogue> su = sa.alllisteDureeDialogue(filmId);
         Time tamp = null;
@@ -379,5 +380,15 @@ public class SceneService {
         }
         return p;
     }
-
+    public List<Scene> listeScene(String [] idScene){
+        String lscene = Concat.strcatV(idScene);
+        String req = "from Scene where id in ("+lscene+")";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
 }

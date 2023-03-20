@@ -30,7 +30,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.FilmService;
 import service.PlateauService;
@@ -85,5 +85,19 @@ public class PlanningController {
         m.addAttribute("id", Integer.valueOf(req.getParameter("id")));
 
         return "voirPlanning";
+    }
+    @RequestMapping(value = "/planningForm", method= GET)
+    public String planningForm(@RequestParam(value="idFilm") int idFilm,Model m){
+        m.addAttribute("scene", new SceneService(dao).listeScene(idFilm));
+       return "createPlanning";
+    }
+    @RequestMapping(value= "/creerPlanning", method= GET)
+    public String creerPlanning(@RequestParam(value="debut") String debut,@RequestParam(value="fin") String fin,@RequestParam(value="scene") String[] idScene,Model m){
+        List <Scene> selectionne = new SceneService(dao).listeScene(idScene);
+        PlanningDate plan = new PlanningDate();
+        plan.setlScene(selectionne);
+        plan.setPlanning(dao, Date.valueOf(debut),Date.valueOf(fin));
+        m.addAttribute("planning", plan);
+        return "planningDisplay";
     }
 }

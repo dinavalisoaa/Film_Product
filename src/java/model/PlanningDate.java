@@ -26,12 +26,21 @@ import service.V_DureeDialogueService;
  * @author Tolotra
  */
 public class PlanningDate {
-
     private int filmId;
     private ArrayList<Planning> lPlanning = new ArrayList();
-    private ArrayList<Scene> lScene = new ArrayList();
+    private List<Scene> lScene = new ArrayList();
     private Position positionPersonne;
     private ArrayList<Time> heurePris;
+    private List<Calendar> lDate = new ArrayList();
+
+    public List<Calendar> getlDate() {
+        return lDate;
+    }
+
+    public void setlDate(List<Calendar> lDate) {
+        this.lDate = lDate;
+    }
+    
     public Position getPositionPersonne() {
         return positionPersonne;
     }
@@ -48,11 +57,11 @@ public class PlanningDate {
         this.heurePris = heurePris;
     }
 
-    public ArrayList<Scene> getlScene() {
+    public List<Scene> getlScene() {
         return lScene;
     }
 
-    public void setlScene(ArrayList<Scene> lScene) {
+    public void setlScene(List<Scene> lScene) {
         this.lScene = lScene;
     }
 
@@ -116,6 +125,7 @@ public class PlanningDate {
                             plan.setSceneId(scenes.get(iscene).getId());
                             if(scenes.get(iscene).getHeure_ideal() == null){
                                     plan.setDebut(deb);
+                                    plan.setDate(debutP);
                                LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
@@ -130,6 +140,7 @@ public class PlanningDate {
                                }
                             }
                             else{
+                                plan.setDate(debutP);
                                 deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ scenes.get(iscene).getHeure_ideal().toString());
                                 plan.setDebut(deb);
                                 LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
@@ -144,6 +155,7 @@ public class PlanningDate {
                     }
                 }
             }
+            lDate.add(debutP);
             debutP.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
