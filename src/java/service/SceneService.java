@@ -56,7 +56,7 @@ public class SceneService {
 
     public void updateScene(int id, String titre, int numero, int plateauId) {
         String sql = "update Scene set titre='" + titre + "',numero=" + numero + ",plateauId=" + plateauId + " where Id=" + id;
-        dao.updateBySql(sql);
+        dao.updateBySql(sql); 
     }
 
     public Scene getScene(int idFilm, int scene) {

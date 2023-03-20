@@ -35,6 +35,11 @@ public class Main {
 
         for (int i = 0; i < date.getlPlanning().size(); i++) {
             System.out.println(date.getlPlanning().get(i).toString());
+           // System.out.println(date.getlPlanning().get(i).getDate().getTime().toString());
+
+        }
+        for(int i = 0; i<date.getlDate().size(); i++){
+            System.out.println(":"+date.getlDate().get(i).getTime().toString());
         }
     }
 
