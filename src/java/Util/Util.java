@@ -20,7 +20,7 @@ import java.util.Vector;
 public class Util {
     public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
        Class.forName("org.postgresql.Driver");
-        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/produit", "postgres", "1234");   
+        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/film", "dina", "dina");   
         return connectionSql;
         
     }

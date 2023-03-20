@@ -1,36 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package main;
-
 import dao.HibernateDao;
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import model.*;
-import service.DialogueService;
-import service.PlannificationService;
-import service.PlateauService;
-import service.SceneService;
-import service.V_DureeDialogueService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.*;
 
 /**
  *
- * @author P14_A_111_Dina
+ * @author Tolotra
  */
 public class Main {
 
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        HibernateDao dao = context.getBean(HibernateDao.class);
+        PlanningDate date = new PlanningDate();
+        List<Scene> liste = new SceneService(dao).listeScene(1);
+        for (int i = 0; i < liste.size(); i++) {
+            date.getlScene().add(liste.get(i));
+        }
+        date.setPlanning(dao, Date.valueOf("2023-03-18"), Date.valueOf("2023-03-22"));
+        System.out.println(date.getlPlanning().size());
+        System.out.println(date.getlScene().size());
 
         for (int i = 0; i < date.getlPlanning().size(); i++) {
             System.out.println(date.getlPlanning().get(i).toString());
@@ -40,25 +32,6 @@ public class Main {
         for(int i = 0; i<date.getlDate().size(); i++){
             System.out.println(":"+date.getlDate().get(i).getTime().toString());
         }
-//Pd.get
-//       Personnage age=new Personnage();
-//       age.setNom("ttt");
-//       age.setPhoto("342");
-//        is.setTitre("TITaNIC");
-//        PlateauService vice=new PlateauService(dao);
-//        vice.allPlateau();
-//Plateau teau=new Plateau();
-//teau.setId(1);
-//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
-//        Plateau teau=new Plateau();
-//        teau.setId(1);
-//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
-
-//        PlannificationService service = new PlannificationService(dao);
-//        List<Date> d = service.distinctDate();
-//        for (int i = 0; i < d.size(); i++) {
-//            System.out.println(d.get(i));
-//        }
     }
-
 }
+

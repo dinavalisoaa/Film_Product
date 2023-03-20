@@ -100,9 +100,16 @@ public class PlanningController {
     }
     @RequestMapping(value= "/creerPlanning", method= RequestMethod.GET)
     public String creerPlanning(@RequestParam(value="debut") String debut,@RequestParam(value="fin") String fin,@RequestParam(value="scene[]") String[] idScene,Model m){
+        ArrayList<Scene>se=new ArrayList();
+           SceneService vice=new SceneService(dao);
+        for (int i = 0; i < idScene.length; i++) {
+            String string = idScene[i];
+            Scene scn=vice.getScene(Integer.parseInt(string));
+            se.add(scn);
+        }
         List <Scene> selectionne = new SceneService(dao).listeScene(1);
         PlanningDate plan = new PlanningDate();
-        plan.setlScene((ArrayList<Scene>) selectionne);
+        plan.setlScene(se);
         plan.setPlanning(dao, Date.valueOf(debut),Date.valueOf(fin));
         m.addAttribute("planning", plan);
         return "planningDisplay";

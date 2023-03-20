@@ -67,6 +67,7 @@ public class Scene {
     public V_DureeDialogue getVdialogue(HibernateDao dao) {
         if(this.vdialogue == null){
             V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+            System.out.println("----"+id);
             vdialogue = vs.listeDureeDialogue(id).get(0);
         }
         return vdialogue;
