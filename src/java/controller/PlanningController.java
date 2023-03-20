@@ -97,6 +97,9 @@ public class PlanningController {
         PlanningDate plan = new PlanningDate();
         plan.setlScene(selectionne);
         plan.setPlanning(dao, Date.valueOf(debut),Date.valueOf(fin));
+        
+       
+        m.addAttribute("plateau",plan.plateauDistinct());
         m.addAttribute("planning", plan);
         return "planningDisplay";
     }

@@ -172,5 +172,22 @@ public class PlanningDate {
         }
         return val;
     }
-
+    public List<Plateau> plateauDistinct(){
+        List<Plateau> lPlateau = new ArrayList();
+        for(int i = 0; i<this.getlPlanning().size(); i++){
+            Plateau init = this.getlPlanning().get(i).getScene().getPlateau();
+            int count = 0;
+            for(int j = 0; j<lPlateau.size(); j++){
+                if(lPlateau.get(j).getId() == init.getId()){
+                   count++;
+                   break;
+                }
+            }
+            if(count == 0){
+                lPlateau.add(init);
+            }
+            
+        }
+        return lPlateau;
+    }
 }
