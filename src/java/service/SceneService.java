@@ -79,6 +79,16 @@ public class SceneService {
         }
         return list;
     }
+public List<Scene> getParPlateau(int idFilm) {
+        String req = "from Scene where plateauId = " + idFilm + " ";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
 
     public List<Scene> allScene() {
         List<Scene> list = null;

@@ -70,7 +70,7 @@ public class FilmController {
         String files = req.getParameter("file");
         String titre = req.getParameter("titre");
 
-        String files_ = "data:image/png;base64, " + FilmService.convert("D:\\itu\\img\\" + files);
+        String files_ = "data:image/png;base64, " + FilmService.convert("E:\\ITU\\img\\" + files);
         System.err.println("-->" + files_);
         FilmService sic=new FilmService(dao);
         Film film=new Film();

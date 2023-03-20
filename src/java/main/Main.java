@@ -94,11 +94,11 @@ for (int i = 0; i < lP.size(); i++) {
 //        teau.setId(1);
 //        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
 
-        PlannificationService service = new PlannificationService(dao);
-        List<Date> d = service.distinctDate();
-        for (int i = 0; i < d.size(); i++) {
-            System.out.println(d.get(i));
-        }
+//        PlannificationService service = new PlannificationService(dao);
+//        List<Date> d = service.distinctDate();
+//        for (int i = 0; i < d.size(); i++) {
+//            System.out.println(d.get(i));
+//        }
     }
 
 }

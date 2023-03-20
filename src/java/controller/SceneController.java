@@ -90,7 +90,9 @@ public class SceneController {
         System.out.println("----"+liste.get(0).getDescription());
         int idFilm = Integer.parseInt(req.getParameter("film").trim());
         SceneService scene_service = new SceneService(dao);
+//        scene_service.get
         DialogueService dia=new DialogueService(dao);
+//        dia.get
         List<Scene> scene = null;        List<Dialogue> logue = null;
 
         if(req.getParameter("search") == null){
@@ -105,7 +107,8 @@ public class SceneController {
         }
         m.addAttribute("plateau", liste);
         m.addAttribute("scene", scene);
-        m.addAttribute("service",service);          m.addAttribute("diS",dia);    
+        m.addAttribute("service",service);  
+        m.addAttribute("diS",dia);    
   
         m.addAttribute("dialogue", logue);
 

@@ -66,7 +66,9 @@ public class PlanningController {
         List<Film> fils = ser.allFilm();
         m.addAttribute("film", fils);
         return "planning";
-    }@RequestMapping(value = "/calendar")
+    }
+
+    @RequestMapping(value = "/calendar")
     public String cal(HttpServletRequest req, Model m) {
 //        FilmService ser = new FilmService(dao);
 //        List<Film> fils = ser.allFilm();
@@ -78,18 +80,31 @@ public class PlanningController {
     public String voirPlanning(HttpServletRequest req, Model m) throws Exception {
 //        FilmService ser=new FilmService(dao);
         SceneService ser = new SceneService(dao);
-        ArrayList<Planning> lifs =ser.setPlannings(dao, Integer.valueOf(req.getParameter("id")), Integer.valueOf(req.getParameter("jour")));
-        ArrayList<Integer> tinct = SceneService.distinct(dao,  Integer.valueOf(req.getParameter("id")));
+        ArrayList<Planning> lifs = ser.setPlannings(dao, Integer.valueOf(req.getParameter("id")), Integer.valueOf(req.getParameter("jour")));
+        ArrayList<Integer> tinct = SceneService.distinct(dao, Integer.valueOf(req.getParameter("id")));
 
         m.addAttribute("film", lifs);
-                m.addAttribute("titre", req.getParameter("titre"));
+        m.addAttribute("titre", req.getParameter("titre"));
 
         m.addAttribute("distinct", tinct);
-                m.addAttribute("jour", req.getParameter("jour"));
-
+        m.addAttribute("jour", req.getParameter("jour"));
 
         m.addAttribute("id", Integer.valueOf(req.getParameter("id")));
 
         return "voirPlanning";
+    }
+     @RequestMapping(value = "/planningForm", method= RequestMethod.GET)
+    public String planningForm(@RequestParam(value="idFilm") int idFilm,Model m){
+        m.addAttribute("scene", new SceneService(dao).listeScene(idFilm));
+       return "createPlanning";
+    }
+    @RequestMapping(value= "/creerPlanning", method= RequestMethod.GET)
+    public String creerPlanning(@RequestParam(value="debut") String debut,@RequestParam(value="fin") String fin,@RequestParam(value="scene[]") String[] idScene,Model m){
+        List <Scene> selectionne = new SceneService(dao).listeScene(1);
+        PlanningDate plan = new PlanningDate();
+        plan.setlScene((ArrayList<Scene>) selectionne);
+        plan.setPlanning(dao, Date.valueOf(debut),Date.valueOf(fin));
+        m.addAttribute("planning", plan);
+        return "planningDisplay";
     }
 }

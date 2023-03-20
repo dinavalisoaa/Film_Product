@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import model.Dialogue;
+import model.Personnage;
 import model.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -67,6 +68,16 @@ public class DialogueService {
             throw e;
         }
         return list;
+    }
+ public Personnage getPersonnage(int idScene) {
+        String req = "from Personnage where id="+idScene;
+        List<Personnage> list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list.get(0);
     }
 
     public int getLastNumero(int idScene) {

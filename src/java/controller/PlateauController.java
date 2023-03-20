@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.FilmService;
 import service.PlateauService;
+import service.SceneService;
 
 /**
  *
@@ -69,6 +70,7 @@ public class PlateauController {
     @RequestMapping(value = "/liste_plateau")
     public String liste_plateau(HttpServletRequest rq, Model m) {
         PlateauService service = new PlateauService(dao);
+//        service.
         List<Plateau> liste = service.allPlateau();
         String date = LocalDate.now().toString();
         if (rq.getParameter("date") != null) {
@@ -79,8 +81,20 @@ public class PlateauController {
         m.addAttribute("dispo", nD);
         m.addAttribute("date", date);
         m.addAttribute("etat", 0);
+        
 
         return "dispo_plateau";
+    } @RequestMapping(value = "/detail_plateau")
+    public String detail_plateau(HttpServletRequest rq, Model m) {
+        SceneService service = new SceneService(dao);
+        PlateauService pSer=new PlateauService(dao);
+        List<Scene> liste = service.getParPlateau(Integer.parseInt(rq.getParameter("id")));
+        Plateau iray=pSer.getPlateauById(Integer.parseInt(rq.getParameter("id")));
+        m.addAttribute("scene",liste);
+                m.addAttribute("plateau",iray);
+
+
+        return "detail_plateau";
     }
 
     @RequestMapping(value = "/liste_plateau_dispo")

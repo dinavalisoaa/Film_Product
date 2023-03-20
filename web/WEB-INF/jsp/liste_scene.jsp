@@ -25,6 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> E-Film </title>
         <!-- favicon -->
+                  <link rel="stylesheet" href="assets/css/index.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <!-- bootstrap -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -172,7 +173,7 @@
                                         <div class="card">
                                             <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-img">
-                                                    <img src="assets/img/gallery-3.jpg" alt="">
+                                                    <img src="<%=d.getPersonnage(elem.getPersonnageId()).getPhoto() %>" alt="">
                                                 </div>
                                                 <div class="part-text">
                                                     <h3>Acteur<%=elem.getPersonnageId()%>:<p><%=elem.getContenu() %></p></h3>
@@ -260,6 +261,7 @@
             <!-- way poin js-->
             <script src="assets/js/waypoints.min.js"></script>
             <!-- wow js-->
+                <script src="assets/js/index.js"></script>
             <script src="assets/js/wow.min.js"></script>
             <!-- main -->
             <script src="assets/js/main.js"></script>

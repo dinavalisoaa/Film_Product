@@ -29,7 +29,7 @@ public class PlanningDate {
 
     private int filmId;
     private ArrayList<Planning> lPlanning = new ArrayList();
-    private ArrayList<Scene> lScene = new ArrayList();
+    private List<Scene> lScene = new ArrayList();
     private Position positionPersonne;
     private ArrayList<Time> heurePris;
     public Position getPositionPersonne() {
@@ -48,11 +48,11 @@ public class PlanningDate {
         this.heurePris = heurePris;
     }
 
-    public ArrayList<Scene> getlScene() {
+    public List<Scene> getlScene() {
         return lScene;
     }
 
-    public void setlScene(ArrayList<Scene> lScene) {
+    public void setlScene(List<Scene> lScene) {
         this.lScene = lScene;
     }
 
@@ -101,13 +101,13 @@ public class PlanningDate {
                 Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
                 List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
-//                      System.out.println("disponible:"+disponible.get(i).getId());
+                      System.out.println("disponible:"+disponible.get(i).getId());
                     ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
-//                     System.out.println("iscene:"+scenes.size());
+                     System.out.println("iscene:"+scenes.size());
                     for (int iscene = 0; iscene < scenes.size(); iscene++) {
                        
                         Time dureeDialogue = scenes.get(iscene).getVdialogue(dao).getTotalDuree();
-//                        System.out.println("dialogue:"+dureeDialogue.toString());
+                        System.out.println("dialogue:"+dureeDialogue.toString());
                         Date dateDeb =new Date(debutP.getTime().getTime());
 
                         LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ debutTravail.toString());
