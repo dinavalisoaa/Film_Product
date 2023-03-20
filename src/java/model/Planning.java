@@ -7,6 +7,7 @@ package model;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +31,16 @@ public class Planning {
     }
     
     Scene scene;
+    Calendar date;
 
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
+    }
+    
     public Scene getScene() {
         return scene;
     }

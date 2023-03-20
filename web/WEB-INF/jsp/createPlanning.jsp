@@ -90,7 +90,7 @@
 
                         <% for (int idx = 0; idx < scene.size(); idx++) {%>
                         <div class="col-xl-4 col-lg-4 col-sm-6">
-                            <input type="checkbox" name="scene[]" value="<%= scene.get(idx).getId()%>"/>
+                            <input type="checkbox" name="scene" value="<%= scene.get(idx).getId()%>"/>
                             <div class="single-img" id="card-scene">
                                 <b style="color: white"><%= scene.get(idx).getTitre()%></b>
                             </div>
@@ -98,7 +98,7 @@
                         <% }%>  
                     </div>
                     <div class="form-scene-item">
-                        <button type="submit">Créer</button>
+                        <button type="submit">Crï¿½er</button>
                     </div>    
                 </form>
             </div>

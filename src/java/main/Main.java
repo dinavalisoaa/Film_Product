@@ -32,53 +32,13 @@ import service.V_DureeDialogueService;
 public class Main {
 
 
-    public static String timestampAdd(String datetime, int val) {
+        for (int i = 0; i < date.getlPlanning().size(); i++) {
+            System.out.println(date.getlPlanning().get(i).toString());
+           // System.out.println(date.getlPlanning().get(i).getDate().getTime().toString());
 
-        String str = datetime;
-        str = str.split("\\.")[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        LocalDateTime d = dateTime.plusHours(val);
-        String fats = d.toString();
-        String m1 = fats.split("T")[0];
-        String m2 = fats.split("T")[1];
-        return m1 + " " + m2;
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static String addTwoTimestamp(String t1, String t2) throws Exception {
-//    t1
-        Time time1 = Time.valueOf(t1);
-        Time time2 = Time.valueOf(t2);
-
-        // Adding the two times
-        Time resultTime = new Time(time1.getTime() + time2.getTime());
-        return resultTime.toString();
-    }
-
-    public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        HibernateDao dao = (HibernateDao) context.getBean("hibernateDAO");
-        Film is = new Film();
-        
-        PlanningDate Pd=new PlanningDate();
-        Pd.setFilmId(1);
-        SceneService dina=new SceneService(dao);
-        ArrayList<Scene>ls=(ArrayList<Scene>) dina.allScene();
-        Pd.setlScene(ls);
-        
-//        Pd.set
-        
-        Pd.setPlanning(dao,Date.valueOf("2023-03-19"), Date.valueOf("2023-03-29"));
-ArrayList<Planning>lP=Pd.getlPlanning();
-//        System.err.println(lP.size());
-for (int i = 0; i < lP.size(); i++) {
-            Planning get = lP.get(i);
-          System.err.println(get.getSceneId()+" "+get.getDebut()+" - "+get.getFin());  
+        }
+        for(int i = 0; i<date.getlDate().size(); i++){
+            System.out.println(":"+date.getlDate().get(i).getTime().toString());
         }
 //Pd.get
 //       Personnage age=new Personnage();

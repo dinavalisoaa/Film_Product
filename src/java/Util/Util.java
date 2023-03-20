@@ -18,12 +18,12 @@ import java.util.Vector;
  * @author Tolotra
  */
 public class Util {
-//    public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
-//       Class.forName("org.postgresql.Driver");
-//        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/produit", "postgres", "1234");   
-//        return connectionSql;
-//        
-//    }
+    public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+       Class.forName("org.postgresql.Driver");
+        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/produit", "postgres", "1234");   
+        return connectionSql;
+        
+    }
     public static String[] vectorToArray(Vector<String> v){
         String [] array = new String[v.size()];
         array = v.toArray(array);
