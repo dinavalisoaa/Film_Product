@@ -187,11 +187,14 @@
 
                                     <div class="box1"> <div class="">
                                             <div class="part-img">
-//                                                <img src="assets/img/banner-bottom-img.jpg" alt="">
+
                                             </div>
                                             <div class="part-text">
+                                                <h3>
+                                                     <%=elem.getNom()%>
+                                                </h3>
                                                 <span class="commentor-name">
-                                                    <%=elem.getNom()%>
+                                                   
                                                 </span>
                                                 <p>
                                                     <%=elem.getDescription()%>
@@ -210,7 +213,7 @@
 
                                                    <a href="detail_plateau?id=<%=elem.getId() %>" class="btn btn-danger">
                                                         Indisponible 
-                                                        <%= vice.getById(elem.getId()).getDate1() %>
+                                                        <%//= vice.getById(elem.getId()).getDate1() %>
                                                     </a>
                                                     <%
                                                         }

@@ -115,9 +115,21 @@ public class PlateauController {
         service.insertPlateauIndispo(pI);
         return "redirect:liste_plateau";
     }
-    
+
     @RequestMapping(value = "/popup")
-    public String add_indispo(HttpServletRequest req, Model m) {
+    public String popup(HttpServletRequest req, Model m) {
+        PlateauService service = new PlateauService(dao);
+        double lg = Double.valueOf(req.getParameter("lng"));
+        double lat = Double.valueOf(req.getParameter("lat"));
+        Plateau teau = service.getByCoord(lg, lat);
+        m.addAttribute("plateau", teau);
         return "popup";
+    }
+
+    @RequestMapping(value = "/map")
+    public String map(HttpServletRequest req, Model m) {
+        PlateauService service = new PlateauService(dao);
+        m.addAttribute("plateau", service.allPlateau());
+        return "map";
     }
 }

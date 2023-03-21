@@ -12,7 +12,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
 }).addTo(map);
 
-function addMarkers() {
+function addMarkers(params) {
     params.forEach((value)=>{
         // alert(JSON.stringify(value));
         let marker = L.marker(value);
@@ -29,7 +29,7 @@ function addMarkers() {
                 // document.getElementById("demo").innerHTML = ;
             }
         
-            xhr.open("GET","http://localhost:8000/Production_Film/popup?lat="+e.latlng.lat+"&lng="+e.latlng.lng);
+            xhr.open("GET","http://localhost:8000/popup?lat="+e.latlng.lat+"&lng="+e.latlng.lng);
             xhr.send();
         })
         marker.addTo(map);

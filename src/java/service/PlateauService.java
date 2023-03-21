@@ -65,11 +65,21 @@ public class PlateauService {
         return list;
     }
  
+ public Plateau getByCoord(double lg,double lt) {
+        List<Plateau> list = null;
+        try {
+            list = dao.findBySql("from plateau where longitude="+lg+" and  latitude="+lt);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list.get(0);
+    }
  public PlateauIndisponible getById(int id) {
         List<PlateauIndisponible> list = null;
         try {
             list = dao.findBySql("from plateauindisponible where plateauid="+id);
         } catch (Exception e) {
+           
             throw e;
         }
         return list.get(0);
