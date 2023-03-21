@@ -102,6 +102,8 @@ public class PlateauService {
         }
         return list;
     }
+ 
+ 
     public List<Plateau> allPlateau() {
         List<Plateau> list = null;
         try {

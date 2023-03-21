@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import service.ConfigurationService;
 import service.JourFerieService;
 import service.PlateauService;
+import service.SceneService;
 import service.V_DureeDialogueService;
 
 /**
@@ -130,7 +131,7 @@ public class PlanningDate {
                 List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
                       System.out.println("disponible:"+disponible.get(i).getId());
-                    ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
+                    ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId(),dateFormat.format(debutP.getTime()),dao);
                      System.out.println("iscene:"+scenes.size());
                     for (int iscene = 0; iscene < scenes.size(); iscene++) {
                        scenes.get(iscene).getPlateau(dao);
@@ -178,13 +179,16 @@ public class PlanningDate {
         }
     }
 
-    public ArrayList<Scene> getByPlateau(int idPlateau) {
+    public ArrayList<Scene> getByPlateau(int idPlateau,String date,HibernateDao dao) {
         ArrayList<Scene> val = new ArrayList();
+        SceneService scene=new SceneService(dao);
+        
         for (int i = 0; i < this.getlScene().size(); i++) {
-            if (this.getlScene().get(i).getPlateauId()== idPlateau) {
+            if (this.getlScene().get(i).getPlateauId()== idPlateau && scene.verifierScene(this.getlScene().get(i).getId(), date)==false) {
                 val.add(this.getlScene().get(i));
             }
         }
+        
         return val;
     }
     public List<Plateau> plateauDistinct(){

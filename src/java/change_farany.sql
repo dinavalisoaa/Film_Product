@@ -12,6 +12,14 @@ create table plateauIndisponible(
     date1 date,
     date2 date
 );
+
+create table PersonnageIndisponible(
+    id serial primary key,
+    personnageId int,
+    foreign key(personnageId) references personnage(Id),
+    date1 date,
+    date2 date
+);
 create table jourferie(
     id serial,
     jour int,

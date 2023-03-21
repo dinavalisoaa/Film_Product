@@ -56,9 +56,9 @@ public class SceneService {
 
     public void updateScene(int id, String titre, int numero, int plateauId) {
         String sql = "update Scene set titre='" + titre + "',numero=" + numero + ",plateauId=" + plateauId + " where Id=" + id;
-        dao.updateBySql(sql); 
+        dao.updateBySql(sql);
     }
-        
+
     public Scene getScene(int idFilm, int scene) {
         String req = "from Scene where filmId = " + idFilm + "";
         List list = null;
@@ -70,6 +70,7 @@ public class SceneService {
         return (Scene) list.get(0);
     }
 
+//     select *from scene where id in (select sceneid from dialogue where personnageid in(select personnageid from personnageindisponible where date('2023-03-21') between date1 and date2));
     public List<Scene> listeScene(int idFilm) {
         String req = "from Scene where id in(1, 2, 3, 5, 6,10,11,13,14,15,16,17) order by numero";
         List list = null;
@@ -80,7 +81,34 @@ public class SceneService {
         }
         return list;
     }
-public List<Scene> getParPlateau(int idFilm) {
+
+    public List<Scene> listeSceneByDate(String date) {
+        String req = "from Scene where id in (select sceneId from Dialogue where personnageId in( select personnageId from PersonnageIndisponible where date('" + date + "') between date1 and date2))";
+        List<Scene> list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+
+    public boolean verifierScene(int id, String date) {
+        List<Scene> list = listeSceneByDate(date);
+        for (int i = 0; i < list.size(); i++) {
+            Scene get = list.get(i);
+            if (get.getId() == id) {
+                return true;
+            } else {
+                System.err.println("########" + id + "##################################################################################");
+
+            }
+        }
+        return false;
+    }
+//    public /
+
+    public List<Scene> getParPlateau(int idFilm) {
         String req = "from Scene where plateauId = " + idFilm + " ";
         List list = null;
         try {
@@ -101,21 +129,21 @@ public List<Scene> getParPlateau(int idFilm) {
         return list;
     }
 
-    public  Plateau getPlateau(int id) {
-        List<Plateau>als=null;
+    public Plateau getPlateau(int id) {
+        List<Plateau> als = null;
 //        PlateauService seive=new PlateauService(dao);
         try {
-           als=dao.findBySql("from Plateau where id="+id);
+            als = dao.findBySql("from Plateau where id=" + id);
         } catch (Exception e) {
             throw e;
         }
         return als.get(0);
     }
-    
+
     public Scene getScene(int id) {
-        List<Scene> als=null;
+        List<Scene> als = null;
         try {
-           als=dao.findBySql("from Scene where id="+id);
+            als = dao.findBySql("from Scene where id=" + id);
         } catch (Exception e) {
             throw e;
         }
@@ -187,7 +215,6 @@ public List<Scene> getParPlateau(int idFilm) {
         Time finbreak = service.getConfig("finbreak").getValeur();
         Time debutbreak = service.getConfig("debutbreak").getValeur();
 //                Time datedebut = service.getConfig("debutbreak").getValeur();
-
 
         Timestamp tamp2 = null;
         LocalDateTime date = null;
@@ -400,9 +427,10 @@ public List<Scene> getParPlateau(int idFilm) {
         }
         return p;
     }
-    public List<Scene> listeScene(String [] idScene){
+
+    public List<Scene> listeScene(String[] idScene) {
         String lscene = Concat.strcatV(idScene);
-        String req = "from Scene where id in ("+lscene+")";
+        String req = "from Scene where id in (" + lscene + ")";
         List list = null;
         try {
             list = dao.findBySql(req);
