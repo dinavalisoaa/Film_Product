@@ -46,9 +46,28 @@ public class Scene {
     private Time heure_ideal;
     @Transient
     private V_DureeDialogue vdialogue;
+    @Transient
+    private Plateau plateau;
+
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
+    public Plateau getPlateau(HibernateDao dao) {
+        if(this.plateau == null){
+            plateau = new PlateauService(dao).getPlateauById(this.plateauId);
+        }
+        return plateau;
+    }
+
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
+    }
+    
     public V_DureeDialogue getVdialogue(HibernateDao dao) {
         if(this.vdialogue == null){
             V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+            System.out.println("----"+id);
             vdialogue = vs.listeDureeDialogue(id).get(0);
         }
         return vdialogue;

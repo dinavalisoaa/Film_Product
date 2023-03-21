@@ -1,104 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package main;
-
 import dao.HibernateDao;
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import model.*;
-import service.DialogueService;
-import service.PlannificationService;
-import service.PlateauService;
-import service.SceneService;
-import service.V_DureeDialogueService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.*;
 
 /**
  *
- * @author P14_A_111_Dina
+ * @author Tolotra
  */
 public class Main {
 
-
-    public static String timestampAdd(String datetime, int val) {
-
-        String str = datetime;
-        str = str.split("\\.")[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        LocalDateTime d = dateTime.plusHours(val);
-        String fats = d.toString();
-        String m1 = fats.split("T")[0];
-        String m2 = fats.split("T")[1];
-        return m1 + " " + m2;
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static String addTwoTimestamp(String t1, String t2) throws Exception {
-//    t1
-        Time time1 = Time.valueOf(t1);
-        Time time2 = Time.valueOf(t2);
-
-        // Adding the two times
-        Time resultTime = new Time(time1.getTime() + time2.getTime());
-        return resultTime.toString();
-    }
-
-    public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        HibernateDao dao = (HibernateDao) context.getBean("hibernateDAO");
-        Film is = new Film();
-        
-        PlanningDate Pd=new PlanningDate();
-        Pd.setFilmId(1);
-        SceneService dina=new SceneService(dao);
-        ArrayList<Scene>ls=(ArrayList<Scene>) dina.allScene();
-        Pd.setlScene(ls);
-        
-//        Pd.set
-        
-        Pd.setPlanning(dao,Date.valueOf("2023-03-19"), Date.valueOf("2023-03-29"));
-ArrayList<Planning>lP=Pd.getlPlanning();
-//        System.err.println(lP.size());
-for (int i = 0; i < lP.size(); i++) {
-            Planning get = lP.get(i);
-          System.err.println(get.getSceneId()+" "+get.getDebut()+" - "+get.getFin());  
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        HibernateDao dao = context.getBean(HibernateDao.class);
+        PlanningDate date = new PlanningDate();
+        List<Scene> liste = new SceneService(dao).listeScene(1);
+        for (int i = 0; i < liste.size(); i++) {
+            date.getlScene().add(liste.get(i));
         }
-//Pd.get
-//       Personnage age=new Personnage();
-//       age.setNom("ttt");
-//       age.setPhoto("342");
-//        is.setTitre("TITaNIC");
-//        PlateauService vice=new PlateauService(dao);
-//        vice.allPlateau();
-//Plateau teau=new Plateau();
-//teau.setId(1);
-//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
-//        Plateau teau=new Plateau();
-//        teau.setId(1);
-//        System.out.println(vice.isDisponible(teau,Date.valueOf("2023-04-02")));
+        date.setPlanning(dao, Date.valueOf("2023-03-18"), Date.valueOf("2023-03-22"));
+        System.out.println(date.getlPlanning().size());
+        System.out.println(date.getlScene().size());
 
-        PlannificationService service = new PlannificationService(dao);
-        List<Date> d = service.distinctDate();
-        for (int i = 0; i < d.size(); i++) {
-            System.out.println(d.get(i));
+        for (int i = 0; i < date.getlPlanning().size(); i++) {
+            System.out.println(date.getlPlanning().get(i).toString());
+           // System.out.println(date.getlPlanning().get(i).getDate().getTime().toString());
+
+        }
+        for(int i = 0; i<date.getlDate().size(); i++){
+            System.out.println(":"+date.getlDate().get(i).getTime().toString());
         }
     }
-
 }
+

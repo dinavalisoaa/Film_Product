@@ -2236,6 +2236,7 @@ select{
     font-size: 12px;
     font-weight: bold;
 }
+
 @media (max-width:1350px) {
   .form-scene-content {
       padding: 50px !important;

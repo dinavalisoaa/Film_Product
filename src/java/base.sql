@@ -123,6 +123,33 @@ INSERT INTO Scene VALUES(DEFAULT,'scene4',4,2,1,null,1,null);
 INSERT INTO Scene VALUES(DEFAULT,'scene5',5,2,1,null,1,null);
 INSERT INTO Scene VALUES(DEFAULT,'scene6',6,3,1,null,1,null);
 
+
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene3 theme Bois',1,1,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene2 theme Road ',2,1,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene3 Musical',3,3,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene4 Funebre',4,4,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene5 Focus',5,5,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6 Chant',6,6,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6 Fermier',6,7,1);
+
+
+
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene3 theme Bois',1,8,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene2 theme Road ',2,9,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene3 Musical',3,10,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene4 Funebre',4,1,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene5 Focus',5,2,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6 Chant',6,4,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6 Fermier',5,7,1);
+
+
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6 theme Bois',1,8,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene7 theme Road ',2,9,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene8 Musical',3,10,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene9 Funebre',4,1,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene5A Focus',5,2,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6B Chant',6,5,1);
+INSERT INTO Scene (id,titre,numero,plateauId,filmId)VALUES(DEFAULT,'scene6O Fermier',5,7,1);
 INSERT INTO Dialogue VALUES(DEFAULT,'contenu1',1,1,'00:25:00',2,'action');
 INSERT INTO Dialogue VALUES(DEFAULT,'contenu2',1,1,'00:25:00',2,'action');
 INSERT INTO Dialogue VALUES(DEFAULT,'contenu3',1,1,'00:25:00',2,'action');

@@ -161,14 +161,14 @@
                                                     <%   if (Integer.valueOf(request.getAttribute("etat").toString()) == 1) {
                                                     %>
 
-                                                    <a href="#" class="btn btn-success">
+                                                    <a href="detail_plateau?id=<%=elem.getId() %>" class="btn btn-success">
                                                         Diponible
                                                     </a>
                                                     <%
                                                     } else {
                                                     %>
 
-                                                    <a href="#" class="btn btn-danger">
+                                                   <a href="detail_plateau?id=<%=elem.getId() %>" class="btn btn-danger">
                                                         Indisponible 
                                                     </a>
                                                     <%

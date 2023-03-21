@@ -26,12 +26,21 @@ import service.V_DureeDialogueService;
  * @author Tolotra
  */
 public class PlanningDate {
-
     private int filmId;
     private ArrayList<Planning> lPlanning = new ArrayList();
-    private ArrayList<Scene> lScene = new ArrayList();
+    private List<Scene> lScene = new ArrayList();
     private Position positionPersonne;
     private ArrayList<Time> heurePris;
+    private List<Calendar> lDate = new ArrayList();
+
+    public List<Calendar> getlDate() {
+        return lDate;
+    }
+
+    public void setlDate(List<Calendar> lDate) {
+        this.lDate = lDate;
+    }
+    
     public Position getPositionPersonne() {
         return positionPersonne;
     }
@@ -48,11 +57,11 @@ public class PlanningDate {
         this.heurePris = heurePris;
     }
 
-    public ArrayList<Scene> getlScene() {
+    public List<Scene> getlScene() {
         return lScene;
     }
 
-    public void setlScene(ArrayList<Scene> lScene) {
+    public void setlScene(List<Scene> lScene) {
         this.lScene = lScene;
     }
 
@@ -94,28 +103,31 @@ public class PlanningDate {
         debutP.setTime(debutPlanning);
         Calendar finP = Calendar.getInstance();
         finP.setTime(finPlanning);
+        
         while (debutP.before(finP)) {
-             System.out.println("date: "+debutP.getTime().toString());
+            Calendar d = debutP;
+            lDate.add(d);
             if (PlanningDate.isJourOuvrable(debutP) == true) {
                 Time debutTravail = heureDebut;
                 Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
                 List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
-//                      System.out.println("disponible:"+disponible.get(i).getId());
+                      System.out.println("disponible:"+disponible.get(i).getId());
                     ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId());
-//                     System.out.println("iscene:"+scenes.size());
+                     System.out.println("iscene:"+scenes.size());
                     for (int iscene = 0; iscene < scenes.size(); iscene++) {
-                       
+                       scenes.get(iscene).getPlateau(dao);
                         Time dureeDialogue = scenes.get(iscene).getVdialogue(dao).getTotalDuree();
-//                        System.out.println("dialogue:"+dureeDialogue.toString());
+                        System.out.println("dialogue:"+dureeDialogue.toString());
                         Date dateDeb =new Date(debutP.getTime().getTime());
-
                         LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ debutTravail.toString());
                         if (!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
                             Planning plan = new Planning();
                             plan.setSceneId(scenes.get(iscene).getId());
                             if(scenes.get(iscene).getHeure_ideal() == null){
                                     plan.setDebut(deb);
+                                    System.out.println("date: "+debutP);
+                                    //plan.setDate(debutP);
                                LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
@@ -130,6 +142,8 @@ public class PlanningDate {
                                }
                             }
                             else{
+                                
+                                //plan.setDate(debutP);
                                 deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ scenes.get(iscene).getHeure_ideal().toString());
                                 plan.setDebut(deb);
                                 LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
@@ -144,6 +158,7 @@ public class PlanningDate {
                     }
                 }
             }
+
             debutP.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
@@ -157,5 +172,22 @@ public class PlanningDate {
         }
         return val;
     }
-
+    public List<Plateau> plateauDistinct(){
+        List<Plateau> lPlateau = new ArrayList();
+        for(int i = 0; i<this.getlPlanning().size(); i++){
+            Plateau init = this.getlPlanning().get(i).getScene().getPlateau();
+            int count = 0;
+            for(int j = 0; j<lPlateau.size(); j++){
+                if(lPlateau.get(j).getId() == init.getId()){
+                   count++;
+                   break;
+                }
+            }
+            if(count == 0){
+                lPlateau.add(init);
+            }
+            
+        }
+        return lPlateau;
+    }
 }
