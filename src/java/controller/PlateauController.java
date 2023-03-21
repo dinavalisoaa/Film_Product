@@ -71,28 +71,38 @@ public class PlateauController {
     public String liste_plateau(HttpServletRequest rq, Model m) {
         PlateauService service = new PlateauService(dao);
 //        service.
+        List<Plateau> nD = null;
         List<Plateau> liste = service.allPlateau();
         String date = LocalDate.now().toString();
         if (rq.getParameter("date") != null) {
-            date = rq.getParameter("date");
+            if (rq.getParameter("date").equals("123")) {
+                nD = service.allPlateauNonDispoNoDate();
+            } else {
+                date = rq.getParameter("date");
+                nD = service.allPlateauNonDispo(date);
+            }
+        } else {
+            nD = service.allPlateauNonDispo(date);
+
         }
-        List<Plateau> nD = service.allPlateauNonDispo(date);
+
         m.addAttribute("plateau", liste);
         m.addAttribute("dispo", nD);
         m.addAttribute("date", date);
         m.addAttribute("etat", 0);
-        
+        m.addAttribute("service", service);
 
         return "dispo_plateau";
-    } @RequestMapping(value = "/detail_plateau")
+    }
+
+    @RequestMapping(value = "/detail_plateau")
     public String detail_plateau(HttpServletRequest rq, Model m) {
         SceneService service = new SceneService(dao);
-        PlateauService pSer=new PlateauService(dao);
+        PlateauService pSer = new PlateauService(dao);
         List<Scene> liste = service.getParPlateau(Integer.parseInt(rq.getParameter("id")));
-        Plateau iray=pSer.getPlateauById(Integer.parseInt(rq.getParameter("id")));
-        m.addAttribute("scene",liste);
-                m.addAttribute("plateau",iray);
-
+        Plateau iray = pSer.getPlateauById(Integer.parseInt(rq.getParameter("id")));
+        m.addAttribute("scene", liste);
+        m.addAttribute("plateau", iray);
 
         return "detail_plateau";
     }

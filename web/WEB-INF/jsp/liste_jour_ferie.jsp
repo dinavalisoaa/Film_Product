@@ -62,7 +62,11 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-6">
                             <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
+                                <span class="page-name">
+                                    <a href="#" class="btn btn-danger">
+                                        CONFIG
+                                    </a>
+                                </span> 
                                 <span class="icon"><i class="fas fa-chevron-right"></i></span>
                                 <span class="page-name">Blog Details</span>
                             </div>

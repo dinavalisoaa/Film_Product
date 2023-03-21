@@ -121,11 +121,11 @@
                                 <input type="hidden" name="idFilm" value="<%=request.getParameter("film")%>">
                                 <div class="form-scene-item">
                                     <label for="titre">Titre</label>
-                                    <input type="text" name="titre" id="titre"/>
+                                    <input class="form-control" type="text" name="titre" id="titre"/>
                                 </div>
                                 <div class="form-scene-item">
                                 <label for="plateau">Plateau</label>
-                                <select id="plateau" name="plateau">
+                                <select  class="form-control" id="plateau" name="plateau">
                                     <% for (int idx = 0; idx < plateau.size(); idx++) { %>
                                     <option value="<%=plateau.get(idx).getId()%>"><%=plateau.get(idx).getNom()%></option>
                                     <% } %>

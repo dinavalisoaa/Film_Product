@@ -1,13 +1,9 @@
+
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="javax.swing.text.DateFormatter"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.text.DateFormat"%>
-<!DOCTYPE html>
-<html lang="zxx">
-    <!DOCTYPE html>
-    <html lang="zxx">
-
         <%@page import="dao.HibernateDao"%>
         <%@page import="service.PlateauService"%>
         <%@page import="model.Scene"%>
@@ -17,46 +13,56 @@
         <%
             List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
             List<Plateau> dispo = (List<Plateau>) request.getAttribute("dispo");
+            PlateauService vice=(PlateauService)request.getAttribute("service");
 
         %> 
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> Dgocky â DJ Party & Night Club HTML Template </title>
-            <!-- favicon -->
-            <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-            <!-- bootstrap -->
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <!-- fontawesome icon  -->
-            <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-            <!-- flaticon css -->
+<!DOCTYPE html>
+<html lang="zxx">
 
-            <link rel="stylesheet" href="assets/css/index.css">
-            <link rel="stylesheet" href="assets/fonts/flaticon.css">
-            <!-- animate.css -->
-            <link rel="stylesheet" href="assets/css/animate.css">
-            <!-- Owl Carousel -->
-            <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-            <!-- magnific popup -->
-            <link rel="stylesheet" href="assets/css/magnific-popup.css">
-            <!-- stylesheet -->
-            <link rel="stylesheet" href="assets/css/style.css">
-            <!-- responsive -->
-            <link rel="stylesheet" href="assets/css/responsive.css">
-        </head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> E-Film </title>
+        <!-- favicon -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- fontawesome icon  -->
+        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+        <!-- flaticon css -->
+        <link rel="stylesheet" href="assets/fonts/flaticon.css">
+        <!-- animate.css -->
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!-- Owl Carousel -->
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+        <!-- magnific popup -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- responsive -->
+        <link rel="stylesheet" href="assets/css/index.css">
 
-        <body>
+        <link rel="stylesheet" href="assets/css/responsive.css">
+    </head>
 
-            <!-- preloader begin -->
-            <div class="preloader">
-                <div class="loader">
-                    <hr>
-                    <hr>
-                </div>
+    <body>
+
+        <!-- preloader begin -->
+        <div class="preloader">
+            <div class="loader">
+                <hr>
+                <hr>
             </div>
-            <jsp:include page="header.jsp"></jsp:include>
+        </div>
+        <!-- preloader end -->
+
+        <!-- header begin -->
+        <jsp:include page="header.jsp"></jsp:include>
+            <!-- header end -->
+
+            <!-- breadcrump begin -->
             <div class="breadcrump">
                 <div class="container">
                     <div class="row">
@@ -64,19 +70,28 @@
                             <div class="breadcrump-content">
                                 <span class="page-name">Home</span>
                                 <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Blog Details</span>
+                                <span class="page-name">Gallery</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- breadcrump end -->
-
-            <!-- blog details begin -->
-            <div class="blog blog-details">
+            <div class="gallery">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="add-space section-title text-center">
+                                <h2>Movies
+                                </h2>
+<!--                                
+                                --><button style="width: 100px;height: 4px;" onclick="openPopup()" class="btn btn-th.eme"></button>
+
+                                
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+ <div class="col-xl-12 col-lg-12">
 
                             <div class="contact-form">
                                 <form action="liste_plateau" method="get">
@@ -111,25 +126,28 @@
                                     %>
                                     Date:<%=da%>
                                 </h2>
-                                <p>
-                                    <button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>
+                                
+                                        <p>
+                                            <a href="#"  onclick="openPopup()" class="btn btn-primary">Ajouter</a>
+                                            <a href="liste_plateau?date=${date}" class="btn btn-danger">
+                                                
+                                                Indispo
 
-                                    <a href="liste_plateau?date=${date}" class="btn btn-theme">
-                                        <button>
-                                            Indispo
 
-                                        </button>    
+                                            </a>
+                                            <a href="liste_plateau_dispo?date=${date}" class="btn btn-success">
+                                                Dispo
 
-                                    </a>
-                                    <a href="liste_plateau_dispo?date=${date}" class="btn btn-theme">
-                                        <button>
-                                            Dispo
 
-                                        </button>    
+                                            </a>
+                                                 <a href="liste_plateau?date=123" class="btn btn-danger">
+                                                
+                                              Etat de disponibilite
 
-                                    </a>
 
-                                </p>
+                                            </a>
+
+                                        </p>
                                 <style>
                                     .containera {
                                         display: grid;
@@ -141,13 +159,35 @@
                                 </style>
                                 <div class="containera">
                                     <%
+                                    if(dispo.size()==0){
+                                    %>
+                                    <div class="box1"> <div class="">
+                                            <div class="part-img">
+    
+                                            </div>
+                                            <div class="part-text">
+                                                <span class="commentor-name">
+                                                    <h3>
+                                                          Pas de resultat
+                                                    </h3>
+                                                </span>
+                                                <p>
+
+                                                </p>
+                                               
+                                            </div>
+                                        </div></div>
+                                    <%
+                                    }
+                                    %>
+                                    <%
                                         for (int idx = 0; idx < dispo.size(); idx++) {
                                             Plateau elem = dispo.get(idx);
                                     %>
 
                                     <div class="box1"> <div class="">
                                             <div class="part-img">
-                                                <img src="assets/img/banner-bottom-img.jpg" alt="">
+//                                                <img src="assets/img/banner-bottom-img.jpg" alt="">
                                             </div>
                                             <div class="part-text">
                                                 <span class="commentor-name">
@@ -170,6 +210,7 @@
 
                                                    <a href="detail_plateau?id=<%=elem.getId() %>" class="btn btn-danger">
                                                         Indisponible 
+                                                        <%= vice.getById(elem.getId()).getDate1() %>
                                                     </a>
                                                     <%
                                                         }
@@ -184,60 +225,9 @@
                                 </div>
 
                             </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- blog details end -->
-
-            <!-- footer begin -->
-            <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                            <div class="logo">
-                                <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-8">
-                            <div class="footer-menu">
-                                <nav class="navbar navbar-expand-lg">
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="index-2.html">About <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="event.html">Event</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="gallery.html">Gallery</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="schedule.html">Schedule</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="blog.html">Blog</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="faq.html">Faq</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="idea-full"  id="idea-full">
+                </div>                  
+                                
+<div class="idea-full"  id="idea-full">
                 <div class="idea-main-card" id="idea-main-card">
                     <div class="idea-card-head">
                         <h1>Ajout</h1>
@@ -277,23 +267,47 @@
                         </form>
                     </div>
                 </div>
-                <!-- footer end -->
+                                     </div>
+            </div>
+        </div>
+    <!-- gallery begin -->
 
-                <!-- jquery -->
-                <script src="assets/js/jquery.js"></script>
-                <!-- bootstrap -->
-                <script src="assets/js/bootstrap.min.js"></script>
-                <!-- owl carousel -->
-                <script src="assets/js/owl.carousel.js"></script>
-                <!-- magnific popup -->
-                <script src="assets/js/jquery.magnific-popup.js"></script>
-                <!-- way poin js-->
-                <script src="assets/js/waypoints.min.js"></script>
-                <!-- wow js-->
-                <script src="assets/js/wow.min.js"></script>
-                <!-- main -->
-                <script src="assets/js/index.js"></script>
-                <script src="assets/js/main.js"></script>
-        </body>
+    <!-- gallery end -->
 
-    </html>
+    <!-- footer begin -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-4 d-xl-flex d-lg-flex align-items-center">
+                    <div class="logo">
+                        <!--<a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>-->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- footer end -->
+
+    <!-- jquery -->
+
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <!-- bootstrap -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- owl carousel -->
+    <script src="assets/js/owl.carousel.js"></script>
+    <!-- magnific popup -->
+    <script src="assets/js/jquery.magnific-popup.js"></script>
+    <!-- way poin js-->
+    <script src="assets/js/waypoints.min.js"></script>
+    <!-- wow js-->
+    <script src="assets/js/wow.min.js"></script>
+    <!-- main -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/bootstrap-modalmanager.js"></script>
+<script src="assets/js/bootstrap-modal.js"></script>
+</body>
+
+
+</html>

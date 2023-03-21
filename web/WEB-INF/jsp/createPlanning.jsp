@@ -71,29 +71,30 @@
                         </div>
                     </div>
                     <form action="<%= request.getContextPath()%>/creerPlanning" method="get">
-                        <div class="intervalle">
-                            <div>
-                                <label for="date1">Debut</label>
-                                <input class="form-control" id="date1" type="date" name="debut">
-                            </div>
-                            <div>
-                                <label for="date1">Fin</label>
-                                <input class="form-control" id="date1" type="date" name="fin">
-                            </div>
+                    <div class="intervalle">
+                        <div>
+                            <label for="date1">Debut</label>
+                            <input class="form-control" id="date1" type="date" name="debut">
                         </div>
-                        <br/>
-                        <div class="add-space section-title spacing" >
-                            <h2 class="title-scene" style="font-size: 50px;">Choose scene</h2>
+                        <div>
+                            <label for="date1">Fin</label>
+                            <input class="form-control" id="date1" type="date" name="fin">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="add-space section-title spacing" >
+                        <h2 class="title-scene" style="font-size: 50px;">Choose scene</h2>
 
-                        </div>
-                        <div class="row">
+                    </div>
+                    <div class="row">
 
                         <% for (int idx = 0; idx < scene.size(); idx++) {%>
                         <div class="col-xl-4 col-lg-4 col-sm-6">
-                            <input type="checkbox" name="scene[]" value="<%= scene.get(idx).getId()%>"/>
                             <div class="single-img" id="card-scene">
+                                <input type="checkbox" name="scene[]" style="width: 200px;height:20px" class="single-img"  value="<%= scene.get(idx).getId()%>">
                                 <b style="color: white"><%= scene.get(idx).getTitre()%></b>
                             </div>
+                            </input>
                         </div>
                         <% }%>  
                     </div>

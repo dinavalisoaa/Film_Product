@@ -64,6 +64,25 @@ public class PlateauService {
         }
         return list;
     }
+ 
+ public PlateauIndisponible getById(int id) {
+        List<PlateauIndisponible> list = null;
+        try {
+            list = dao.findBySql("from plateauindisponible where plateauid="+id);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list.get(0);
+    }
+ public List<Plateau> allPlateauNonDispoNoDate() {
+        List<Plateau> list = null;
+        try {
+            list = dao.findBySql("from Plateau where id in (select plateauId from PlateauIndisponible)");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
  public List<Plateau> allPlateauDispo(String date1) {
         List<Plateau> list = null;
         try {

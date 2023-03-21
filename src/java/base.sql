@@ -164,6 +164,28 @@ INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,4,'00:25:00',2,'action');
 INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,5,'00:25:00',2,'action');
 INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,6,'00:25:00',2,'action');
 
+
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu1',1,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu2',2,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu3',3,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu4',4,1,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',5,1,'00:25:00',2,'action');
+
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu1',3,6,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu2',1,5,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu3',4,2,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu4',2,4,'00:25:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',2,2,'00:25:00',2,'action');
+
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',2,10,'00:5:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',7,11,'00:15:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',6,12,'00:35:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',5,13,'00:5:10',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',4,14,'00:15:40',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',3,15,'00:09:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',2,16,'00:6:00',2,'action');
+INSERT INTO Dialogue VALUES(DEFAULT,'contenu5',1,17,'00:7:00',2,'action');
+
 INSERT INTO Personnagescene VALUES(DEFAULT,1,1);
 INSERT INTO Personnagescene VALUES(DEFAULT,1,2);
 INSERT INTO Personnagescene VALUES(DEFAULT,1,3);

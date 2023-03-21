@@ -9,7 +9,7 @@
 <%
     List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
     List<Scene> scene = (List<Scene>) request.getAttribute("scene");
-    PlateauService plat = (PlateauService) request.getAttribute("service");    
+    PlateauService plat = (PlateauService) request.getAttribute("service");
     DialogueService d = (DialogueService) request.getAttribute("diS");
 
 //    List<Dialogue> Dialogue = (List<Dialogue>) request.getAttribute("dialogue");
@@ -25,7 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> E-Film </title>
         <!-- favicon -->
-                  <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/index.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <!-- bootstrap -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -60,30 +60,30 @@
 
         <!-- header begin -->
         <jsp:include page="header.jsp"></jsp:include>
-        <!-- header end -->
+            <!-- header end -->
 
-        <!-- breadcrump begin -->
-        <div class="breadcrump">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="breadcrump-content">
-                            <span class="page-name">Home</span>
-                            <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                            <span class="page-name">Gallery</span>
+            <!-- breadcrump begin -->
+            <div class="breadcrump">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="breadcrump-content">
+                                <span class="page-name">Home</span>
+                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                                <span class="page-name">Gallery</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- breadcrump end -->
+            <!-- breadcrump end -->
 
-        <!-- gallery begin -->
-        <div class="gallery">
-            <div class="container">
-                <div class="add-space section-title spacing" >
-                    <h2 class="title-scene" style="font-size: 50px;">Scene</h2>
-                    <a href="scene?film=<%=request.getParameter("film")%>"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
+            <!-- gallery begin -->
+            <div class="gallery">
+                <div class="container">
+                    <div class="add-space section-title spacing" >
+                        <h2 class="title-scene" style="font-size: 50px;">Scene</h2>
+                        <a href="scene?film=<%=request.getParameter("film")%>"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
                 </div>
                 <div class="row">
                     <table width="800">
@@ -91,16 +91,16 @@
                             <tr>
                             <input type="hidden" name="search" value="1">
                             <input type="hidden" name="film" value="<%=request.getParameter("film")%>">
-                            <td><input type="text" name="mot"></td>
-                            <td><select name="plateau">
+                            <td><input class="form-control" type="text" name="mot"/></td>
+                            <td><select class="form-control" name="plateau">
                                     <option value="">Plateau</option>
                                     <% for (int idx = 0; idx < plateau.size(); idx++) {%>
                                     <option value="<%=plateau.get(idx).getId()%>"><%=plateau.get(idx).getNom()%></option>
-                                    <% } %>
+                                    <% }%>
                                 </select></td>
-                            <td><input type="date" name="date"></td>
+                            <td><input class="form-control" type="date" name="date"></td>
                             <td><div class="form-scene-item">
-                                    <button type="submit">Rechercher</button>
+                                    <input type="submit" class="btn btn-primary" value="Rechercher"></input>
                                 </div></td>    
                             </tr>
                         </form>
@@ -108,37 +108,44 @@
                 </div>
                 <br/><br/>
             </div>
+                                
             <div class="event-schedule">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="section-title text-center">
                                 <h2>Scene</h2>
+                                <a class="btn btn-danger"href="planningForm?idFilm=<%=scene.get(0).getId()%>" 
+                             <span class="time"><i class="fas fa-clock"></i>Plannifer      
+                            </a>
+                             <a class="btn btn-secondary"href="scene?film=<%=scene.get(0).getId()%>" 
+                                   <span class="month-count">
+                                        ADD+
+                                    </span></a>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-3 col-lg-3">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link"  href="scene?film=<%=scene.get(0).getId() %>" 
-                                   >
-                                     <span class="month-count">
-                                         <button class="btn-primary">ADD+</button>
-                                     </span></a>
-                                     <a class="nav-link" id="v-pills-home-tab-<%=0%>" data-toggle="pill" href="#DINA<%=scene.get(0).getId()%>" role="tab"
-                                   aria-controls="v-pills-home-<%=0%>" aria-selected="true">Scene:<%=scene.get(0).getId() %>
-                                     <span class="month-count"><%=scene.get(0).getTitre() %>
-                                     </span></a>
+                                <a class="btn btn-danger"href="scene?film=<%=scene.get(0).getId()%>" 
+                                   <span class="month-count">
+                                        ADD+
+                                    </span></a>
+                                <a class="nav-link" id="v-pills-home-tab-<%=0%>" data-toggle="pill" href="#DINA<%=scene.get(0).getId()%>" role="tab"
+                                   aria-controls="v-pills-home-<%=0%>" aria-selected="true">Scene:<%=scene.get(0).getId()%>
+                                    <span class="month-count"><%=scene.get(0).getTitre()%>
+                                    </span></a>
 
 
                                 <%
                                     for (int idx = 1; idx < scene.size(); idx++) {
                                         Scene elem = scene.get(idx);
                                 %>
-                                 <a class="nav-link" id="v-pills-home-tab-<%=idx%>" data-toggle="pill" href="#DINA<%=elem.getId()%>" role="tab"
-                                   aria-controls="v-pills-home-<%=idx%>" aria-selected="false">Scene:<%=elem.getId() %>
-                                     <span class="month-count"><%=elem.getTitre() %>
-                                     </span></a>
+                                <a class="nav-link" id="v-pills-home-tab-<%=idx%>" data-toggle="pill" href="#DINA<%=elem.getId()%>" role="tab"
+                                   aria-controls="v-pills-home-<%=idx%>" aria-selected="false">Scene:<%=elem.getId()%>
+                                    <span class="month-count"><%=elem.getTitre()%>
+                                    </span></a>
 
                                 <%
                                     }
@@ -147,7 +154,7 @@
                         </div>
                         <div class="col-xl-9 col-lg-9">
                             <div class="tab-content" id="v-pills-tabContent">
-                                
+
                                 <%
                                     for (int idx = 0; idx < scene.size(); idx++) {
                                         Scene elems = scene.get(idx);
@@ -157,32 +164,38 @@
                                         <div class="card">
                                             <div class="card-header collapsed" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-text">
-                                                    <a href="dialogue_formulaire?idScene<%=elems.getId() %>">
-                                                        <button class="btn-primary">Ajouter dialogue</button>
+                                                    <a  class="btn btn-primary" href="dialogue_formulaire?idScene<%=elems.getId()%>">
+                                                        Ajouter dialogue
                                                     </a>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>  
-                                        <%  int cpt=0;
-                                        List<Dialogue> Dialogue=d.listeDialogue(elems.getId());
-                                        for (int id = 0; id < Dialogue.size(); id++) {
+                                        <%  int cpt = 0;
+                                            List<Dialogue> Dialogue = d.listeDialogue(elems.getId());
+                                            for (int id = 0; id < Dialogue.size(); id++) {
                                                 Dialogue elem = Dialogue.get(id);
-                                       {
-%>
+                                                {
+                                        %>
                                         <div class="card">
                                             <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-img">
-                                                    <img src="<%=d.getPersonnage(elem.getPersonnageId()).getPhoto() %>" alt="">
+                                                    <img src="<%=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
                                                 </div>
                                                 <div class="part-text">
-                                                    <h3>Acteur<%=elem.getPersonnageId()%>:<p><%=elem.getContenu() %></p></h3>
+                                                    <p style="color: white"><%=d.getPersonnage(elem.getPersonnageId()).getNom()%>
+                                                    <p><%=elem.getContenu()%></p>
                                                 </div>
                                             </div>
                                             <div id="collapseThree<%=id%>" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <p>Action:<%=elem.getAction() %></p>
-                                                    <p>Durer<%=elem.getDuree() %></p>
+                                                    <p>Action:<%=elem.getAction()%></p>
+                                                        <div style="font-size: 30px" class="part-text">
+                                                        <br/>
+                                                        <span class="time"><i class="fas fa-clock"></i>
+                                                            <%=elem.getDuree()%></p>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>   <% }
@@ -261,7 +274,7 @@
             <!-- way poin js-->
             <script src="assets/js/waypoints.min.js"></script>
             <!-- wow js-->
-                <script src="assets/js/index.js"></script>
+            <script src="assets/js/index.js"></script>
             <script src="assets/js/wow.min.js"></script>
             <!-- main -->
             <script src="assets/js/main.js"></script>

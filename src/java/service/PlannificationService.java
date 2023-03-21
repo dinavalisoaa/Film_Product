@@ -9,10 +9,12 @@ package service;
 import dao.HibernateDao;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.JourFerie;
 import model.Plannification;
+import model.Planning;
 import model.Plateau;
 import model.PlateauIndisponible;
 import model.Scene;
@@ -50,8 +52,8 @@ public class PlannificationService {
         }
     }
     
-    public void updatePlannification(int id, Date date, int sceneid, int plateauid) {
-        String sql = "update Plannification set date='" + date + "',scened="+ sceneid + ",plateauid=" + plateauid + " where Id=" + id;
+    public void updatePlannification(int id, Date date, int sceneid,String datedebut,String datefin) {
+        String sql = "update Plannification set date='" + date + "',sceneid="+ sceneid + ",datedebut='"+datedebut+"',datefin='"+datefin+"' where Id=" + id;
         dao.updateBySql(sql);
     }
   
@@ -77,6 +79,24 @@ public class PlannificationService {
         }
         return false;
     }
+    public void generer(Planning iray){
+     PlannificationService service = new PlannificationService(dao);
+        Date date = Date.valueOf(iray.getDebut().toLocalDate().toString());
+        Plannification p = new Plannification();
+        p.setDate(date);
+        p.setPlateauid(iray.getScene().getPlateauId());
+        p.setDatedebut(Timestamp.valueOf(iray.getDebut()));    
+       p.setDatefin(Timestamp.valueOf(iray.getFin()));   
+        p.setSceneid(iray.getSceneId());
+        service.insertPlannification(p);
+    }
+    public void genererAll(ArrayList<Planning>planning){
+        for (int i = 0; i < planning.size(); i++) {
+            Planning get = planning.get(i);
+            generer(get);
+        }
+    }
+    
     
 //    public List<Date> distinctDate() {
 //        List<Plannification> list = null;

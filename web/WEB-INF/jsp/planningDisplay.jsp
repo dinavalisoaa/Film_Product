@@ -71,64 +71,7 @@
 
         <!-- header begin -->
 
-        <div class="header">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
-                                <div class="logo">
-                                    <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="d-xl-none d-lg-none d-block col-6">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-8">
-                        <div class="mainmenu">
-                            <nav class="navbar navbar-expand-lg">
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav mr-auto">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="about.html">About <span
-                                                    class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="event.html">Event</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="gallery.html">Gallery</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="schedule.html">Schedule</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="blog.html">Blog</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="faq.html">Faq</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="header.jsp"></jsp:include>
         <!-- header end -->
 
         <!-- breadcrump begin -->
@@ -165,6 +108,9 @@
                                aria-controls="v-pills-home" aria-selected="true" onclick="displayP(<%= plateau.get(i).getId()%>)"><%= plateau.get(i).getNom()%><span class="month-count"></span></a>
                            
                             <%}%>
+                             <a class="nav-link "a-toggle="pill" href="generer?<%=request.getQueryString() %>" role="tab"
+                               aria-controls="v-pills-home" aria-selected="true">Enregister<span class="month-count"></span></a>
+                          
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9">

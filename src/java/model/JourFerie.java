@@ -30,7 +30,7 @@ public class JourFerie {
         return s[i];
     }
  public static String file(){
-        return "D:\\itu\\img";
+        return "E:\\ITU\\img";
     }
 
     public void setId(int id) {

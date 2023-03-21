@@ -58,17 +58,19 @@
                         <nav class="navbar navbar-expand-lg">
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
+                                   
                                     <li class="nav-item">
-                                        <a class="nav-link " href="about.html">About <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link active" href="choix_film">Home</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="movie.html">Movie</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="gallery.html">Scene</a>
-                                    </li>
+                                  
                                     <li class="nav-item">
                                         <a class="nav-link" href="liste_plateau">Plateau</a>
+                                    </li>
+                                     <li class="nav-item">
+                                        <a class="nav-link" href="liste_jour_ferie">Configuration</a>
+                                    </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="personnage">Personnage</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="liste_plannification">Plannification</a>

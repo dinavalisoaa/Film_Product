@@ -58,7 +58,7 @@ public class SceneService {
         String sql = "update Scene set titre='" + titre + "',numero=" + numero + ",plateauId=" + plateauId + " where Id=" + id;
         dao.updateBySql(sql); 
     }
-
+        
     public Scene getScene(int idFilm, int scene) {
         String req = "from Scene where filmId = " + idFilm + "";
         List list = null;
@@ -71,7 +71,7 @@ public class SceneService {
     }
 
     public List<Scene> listeScene(int idFilm) {
-        String req = "from Scene where filmId = " + idFilm + " order by numero";
+        String req = "from Scene where id in(1, 2, 3, 5, 6,10,11,13,14,15,16,17) order by numero";
         List list = null;
         try {
             list = dao.findBySql(req);
@@ -105,7 +105,7 @@ public List<Scene> getParPlateau(int idFilm) {
         List<Plateau>als=null;
 //        PlateauService seive=new PlateauService(dao);
         try {
-           als=dao.findBySql("from plateau where plateauId="+id);
+           als=dao.findBySql("from Plateau where id="+id);
         } catch (Exception e) {
             throw e;
         }

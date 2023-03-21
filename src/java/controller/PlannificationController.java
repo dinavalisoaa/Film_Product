@@ -7,6 +7,8 @@ package controller;
 
 import dao.HibernateDao;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +33,27 @@ public class PlannificationController {
     @RequestMapping(value = "/add_plannification")
     public String addPlannification(HttpServletRequest req, Model m) {
         PlannificationService service = new PlannificationService(dao);
-        Date date = Date.valueOf(req.getParameter("date").trim());
+        Date date = Date.valueOf(LocalDate.now().toString());
         int sceneid = Integer.parseInt(req.getParameter("sceneid").trim());
         int plateauid = Integer.parseInt(req.getParameter("plateauid").trim());
+        
+        String debut = req.getParameter("debut");
+        debut=debut.split("T")[0]+" "+debut.split("T")[1]+":00.0000";
+        String fin = req.getParameter("fin");
+        fin=fin.split("T")[0]+" "+fin.split("T")[1]+":00.0000";
+        Timestamp tampDe = Timestamp.valueOf(debut);
+        Timestamp tampFin = Timestamp.valueOf(fin);
+
         Plannification p = new Plannification();
         p.setDate(date);
         p.setSceneid(sceneid);
         p.setPlateauid(plateauid);
+        p.setDatedebut(tampDe);
+        p.setDatefin(tampFin);
         service.insertPlannification(p);
-        return "redirect:voirPlanning";
+        return "redirect:liste_plannification";
     }
-    
+
     @RequestMapping(value = "/liste_plannification")
     public String liste_plannification(HttpServletRequest rq, Model m) {
         PlannificationService service = new PlannificationService(dao);
@@ -53,23 +65,30 @@ public class PlannificationController {
         m.addAttribute("date", date);
         m.addAttribute("service", service);
         m.addAttribute("sceneservice", sceneservice);
+        
+        m.addAttribute("lPlateau", plateauservice.allPlateau());
+        m.addAttribute("lScene", sceneservice.allScene());
         m.addAttribute("plateauservice", plateauservice);
+        
         return "liste_plannification";
     }
-    
+
     @RequestMapping(value = "/update_plannification")
     public String updatePlannification(HttpServletRequest req, Model m) {
         PlannificationService service = new PlannificationService(dao);
-        Date date = Date.valueOf(req.getParameter("date").trim());
+        String debut = req.getParameter("debut");
+        debut=debut.split("T")[0]+" "+debut.split("T")[1];
+        String fin = req.getParameter("fin");
+        fin=fin.split("T")[0]+" "+fin.split("T")[1];
         int sceneid = Integer.parseInt(req.getParameter("sceneid").trim());
-        int plateauid = Integer.parseInt(req.getParameter("plateauid").trim());
         int id = Integer.parseInt(req.getParameter("id").trim());
         Plannification p = new Plannification();
+        Date date = Date.valueOf(debut.split(" ")[0]);
+
         p.setDate(date);
         p.setSceneid(sceneid);
-        p.setPlateauid(plateauid);
         p.setId(id);
-        service.updatePlannification(id, date, sceneid, plateauid);
-        return "redirect:voirPlanning";
+        service.updatePlannification(id, date, sceneid, debut, fin);
+        return "redirect:liste_plannification";
     }
 }

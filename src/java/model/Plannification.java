@@ -6,6 +6,8 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,26 @@ public class Plannification {
     int sceneid;
     @Column(name="plateauid")
     int plateauid;
+    Timestamp datedebut;
+    Timestamp datefin;
+
+    public Timestamp getDatedebut() {
+        return datedebut;
+    }
+
+    public void setDatedebut(Timestamp datedebut) {
+        this.datedebut = datedebut;
+    }
+
+    public Timestamp getDatefin() {
+        return datefin;
+    }
+
+    public void setDatefin(Timestamp datefin) {
+        this.datefin = datefin;
+    }
+
+    
 
     public int getId() {
         return id;
