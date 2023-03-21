@@ -26,7 +26,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class JourFerieService {
     @Autowired
     HibernateDao dao;
-    
+      public List<JourFerie> jourFerie(int jour, int mois) {
+        List<JourFerie> list = null;
+        try {
+            list = dao.findBySql("from JourFerie where jour="+jour+" AND mois="+mois);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
     public HibernateDao getDao() {
         return dao;
     }
