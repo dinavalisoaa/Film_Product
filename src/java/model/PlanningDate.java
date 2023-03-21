@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import service.ConfigurationService;
+import service.JourFerieService;
 import service.PlateauService;
 import service.V_DureeDialogueService;
 
@@ -83,7 +84,14 @@ public class PlanningDate {
     public void setlPlanning(ArrayList<Planning> lPlanning) {
         this.lPlanning = lPlanning;
     }
-
+    public static boolean isJourFerie(Calendar date,HibernateDao dao){
+        boolean val = false;
+        List<JourFerie> lF = new JourFerieService(dao).jourFerie(date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH)+1); 
+        if(lF.size()>0){
+            val = true;
+        }
+        return val;
+    }
     public static boolean isJourOuvrable(Calendar jour) {
         boolean val = true;
         if (jour.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || jour.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
@@ -91,7 +99,17 @@ public class PlanningDate {
         }
         return val;
     }
-
+     public static boolean isJourOuvrable(Calendar jour,HibernateDao dao) {
+        boolean val = true;
+        if (jour.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || jour.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            val = false;
+        }else{
+            if(isJourFerie(jour,dao)){
+                val = false;
+            }
+        }
+        return val;
+    }
     public void setPlanning(HibernateDao dao,Date debutPlanning, Date finPlanning) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ConfigurationService conf = new ConfigurationService(dao);
@@ -103,11 +121,10 @@ public class PlanningDate {
         debutP.setTime(debutPlanning);
         Calendar finP = Calendar.getInstance();
         finP.setTime(finPlanning);
-        
         while (debutP.before(finP)) {
             Calendar d = debutP;
             lDate.add(d);
-            if (PlanningDate.isJourOuvrable(debutP) == true) {
+            if (PlanningDate.isJourOuvrable(debutP,dao) == true) {
                 Time debutTravail = heureDebut;
                 Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
                 List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
@@ -127,7 +144,7 @@ public class PlanningDate {
                             if(scenes.get(iscene).getHeure_ideal() == null){
                                     plan.setDebut(deb);
                                     System.out.println("date: "+debutP);
-                                    //plan.setDate(debutP);
+                                   
                                LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
@@ -142,8 +159,6 @@ public class PlanningDate {
                                }
                             }
                             else{
-                                
-                                //plan.setDate(debutP);
                                 deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ scenes.get(iscene).getHeure_ideal().toString());
                                 plan.setDebut(deb);
                                 LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())

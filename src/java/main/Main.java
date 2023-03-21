@@ -29,7 +29,7 @@ public class Main {
         for (int i = 0; i < liste.size(); i++) {
             date.getlScene().add(liste.get(i));
         }
-        date.setPlanning(dao, Date.valueOf("2023-03-18"), Date.valueOf("2023-03-22"));
+        date.setPlanning(dao, Date.valueOf("2023-12-25"), Date.valueOf("2023-12-31"));
         System.out.println(date.getlPlanning().size());
         System.out.println(date.getlScene().size());
 
