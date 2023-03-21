@@ -1,0 +1,90 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 21, 2023, 6:18:55 AM
+    Author     : idealy
+*/
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.idea-full {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+  display: none;
+}
+.idea-full .idea-main-card {
+  margin: auto;
+  margin-top: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 5px rgba(153, 153, 153, 0.4392156863);
+  width: 50%;
+  border-radius: 5px;
+}
+.idea-full .idea-main-card .idea-card-head {
+  padding: 5px 10px;
+  border-bottom: 0.1px solid rgb(216, 216, 216);
+  display: flex;
+  justify-content: space-between;
+}
+.idea-full .idea-main-card .idea-card-head h1 {
+  margin: 0;
+}
+.idea-full .idea-main-card .idea-card-head .idea-close {
+  font-size: 20px;
+  color: white;
+  background-color: rgb(255, 0, 85);
+  width: 25px;
+  height: fit-content;
+  text-align: center;
+  border-radius: 100%;
+  transition: 300ms;
+}
+.idea-full .idea-main-card .idea-card-head .idea-close:hover, .idea-full .idea-main-card .idea-card-head .idea-close:active {
+  cursor: pointer;
+  background-color: rgba(255, 0, 85, 0.712);
+}
+.idea-full .idea-main-card .idea-card-body {
+  padding: 20px;
+}
+
+.idea-form label {
+  display: block;
+  font-weight: bold;
+  padding: 3px;
+}
+.idea-form .idea-form-input {
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  border: none;
+  background: #e6e6e6;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.idea-btn-default {
+  height: 30px;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  transition: 400ms;
+  width: 100%;
+  margin: auto;
+}
+.idea-btn-default:hover {
+  cursor: pointer;
+}
+
