@@ -22,14 +22,18 @@ import service.JourFerieService;
 import service.PlateauService;
 import service.SceneService;
 import service.V_DureeDialogueService;
+//import com.itextpdf.text.
 
 /**
  *
  * @author Tolotra
  */
 public class PlanningDate {
+
     private int filmId;
     private ArrayList<Planning> lPlanning = new ArrayList();
+    private ArrayList<Planning> lPlanningInverse = new ArrayList();
+
     private List<Scene> lScene = new ArrayList();
     private Position positionPersonne;
     private ArrayList<Time> heurePris;
@@ -39,10 +43,18 @@ public class PlanningDate {
         return lDate;
     }
 
+    public ArrayList<Planning> getlPlanningInverse() {
+        return lPlanningInverse;
+    }
+
+    public void setlPlanningInverse(ArrayList<Planning> lPlanningInverse) {
+        this.lPlanningInverse = lPlanningInverse;
+    }
+
     public void setlDate(List<Calendar> lDate) {
         this.lDate = lDate;
     }
-    
+
     public Position getPositionPersonne() {
         return positionPersonne;
     }
@@ -85,14 +97,28 @@ public class PlanningDate {
     public void setlPlanning(ArrayList<Planning> lPlanning) {
         this.lPlanning = lPlanning;
     }
-    public static boolean isJourFerie(Calendar date,HibernateDao dao){
+
+    public static boolean isJourFerie(Calendar date, HibernateDao dao) {
         boolean val = false;
-        List<JourFerie> lF = new JourFerieService(dao).jourFerie(date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH)+1); 
-        if(lF.size()>0){
+        List<JourFerie> lF = new JourFerieService(dao).jourFerie(date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH) + 1);
+        if (lF.size() > 0) {
             val = true;
         }
         return val;
     }
+
+    public ArrayList<String> distinctDate() {
+        ArrayList<Planning> li = this.lPlanning;
+        ArrayList<String> date = new ArrayList<>();
+        for (int i = 0; i < li.size(); i++) {
+            String get = li.get(i).DatetoString();
+            if (!date.contains(get)) {
+                date.add(get);
+            }
+        }
+        return date;
+    }
+
     public static boolean isJourOuvrable(Calendar jour) {
         boolean val = true;
         if (jour.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || jour.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
@@ -100,77 +126,162 @@ public class PlanningDate {
         }
         return val;
     }
-     public static boolean isJourOuvrable(Calendar jour,HibernateDao dao) {
+
+    public static boolean isJourOuvrable(Calendar jour, HibernateDao dao) {
         boolean val = true;
         if (jour.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || jour.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             val = false;
-        }else{
-            if(isJourFerie(jour,dao)){
+        } else {
+            if (isJourFerie(jour, dao)) {
                 val = false;
             }
         }
         return val;
     }
-    public void setPlanning(HibernateDao dao,Date debutPlanning, Date finPlanning) {
+
+    public void setPlanning(HibernateDao dao, Date debutPlanning, Date finPlanning) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ConfigurationService conf = new ConfigurationService(dao);
         V_DureeDialogueService vs = new V_DureeDialogueService(dao);
-        PlateauService ps =  new PlateauService(dao);
+        PlateauService ps = new PlateauService(dao);
         Time heureDebut = conf.getConfig("heuredebut").getValeur();
         Time heureFin = conf.getConfig("heurefin").getValeur();
         Calendar debutP = Calendar.getInstance();
         debutP.setTime(debutPlanning);
         Calendar finP = Calendar.getInstance();
         finP.setTime(finPlanning);
+
         while (debutP.before(finP)) {
+            int cpt = 0;
             Calendar d = debutP;
             lDate.add(d);
-            if (PlanningDate.isJourOuvrable(debutP,dao) == true) {
+            if (PlanningDate.isJourOuvrable(debutP, dao) == true) {
                 Time debutTravail = heureDebut;
-                Plateau disp =ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
-                List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(),disp.getLongitude(),dateFormat.format(debutP.getTime()));
+                Plateau disp = ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
+                List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(), disp.getLongitude(), dateFormat.format(debutP.getTime()));
                 for (int i = 0; i < disponible.size(); i++) {
-                      System.out.println("disponible:"+disponible.get(i).getId());
-                    ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId(),dateFormat.format(debutP.getTime()),dao);
-                     System.out.println("iscene:"+scenes.size());
+                    System.out.println("disponible:" + disponible.get(i).getId());
+                    ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId(), dateFormat.format(debutP.getTime()), dao);
+                    if (scenes.size() > 0) {
+                        cpt++;
+                    }
+                    System.out.println("iscene:" + scenes.size());
                     for (int iscene = 0; iscene < scenes.size(); iscene++) {
-                       scenes.get(iscene).getPlateau(dao);
+                        scenes.get(iscene).getPlateau(dao);
                         Time dureeDialogue = scenes.get(iscene).getVdialogue(dao).getTotalDuree();
-                        System.out.println("dialogue:"+dureeDialogue.toString());
-                        Date dateDeb =new Date(debutP.getTime().getTime());
-                        LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ debutTravail.toString());
+                        System.out.println("dialogue:" + dureeDialogue.toString());
+                        Date dateDeb = new Date(debutP.getTime().getTime());
+                        LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + debutTravail.toString());
                         if (!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
                             Planning plan = new Planning();
                             plan.setSceneId(scenes.get(iscene).getId());
-                            if(scenes.get(iscene).getHeure_ideal() == null){
-                                    plan.setDebut(deb);
-                                    System.out.println("date: "+debutP);
-                                   
-                               LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
-                                       .plusMinutes(dureeDialogue.toLocalTime().getMinute())
-                                       .plusSeconds(dureeDialogue.toLocalTime().getSecond());
-                               Time adddebutTravail = Time.valueOf(addition);
-                               if (!adddebutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
-                                   LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ adddebutTravail.toString());
-                                   plan.setFin(fin);
-                                   plan.setScene(scenes.get(iscene));
-                                   lScene.remove(scenes.get(iscene));
-                                   debutTravail = adddebutTravail;
-                                   this.lPlanning.add(plan);
-                               }
-                            }
-                            else{
-                                deb = LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ scenes.get(iscene).getHeure_ideal().toString());
+                            if (scenes.get(iscene).getHeure_ideal() == null) {
+                                plan.setDebut(deb);
+                                System.out.println("date: " + debutP);
+
+                                LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
+                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                                Time adddebutTravail = Time.valueOf(addition);
+                                if (!adddebutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
+                                    LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + adddebutTravail.toString());
+                                    plan.setFin(fin);
+                                    plan.setScene(scenes.get(iscene));
+                                    lScene.remove(scenes.get(iscene));
+                                    debutTravail = adddebutTravail;
+                                    this.lPlanning.add(plan);
+                                }
+                            } else {
+                                deb = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + scenes.get(iscene).getHeure_ideal().toString());
                                 plan.setDebut(deb);
                                 LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
-                                       .plusMinutes(dureeDialogue.toLocalTime().getMinute())
-                                       .plusSeconds(dureeDialogue.toLocalTime().getSecond());
-                                plan.setFin(LocalDateTime.parse(dateFormat.format(dateDeb) +"T"+ Time.valueOf(addition).toString()));  
+                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                                plan.setFin(LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + Time.valueOf(addition).toString()));
                                 plan.setScene(scenes.get(iscene));
-                                   lScene.remove(scenes.get(iscene));
-                                   this.lPlanning.add(plan);
+                                lScene.remove(scenes.get(iscene));
+                                this.lPlanning.add(plan);
                             }
                         }
+                    }
+                    if (cpt == 2) {
+                        break;
+
+                    }
+                }
+            }
+
+            debutP.add(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
+    public void setPlanningInverse(HibernateDao dao, Date debutPlanning, Date finPlanning) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ConfigurationService conf = new ConfigurationService(dao);
+        V_DureeDialogueService vs = new V_DureeDialogueService(dao);
+        PlateauService ps = new PlateauService(dao);
+        Time heureDebut = conf.getConfig("heuredebut").getValeur();
+        Time heureFin = conf.getConfig("heurefin").getValeur();
+        Calendar debutP = Calendar.getInstance();
+        debutP.setTime(debutPlanning);
+        Calendar finP = Calendar.getInstance();
+        finP.setTime(finPlanning);
+
+        while (debutP.before(finP)) {
+            int cpt = 0;
+            Calendar d = debutP;
+            lDate.add(d);
+            if (PlanningDate.isJourOuvrable(debutP, dao) == true) {
+                Time debutTravail = heureDebut;
+                Plateau disp = ps.allPlateauDispo(dateFormat.format(debutP.getTime())).get(0);
+                List<Plateau> disponible = ps.allPlateauDispo(disp.getLatitude(), disp.getLongitude(), dateFormat.format(debutP.getTime()));
+                for (int i = 0; i < disponible.size(); i++) {
+                    System.out.println("disponible:" + disponible.get(i).getId());
+                    ArrayList<Scene> scenes = this.getByPlateau(disponible.get(i).getId(), dateFormat.format(debutP.getTime()), dao);
+                    if (scenes.size() > 0) {
+                        cpt++;
+                    }
+                    System.out.println("iscene:" + scenes.size());
+                    for (int iscene = 0; iscene < scenes.size(); iscene++) {
+                        scenes.get(iscene).getPlateau(dao);
+                        Time dureeDialogue = scenes.get(iscene).getVdialogue(dao).getTotalDuree();
+                        System.out.println("dialogue:" + dureeDialogue.toString());
+                        Date dateDeb = new Date(debutP.getTime().getTime());
+                        LocalDateTime deb = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + debutTravail.toString());
+                        if (!debutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
+                            Planning plan = new Planning();
+                            plan.setSceneId(scenes.get(iscene).getId());
+                            if (scenes.get(iscene).getHeure_ideal() == null) {
+                                plan.setDebut(deb);
+                                System.out.println("date: " + debutP);
+
+                                LocalTime addition = debutTravail.toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
+                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                                Time adddebutTravail = Time.valueOf(addition);
+                                if (!adddebutTravail.toLocalTime().isAfter(heureFin.toLocalTime())) {
+                                    LocalDateTime fin = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + adddebutTravail.toString());
+                                    plan.setFin(fin);
+                                    plan.setScene(scenes.get(iscene));
+                                    lScene.remove(scenes.get(iscene));
+                                    debutTravail = adddebutTravail;
+                                    this.lPlanning.add(plan);
+                                }
+                            } else {
+                                deb = LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + scenes.get(iscene).getHeure_ideal().toString());
+                                plan.setDebut(deb);
+                                LocalTime addition = scenes.get(iscene).getHeure_ideal().toLocalTime().plusHours(dureeDialogue.toLocalTime().getHour())
+                                        .plusMinutes(dureeDialogue.toLocalTime().getMinute())
+                                        .plusSeconds(dureeDialogue.toLocalTime().getSecond());
+                                plan.setFin(LocalDateTime.parse(dateFormat.format(dateDeb) + "T" + Time.valueOf(addition).toString()));
+                                plan.setScene(scenes.get(iscene));
+                                lScene.remove(scenes.get(iscene));
+                                this.lPlanning.add(plan);
+                            }
+                        }
+                    }
+                    if (cpt == 2) {
+                        break;
+
                     }
                 }
             }
@@ -179,33 +290,34 @@ public class PlanningDate {
         }
     }
 
-    public ArrayList<Scene> getByPlateau(int idPlateau,String date,HibernateDao dao) {
+    public ArrayList<Scene> getByPlateau(int idPlateau, String date, HibernateDao dao) {
         ArrayList<Scene> val = new ArrayList();
-        SceneService scene=new SceneService(dao);
-        
+        SceneService scene = new SceneService(dao);
+
         for (int i = 0; i < this.getlScene().size(); i++) {
-            if (this.getlScene().get(i).getPlateauId()== idPlateau && scene.verifierScene(this.getlScene().get(i).getId(), date)==false) {
+            if (this.getlScene().get(i).getPlateauId() == idPlateau && scene.verifierScene(this.getlScene().get(i).getId(), date) == false) {
                 val.add(this.getlScene().get(i));
             }
         }
-        
+
         return val;
     }
-    public List<Plateau> plateauDistinct(){
+
+    public List<Plateau> plateauDistinct() {
         List<Plateau> lPlateau = new ArrayList();
-        for(int i = 0; i<this.getlPlanning().size(); i++){
+        for (int i = 0; i < this.getlPlanning().size(); i++) {
             Plateau init = this.getlPlanning().get(i).getScene().getPlateau();
             int count = 0;
-            for(int j = 0; j<lPlateau.size(); j++){
-                if(lPlateau.get(j).getId() == init.getId()){
-                   count++;
-                   break;
+            for (int j = 0; j < lPlateau.size(); j++) {
+                if (lPlateau.get(j).getId() == init.getId()) {
+                    count++;
+                    break;
                 }
             }
-            if(count == 0){
+            if (count == 0) {
                 lPlateau.add(init);
             }
-            
+
         }
         return lPlateau;
     }

@@ -1,3 +1,4 @@
+<%@page import="service.PlannificationService"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="javax.swing.text.DateFormatter"%>
@@ -15,8 +16,9 @@
         <%@page import="java.util.List"%>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <%
-            List<Personnage> dispo = (List<Personnage>) request.getAttribute("Personnage");
+            List<Integer> dispo = (List<Integer>) request.getAttribute("dist");
 //            List<Personnage> dispo = (List<Personnage>) request.getAttribute("dispo");
+            PlannificationService service = (PlannificationService) request.getAttribute("service");
 
         %> 
         <head>
@@ -57,31 +59,34 @@
                 </div>
             </div>
             <jsp:include page="header.jsp"></jsp:include>
-               
+                <div class="breadcrump">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="breadcrump-content">
+                                    <span class="page-name">Home</span>
+                                    <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                                    <span class="page-name">Blog Details</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- breadcrump end -->
                 <div class="gallery">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-xl-11 col-lg-11">
                                 <div class="add-space section-title text-center">
-                                <h2 style="font-size: 30px">Personnages
-                                </h2>
-                                <!--                                
-                                --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
-
-
-                            </div>
+                                    <h2 style="font-size: 40px">
+                                        Plannification
+                                </h2> 
                                     <div class="comment-area">
 
                                         <h2>
 
                                         </h2>
-                                        <p>
-                                            <!--<button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>-->
-                                            <a href='#' class="btn btn-success"onclick="openPopup()" >Ajouter</a>
-                                            <a href='liste_personnage' class="btn btn-primary" >Disponiblite</a>
-
-                                        </p>
+                                   
                                         <style>
                                             .containera {
                                                 display: grid;
@@ -93,59 +98,46 @@
                                         </style>
                                         <div class="containera">
                                         <%                                        for (int idx = 0; idx < dispo.size(); idx++) {
-                                                Personnage elem = dispo.get(idx);
+                                                int elem = dispo.get(idx);
                                         %>
 
                                         <div class="box1"> <div class="">
                                                 <div class="part-img">
-                                                    <img src="<%=elem.getPhoto()%>" alt="">
                                                 </div>
                                                 <div class="part-text">
                                                     <span class="commentor-name">
-                                                        <h2 style="font-size: 30px"> 
-                                                            <%=elem.getNom()%>
-                                                        </h2>
+                                                        <h4 style="font-size: 30px"> 
+                                                          
+                                                            <p>
+                                                            Planning entre
+
+                                                            </p>   </h4>
+                                                        <a href="#" class="btn btn-danger">
+                                                            <%=service.getPlannification(elem).getDebut()%>
+
+                                                        </a>
+                                                        >
+                                                        <a href="#" class="btn btn-danger">
+                                                            <%=service.getPlannification(elem).getFin()%>
+
+
+
+                                                        </a>
+
                                                     </span>
+                                                    <a href="liste_plannification?vague=<%=elem%>" class="btn btn-primary">
+                                                        VOIR+
+
+
+
+                                                    </a>
                                                     <p>
-                                                        <a href='#' class="btn btn-primary"onclick="openModal(<%=elem.getId()%>)" >Ajouter</a>
 
                                                     </p>
 
                                                 </div>
                                             </div></div>
-                                        <div class="idea-full"  id="idea-full-<%=elem.getId()%>">
-                                            <div class="idea-main-card" id="idea-main-card">
-                                                <div class="idea-card-head">
-                                                    <h1>Modification Acteur</h1>
-                                                    <span class="idea-close" id="idea-close-<%=elem.getId()%>">&times</span>
-                                                </div>
-                                                <div class="idea-card-body">
-                                                    <div class="idea-form">
-                                                        <form action="up_personnage" method="GET">
-                                                            <label for="formFile">Personnage</label>
-                                                            <p>
 
-                                                            </p> 
-
-                                                    </div>
-                                                    <div class="idea-form">
-                                                        <label>Nom</label>
-                                                        <input type='text' class='form-control' value='<%=elem.getNom()%>' name="nom"/>
-                                                    </div>
-                                                    <input type='hidden' class='form-control' value='<%=elem.getId()%>' name="id"/>
-
-                                                    <div class="idea-form">
-                                                        <label>Photo</label>
-                                                        <img src='<%=elem.getPhoto()%>'/>   
-                                                        <input type='file' value="<%=elem.getPhoto()%>" class='form-control' name="photo"/>
-                                                    </div>
-                                                    <div class="idea-form">
-                                                        <input type="submit"  id="idea-close-<%=elem.getId()%>"class="form-control"  value="Valider">
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <%
                                             }
                                         %>

@@ -12,12 +12,12 @@
 <%@page import="model.Plateau"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <%
-            List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
-            List<Plateau> dispo = (List<Plateau>) request.getAttribute("dispo");
-            PlateauService vice=(PlateauService)request.getAttribute("service");
+<%
+    List<Personnage> personnage = (List<Personnage>) request.getAttribute("personnage");
+    List<Personnage> dispo = (List<Personnage>) request.getAttribute("dispo");
+    PersonnageService vice = (PersonnageService) request.getAttribute("service");
 
-        %> 
+%> 
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -65,25 +65,14 @@
             <!-- header end -->
 
             <!-- breadcrump begin -->
-<!--            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Gallery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+            
             <div class="gallery">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="add-space section-title text-center">
-                                <h2 style="font-size: 30px">Plateau Disponible
+                                <h2 style="font-size: 30px">
+                                    Disponibilite personnages
                                 </h2>
                                 <!--                                
                                 --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
@@ -96,7 +85,7 @@
                         <div class="col-xl-12 col-lg-12">
 
                             <div class="contact-form">
-                                <form action="liste_plateau" method="get">
+                                <form action="liste_personnage" method="get">
                                     <div class="row">
                                         <table class="table">
                                             <tr>
@@ -140,18 +129,18 @@
 
                             <p>
                                 <a href="#"  onclick="openPopup()" class="btn btn-primary">Ajouter</a>
-                                <a href="liste_plateau?date=${date}" class="btn btn-danger">
+                                <a href="liste_personnage?date=${date}" class="btn btn-danger">
 
                                     Indispo
 
 
                                 </a>
-                                <a href="liste_plateau_dispo?date=${date}" class="btn btn-success">
+                                <a href="liste_personnage_dispo?date=${date}" class="btn btn-success">
                                     Dispo
 
 
                                 </a>
-                                <a href="liste_plateau?date=123" class="btn btn-danger">
+                                <a href="liste_personnage?date=123" class="btn btn-danger">
 
                                     Etat de disponibilite
 
@@ -177,15 +166,21 @@
                                     </th>
                                     <%
                                         for (int idx = 0; idx < dispo.size(); idx++) {
-                                            Plateau elem = dispo.get(idx);
+                                            Personnage elem = dispo.get(idx);
                                     %>
                                     <tr>
+                                        <td>
+                                            <div class="box1">
+                                                <img src="<%=elem.getPhoto()%>"style="width:50px"/>
+                                            </div>
+                                        </td>
+
                                         <td><%=elem.getNom()%></td>      
                                         <td>
                                             <%
                                                 if (request.getAttribute("etat").equals("0")) {
-                                                    out.println(vice.getById(elem.getId()).getDate1() + " ->");
-                                                    out.println(vice.getById(elem.getId()).getDate2());
+                                                    out.println(vice.getIndispoById(elem.getId()).getDate1() + " ->");
+                                                    out.println(vice.getIndispoById(elem.getId()).getDate2());
 
                                                 } else {
                                             %><a href="#" class="btn btn-success">
@@ -217,21 +212,21 @@
                             </div>
                             <div class="idea-card-body">
                                 <div class="idea-form">
-                                    <form action="add_plateau_indispo" method="GET">
+                                    <form action="add_personnage_indispo" method="GET">
                                         <label for="formFile">Plateau</label>
                                         <p>
 
-                                             <select name="plateauId"class="form-control">
-                                        <%
-                                            for (int i = 0; i < plateau.size(); i++) {
-                                                Plateau teau = plateau.get(i);
-                                        %>
-                                        <option value="<%=teau.getId()%>"><%=teau.getNom()%></option>
-                                        <%%>
-                                        <%
-                                            }
-                                        %>
-                                    </select>  </p> 
+                                            <select name="plateauId"class="form-control">
+                                                <%
+                                                    for (int i = 0; i < personnage.size(); i++) {
+                                                        Personnage teau = personnage.get(i);
+                                                %>
+                                                <option value="<%=teau.getId()%>"><%=teau.getNom()%></option>
+                                                <%%>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>   </p> 
 
                                 </div>
                                 <div class="idea-form">
@@ -269,27 +264,10 @@
                     </div>
                 </div>
             </div>
-<script src='assets/dist/jspdf.debug.js'></script>
-	<script src='assets/libs/html2pdf.js'></script>
-	<script>
+            <!-- footer end -->
 
-        var pdf = new jsPDF('p', 'pt', 'letter');
-        var canvas = pdf.canvas;
-        canvas.height = 72 * 11;
-        canvas.width=72 * 8.5;;
-      
-        html2pdf(document.body, pdf, function(pdf) {
-                var iframe = document.createElement('iframe');
-                iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:100%');
-                document.body.appendChild(iframe);
-                iframe.src = pdf.output('datauristring');
+            <!-- jquery -->
 
-               //var div = document.createElement('pre');
-               //div.innerText=pdf.output();
-               //document.body.appendChild(div);
-            }
-        );
-</script>
             <script src="assets/js/index.js"></script>
             <script src="assets/js/jquery.js"></script>
             <!-- bootstrap -->

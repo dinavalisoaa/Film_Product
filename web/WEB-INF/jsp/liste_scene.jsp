@@ -63,24 +63,12 @@
             <!-- header end -->
 
             <!-- breadcrump begin -->
-            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Gallery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- breadcrump end -->
 
             <!-- gallery begin -->
             <div class="gallery">
-                <div class="container">
+<!--                <div class="container">
                     <div class="add-space section-title spacing" >
                         <h2 class="title-scene" style="font-size: 50px;">Scene</h2>
                         <a href="scene?film=<%=request.getParameter("film")%>"><div class="ajout"><b>Ajout <i class="fa fa-plus"></i></b></div></a>
@@ -107,27 +95,36 @@
                     </table>
                 </div>
                 <br/><br/>
-            </div>
+            </div>-->
                                 
             <div class="event-schedule">
                 <div class="container">
+                    
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
-                            <div class="section-title text-center">
-                                <h2>Scene</h2>
-                                <a class="btn btn-danger"href="planningForm?idFilm=<%=scene.get(0).getId()%>" 
+                            <div class="add-space section-title text-center">
+                                <h2 style="font-size: 30px">
+                                   Scene
+                                </h2>  <a class="btn btn-danger"href="planningForm?idFilm=<%=scene.get(0).getId()%>" 
                              <span class="time"><i class="fas fa-clock"></i>Plannifer      
                             </a>
                              <a class="btn btn-secondary"href="scene?film=<%=scene.get(0).getId()%>" 
                                    <span class="month-count">
                                         ADD+
                                     </span></a>
+                                
+
                             </div>
+<!--                            <div class="section-title text-center">
+                                
+                                <h2>Scene</h2>
+                              
+                            </div>-->
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-3 col-lg-3">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="nav grid nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="btn btn-danger"href="scene?film=<%=scene.get(0).getId()%>" 
                                    <span class="month-count">
                                         ADD+
@@ -152,7 +149,7 @@
                                 %>
                             </div>
                         </div>
-                        <div class="col-xl-9 col-lg-9">
+                        <div class="col-xl-12 col-lg-12">
                             <div class="tab-content" id="v-pills-tabContent">
 
                                 <%
@@ -261,6 +258,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- footer end -->
 
             <!-- jquery -->
@@ -273,7 +271,7 @@
             <script src="assets/js/jquery.magnific-popup.js"></script>
             <!-- way poin js-->
             <script src="assets/js/waypoints.min.js"></script>
-            <!-- wow js-->
+             
             <script src="assets/js/index.js"></script>
             <script src="assets/js/wow.min.js"></script>
             <!-- main -->

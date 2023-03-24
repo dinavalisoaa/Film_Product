@@ -80,8 +80,13 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="add-space section-title text-center">
-                                <h2>Jour Ferie
+                                <h2 style="font-size: 30px">Jour Ferie
                                 </h2>
+                                <!--                                
+                                --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
+
+
+                            </div>
                             <div class="comment-area">
                                
                                 <h2>

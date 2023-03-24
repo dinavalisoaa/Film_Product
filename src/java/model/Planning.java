@@ -18,18 +18,36 @@ import javax.persistence.Id;
  * @author P14_A_111_Dina
  */
 public class Planning {
+
     int sceneId;
     LocalDateTime debut;
     LocalDateTime fin;
-    
-    public Planning(){}
-    
-    public Planning(int sec,LocalDateTime de,LocalDateTime fin){
-        this.debut=de;
-        this.fin=fin;
-        sceneId=sec;
+
+    public Planning() {
     }
-    
+
+    public Planning(int sec, LocalDateTime de, LocalDateTime fin) {
+        this.debut = de;
+        this.fin = fin;
+        sceneId = sec;
+    }
+
+    public String DatetoString() {
+        String d = debut.toLocalDate().toString();
+        String[] tab = d.split("-");
+        return tab[0] + tab[1] + tab[2];
+    }
+
+    public static String StringToDate(String date) {
+        char[] d = date.toCharArray();
+//        String[] tab = d.split
+        String year = String.valueOf(d[0]) + String.valueOf(d[1]) + String.valueOf(d[2]) + String.valueOf(d[3]);
+        String m = String.valueOf(d[4]) + String.valueOf(d[5]);
+        String day = String.valueOf(d[6]) + String.valueOf(d[7]);
+
+        return year+"-"+m+"-"+day;
+    }
+
     Scene scene;
     Calendar date;
 
@@ -40,7 +58,7 @@ public class Planning {
     public void setDate(Calendar date) {
         this.date = date;
     }
-    
+
     public Scene getScene() {
         return scene;
     }
@@ -77,5 +95,5 @@ public class Planning {
     public String toString() {
         return "Planning{" + "sceneId=" + sceneId + ", debut=" + debut.toString() + ", fin=" + fin.toString() + "}";
     }
-    
+
 }

@@ -1,7 +1,9 @@
+<%@page import="service.SceneService"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Scene"%>
 <%
     List<Scene> scene = (List<Scene>) request.getAttribute("scene");
+    SceneService vice=(SceneService)request.getAttribute("ser");
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -47,26 +49,16 @@
         <jsp:include page="header.jsp"></jsp:include>
             <!-- header end -->
 
-            <!-- breadcrump begin -->
-            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Gallery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+       
             <div class="gallery">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="add-space section-title text-center">
-                                <h2>Generate planning </h2>
+                               <h2 style="font-size: 50px">
+                                    Generate Planning
+                                </h2>
+                                
                             </div>
                         </div>
                     </div>
@@ -90,16 +82,32 @@
 
                         <% for (int idx = 0; idx < scene.size(); idx++) {%>
                         <div class="col-xl-4 col-lg-4 col-sm-6">
-                            <div class="single-img" id="card-scene">
-                                <input type="checkbox" name="scene[]" style="width: 200px;height:20px" class="single-img"  value="<%= scene.get(idx).getId()%>">
+                           
+                                <%
+                                    
+                               if(vice.isPlanned(scene.get(idx).getId())){
+                                %>
+                                <div class="single-img" id="card-scene">
+                                    
+                                    
+                                <input type="submit"  class="btn btn-danger"   class="single-img"  value="PLANNIFIER" disabled="true"/>
+                                <p style="color: white"><%= scene.get(idx).getTitre()%></p>
+                                <%
+                                }else{
+                                %>
+                                 <div class="single-img" id="card-scene">
+                                 <input type="checkbox" name="scene[]" style="width: 200px;height:20px" class="single-img"  value="<%= scene.get(idx).getId()%>">
                                 <b style="color: white"><%= scene.get(idx).getTitre()%></b>
+                               
+                                <% }
+                                %>
                             </div>
                             </input>
                         </div>
                         <% }%>  
                     </div>
                     <div class="form-scene-item">
-                        <button type="submit">Cr�er</button>
+                        <button type="submit">CREER</button>
                     </div>    
                 </form>
             </div>

@@ -105,15 +105,10 @@ public class PlateauController {
         return "redirect:plateau";
     }
 
-    @RequestMapping(value = "/add_indispo")
-    public String add_indispo(HttpServletRequest req, Model m) {
-        PlateauService service = new PlateauService(dao);
-        PlateauIndisponible pI = new PlateauIndisponible();
-        pI.setDate1(Date.valueOf(req.getParameter("date1")));
-        pI.setDate2(Date.valueOf(req.getParameter("date2")));
-        pI.setPlateauId(Integer.parseInt(req.getParameter("plateauId")));
-        service.insertPlateauIndispo(pI);
-        return "redirect:liste_plateau";
+    @RequestMapping(value = "/pdf")
+    public String pdf(HttpServletRequest req, Model m) {
+       m.addAttribute("DDD","12345678");
+        return "pdf";
     }
 
     @RequestMapping(value = "/popup")

@@ -31,7 +31,34 @@ public class Plannification {
     int plateauid;
     Timestamp datedebut;
     Timestamp datefin;
+    int vague;
+    Date debut;
+    Date fin;
 
+    public int getVague() {
+        return vague;
+    }
+
+    public void setVague(int vague) {
+        this.vague = vague;
+    }
+
+    public Date getDebut() {
+        return debut;
+    }
+
+    public void setDebut(Date debut) {
+        this.debut = debut;
+    }
+
+    public Date getFin() {
+        return fin;
+    }
+
+    public void setFin(Date fin) {
+        this.fin = fin;
+    }
+    
     public Timestamp getDatedebut() {
         return datedebut;
     }

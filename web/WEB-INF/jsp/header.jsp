@@ -73,7 +73,7 @@
                                         <a class="nav-link" href="personnage">Personnage</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="liste_plannification">Plannification</a>
+                                        <a class="nav-link" href="vague">Plannification</a>
                                     </li>
                                   
                                 </ul>

@@ -66,6 +66,42 @@ public class PlannificationService {
         }
         return list;
     }
+    public List<Plannification> allPlannificationByVague(int id) {
+        List<Plannification> list = null;
+        try {
+            list = dao.findBySql("from Plannification where vague="+id);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+    public List<Integer> distinctVague() {
+        List<Integer> list = null;
+        try {
+            list = dao.findBySql("select distinct(vague) from Plannification ");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+    public Plannification getPlannification(int vague) {
+        List<Plannification> list = null;
+        try {
+            list = dao.findBySql("from Plannification where vague="+vague);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list.get(0);
+    }
+//    public List<Integer> distinctVague() {
+//        List<Integer> list = null;
+//        try {
+//            list = dao.findBySql("select d(vague) from Planniification ");
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//        return list;
+//    }
     
     public boolean ifExist(Date d, List<Date> list){
         try {
@@ -79,7 +115,7 @@ public class PlannificationService {
         }
         return false;
     }
-    public void generer(Planning iray){
+    public void generer(Planning iray,Date de,Date fi,int vague){
      PlannificationService service = new PlannificationService(dao);
         Date date = Date.valueOf(iray.getDebut().toLocalDate().toString());
         Plannification p = new Plannification();
@@ -88,12 +124,15 @@ public class PlannificationService {
         p.setDatedebut(Timestamp.valueOf(iray.getDebut()));    
        p.setDatefin(Timestamp.valueOf(iray.getFin()));   
         p.setSceneid(iray.getSceneId());
+        p.setVague(vague);
+        p.setDebut(de);
+        p.setFin(fi);
         service.insertPlannification(p);
     }
-    public void genererAll(ArrayList<Planning>planning){
+    public void genererAll(ArrayList<Planning>planning,Date de,Date fi,int va){
         for (int i = 0; i < planning.size(); i++) {
             Planning get = planning.get(i);
-            generer(get);
+            generer(get,de,fi,va);
         }
     }
     
@@ -124,6 +163,15 @@ public class PlannificationService {
         }
         return list;                                                                                    
     }
+    public List<Date> distinctDateByVague(int id) {
+        List<Date> list = null;
+        try {
+          list = dao.findBySql("select distinct(date) from Plannification where vague="+id+" order by date asc");
+          } catch (Exception e) {
+            throw e;
+        }
+        return list;                                                                                    
+    }
     
     public List<String> plateau(Date d) {
         List<String> list = null;
@@ -134,7 +182,18 @@ public class PlannificationService {
         }
         return list;                                                                                    
     }
-    
+    public int getLastVague() {
+        List<Plannification> list = null;
+        try {
+          list = dao.findBySql("from Plannification order by id desc");
+          } catch (Exception e) {
+            throw e;
+        }
+        if(list.size()==0){
+        return 1;
+        }
+        return list.get(0).getVague()+1;                                                                                    
+    }
     public List<Plannification> plannificationByDate(Date d) {
         List<Plannification> list = null;
         try {

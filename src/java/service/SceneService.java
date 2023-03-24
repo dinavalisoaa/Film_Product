@@ -83,7 +83,7 @@ public class SceneService {
     }
 
     public List<Scene> listeSceneByDate(String date) {
-        String req = "from Scene where id in (select sceneId from Dialogue where personnageId in( select personnageId from PersonnageIndisponible where date('" + date + "') between date1 and date2))";
+        String req = "from Scene where id in (select sceneId from Dialogue where personnageId in( select personnageId from PersonnageIndisponible where date('" + date + "') between date1 and date2)) or id in (select sceneid from Plannification) ";
         List<Scene> list = null;
         try {
             list = dao.findBySql(req);
@@ -100,9 +100,21 @@ public class SceneService {
             if (get.getId() == id) {
                 return true;
             } else {
-                System.err.println("########" + id + "##################################################################################");
 
             }
+        }
+        return false;
+    }
+    public boolean isPlanned(int id) {
+       String req = "from Scene where id=" + id + " and id in (select sceneid from Plannification) ";
+        List list = null;
+        try {
+            list = dao.findBySql(req);
+        } catch (Exception e) {
+            throw e;
+        }
+        if(list.size()>0){
+        return true;
         }
         return false;
     }

@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import model.JourFerie;
+import model.Personnage;
 import model.Plateau;
 import model.PlateauIndisponible;
 import model.Scene;
@@ -64,6 +65,7 @@ public class PlateauService {
         }
         return list;
     }
+
  
  public Plateau getByCoord(double lg,double lt) {
         List<Plateau> list = null;
@@ -165,6 +167,14 @@ public class PlateauService {
         List<Plateau> list = null;
         try {
           list = dao.findBySql(" from Plateau where id not in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2) ORDER BY haversine_distance("+latitude+", "+longitude+", latitude, longitude) ASC");
+          } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }public List<Plateau> allPlateauInDispo(double latitude,double longitude,String date1) {
+        List<Plateau> list = null;
+        try {
+          list = dao.findBySql(" from Plateau where id  in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2) ORDER BY haversine_distance("+latitude+", "+longitude+", latitude, longitude) ASC");
           } catch (Exception e) {
             throw e;
         }

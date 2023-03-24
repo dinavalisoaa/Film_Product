@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
+import service.PersonnageService;
 import service.PlannificationService;
 import service.PlateauService;
 import service.SceneService;
@@ -53,19 +54,28 @@ public class PlannificationController {
         service.insertPlannification(p);
         return "redirect:liste_plannification";
     }
+ @RequestMapping(value = "/vague")
+    public String pagePersonnage(Model m) {
+        PlannificationService service = new PlannificationService(dao);
+        List<Integer> liste = service.distinctVague();
+        
+        m.addAttribute("dist", liste);
+                m.addAttribute("service", service);
 
+        return "liste_vague";
+    }
     @RequestMapping(value = "/liste_plannification")
     public String liste_plannification(HttpServletRequest rq, Model m) {
         PlannificationService service = new PlannificationService(dao);
         SceneService sceneservice = new SceneService(dao);
         PlateauService plateauservice = new PlateauService(dao);
-        List<Plannification> liste = service.allPlannification();
-        List<Date> date = service.distinctDate();
+        int vague=Integer.parseInt(rq.getParameter("vague"));
+        List<Plannification> liste = service.allPlannificationByVague(vague);
+        List<Date> date = service.distinctDateByVague(vague);
         m.addAttribute("liste", liste);
         m.addAttribute("date", date);
         m.addAttribute("service", service);
         m.addAttribute("sceneservice", sceneservice);
-        
         m.addAttribute("lPlateau", plateauservice.allPlateau());
         m.addAttribute("lScene", sceneservice.allScene());
         m.addAttribute("plateauservice", plateauservice);

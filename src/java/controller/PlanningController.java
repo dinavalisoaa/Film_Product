@@ -98,6 +98,7 @@ public class PlanningController {
     @RequestMapping(value = "/planningForm", method = RequestMethod.GET)
     public String planningForm(@RequestParam(value = "idFilm") int idFilm, Model m) {
         m.addAttribute("scene", new SceneService(dao).listeScene(idFilm));
+        m.addAttribute("ser",  new SceneService(dao));
         return "createPlanning";
     }
 
@@ -105,11 +106,36 @@ public class PlanningController {
     public String creerPlanning(@RequestParam(value = "debut") String debut, @RequestParam(value = "fin") String fin, @RequestParam(value = "scene[]") String[] idScene, Model m) {
         SceneService vice = new SceneService(dao);
 //        ArrayList<Scene> se = (ArrayList<Scene>) vice.listeScene(1);
-        ArrayList<Scene> se =new ArrayList<>();
+        ArrayList<Scene> se = new ArrayList<>();
 
         for (int i = 0; i < idScene.length; i++) {
             String string = idScene[i];
-            Scene scn=vice.getScene(Integer.parseInt(string));
+            Scene scn = vice.getScene(Integer.parseInt(string));
+            se.add(scn);
+        }
+//        List <Scene> selectionne = new SceneService(dao).listeScene(1);
+        PlanningDate plan = new PlanningDate();
+        plan.setlScene(se);
+        plan.setPlanning(dao, Date.valueOf(debut), Date.valueOf(fin));
+
+        m.addAttribute("plateau", plan.plateauDistinct());
+        m.addAttribute("planning", plan);
+        m.addAttribute("debut", debut);
+
+        m.addAttribute("fin", fin);
+
+        return "planningDisplay";
+    }
+
+    @RequestMapping(value = "/par_date", method = RequestMethod.GET)
+    public String par_date(@RequestParam(value = "debut") String debut, @RequestParam(value = "fin") String fin, @RequestParam(value = "scene[]") String[] idScene, Model m) {
+        SceneService vice = new SceneService(dao);
+//        ArrayList<Scene> se = (ArrayList<Scene>) vice.listeScene(1);
+        ArrayList<Scene> se = new ArrayList<>();
+
+        for (int i = 0; i < idScene.length; i++) {
+            String string = idScene[i];
+            Scene scn = vice.getScene(Integer.parseInt(string));
             se.add(scn);
         }
 //        List <Scene> selectionne = new SceneService(dao).listeScene(1);
@@ -138,10 +164,11 @@ public class PlanningController {
 
         ArrayList<Planning> lPlanning = plan.getlPlanning();
         PlannificationService service = new PlannificationService(dao);
-        service.genererAll(lPlanning);
+       int i= service.getLastVague();
+        service.genererAll(lPlanning,Date.valueOf(debut),Date.valueOf(fin),i);
         m.addAttribute("plateau", plan.plateauDistinct());
         m.addAttribute("planning", plan);
 
-        return "planningDisplay";
+        return "redirect:vague";
     }
 }

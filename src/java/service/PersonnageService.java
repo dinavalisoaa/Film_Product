@@ -17,6 +17,7 @@ import java.util.Base64;
 import java.util.List;
 import javax.imageio.ImageIO;
 import model.Personnage;
+import model.PersonnageIndisponible;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -26,7 +27,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PersonnageService {
     @Autowired
     HibernateDao dao;
-    
+     public List<Personnage> allPersonnageNonDispo(String date1) {
+        List<Personnage> list = null;
+        try {
+            list = dao.findBySql("from Personnage where id in (select personnageId from PersonnageIndisponible where date('"+date1+"') between date1 and date2)");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    } public PersonnageIndisponible getIndispoById(int id) {
+        List<PersonnageIndisponible> list = null;
+        try {
+            list = dao.findBySql("from PersonnageIndisponible where personnageId="+id);
+        } catch (Exception e) {
+            throw e;
+        }
+        return list.get(0);
+    }public List<Personnage> allPersonnageDispo(String date1) {
+        List<Personnage> list = null;
+        try {
+            list = dao.findBySql("from Personnage where id not in (select personnageId from PersonnageIndisponible where date('"+date1+"') between date1 and date2)");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
     public HibernateDao getDao() {
         return dao;
     }
@@ -42,6 +67,12 @@ public class PersonnageService {
     }
     
     public void insertPersonnage(Personnage p) {
+        try {
+            dao.create(p);
+        } catch (Exception e) {
+            throw e;
+        }
+    }   public void insertPersonnageIndisponible(PersonnageIndisponible p) {
         try {
             dao.create(p);
         } catch (Exception e) {

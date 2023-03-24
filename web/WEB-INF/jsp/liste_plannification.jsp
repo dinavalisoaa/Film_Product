@@ -66,21 +66,7 @@
         <!-- header end -->
 
         <!-- breadcrump begin -->
-        <div style=""class="breadcrump">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="breadcrump-content">
-                            <marquee>
-                                <div class="section-title">
-                                    <h2></h2>
-                                </div>    
-                            </marquee>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- breadcrump end -->
 
         <!-- gallery begin -->
@@ -118,7 +104,9 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="section-title text-center">
-                                <h2>Plannification</h2>
+                                <h2 style="font-size: 40px">
+                                        Plannifications detaillés
+                                </h2> 
                             </div>
                         </div>
                     </div>
