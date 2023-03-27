@@ -45,8 +45,8 @@
 //        List<Calendar> lDate = planning.getlDate();
         ArrayList<String> lDate = planning.distinctDate();
         ArrayList<Planning> lPlanning = planning.getlPlanning();
-        List<Plateau> plateau = (List) request.getAttribute("plateau");
-    %>
+//        List<Plateau> plateau = (List) request.getAttribute("plateau");
+%>
     <script>
         function displayP(index) {
             document.querySelectorAll('.p').forEach((p) => {
@@ -87,10 +87,12 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="section-title text-center">
-                                <h2>Planning</h2>
+                                <h2>Planning
+                                <%=lPlanning.size()%>
+                            </h2>
 
-                                <h3>
-                                    <a href="#" class="btn btn-danger">
+                            <h3>
+                                <a href="#" class="btn btn-danger">
                                     ${debut}
 
                                 </a>
@@ -100,22 +102,33 @@
                                     ${fin}
 
                                 </a>
-                                    <p>
-                                         <a class="btn btn-success "a-toggle="pill" href="generer?<%=request.getQueryString()%>" role="tab"
-                                   aria-controls="v-pills-home" aria-selected="true">Enregister<span class="month-count"></span></a>
+                                <p>
+                                    <a class="btn btn-success "a-toggle="pill" href="generer?<%=request.getQueryString()%>" role="tab"
+                                       aria-controls="v-pills-home" aria-selected="true">Enregister<span class="month-count"></span></a>
 
-                                    </p>
+                                </p>
                             </h3>
 
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-12 col-lg-12">
                     <div class="nav grid nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <% for (int i = 0; i < lDate.size(); i++) {%>
                         <a class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                            aria-controls="v-pills-home" aria-selected="true" onclick="displayP(<%=lDate.get(i)%>)">
+                            <%
+                                if (lDate.get(i).equals("10000101")) {
+                            %>
+                            <input type="button" class="btn btn-primary" value="Indispo" >
+                            <%
+                            } else {
+                            %>
                             <%=LocalDate.parse(Planning.StringToDate(lDate.get(i))).format(DateTimeFormatter.ofPattern("d MMM uuuu"))%>
+                            <%
+
+                                }%>
                             <span class="month-count"></span></a>
 
                         <%}%>
@@ -136,10 +149,26 @@
                                             <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
 
                                                 <div class="part-text">
+                                                    <%
+                                                        if (lPlanning.get(iS).DatetoString().equals("10000101")) {
+                                                    %>
+                                                    <h3><%=lPlanning.get(iS).getRaison()%></h3>
+
+
+                                                    <span class="location"><i class="fas fa-globe"></i>
+                                                        Location: <%//= lPlanning.get(iS).getScene().getPlateau().getNom()%></span>
+
+                                                    <%
+                                                    } else {
+                                                    %>
                                                     <h3><%=lPlanning.get(iS).getScene().getTitre()%></h3>
+
                                                     <span class="time"><%= lPlanning.get(iS).getDebut().toString().split("T")[0]%></span> 
                                                     <br/>
                                                     <span class="time"><i class="fas fa-clock"></i> <%= lPlanning.get(iS).getDebut().toString().split("T")[1]%> - <%= lPlanning.get(iS).getFin().toString().split("T")[1]%></span> <span class="location"><i class="fas fa-globe"></i> Location: <%= lPlanning.get(iS).getScene().getPlateau().getNom()%></span>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </div>
                                             </div>
 
@@ -151,95 +180,95 @@
                                         }
 
                                     %>
-                                         <div class="card" >
-                                            <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
+                                    <div class="card" >
+                                        <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" role="button">
 
-                                                <div class="part-text">
-                                                    <br/>
-                                                </div>
+                                            <div class="part-text">
+                                                <br/>
                                             </div>
-
                                         </div>
-                                        <hr/>
-                                    </div>
-                                </div>
 
+                                    </div>
+                                    <hr/>
+                                </div>
                             </div>
 
                         </div>
-                    </div>
-                </div>
 
-            </div>
-
-        </div>
-    </div>
-
-
-    <!-- event schedule end -->
-
-    <!-- countdown begin -->
-
-    <!-- footer begin -->
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-4 d-xl-flex d-lg-flex align-items-center">
-                    <div class="logo">
-                        <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xl-7 col-lg-8">
-                    <div class="footer-menu">
-                        <nav class="navbar navbar-expand-lg">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="index-2.html">About <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="event.html">Event</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="gallery.html">Gallery</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="schedule.html">Schedule</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="blog.html">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="faq.html">Faq</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- event schedule end -->
+
+<!-- countdown begin -->
+
+<!-- footer begin -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-4 d-xl-flex d-lg-flex align-items-center">
+                <div class="logo">
+                    <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-8">
+                <div class="footer-menu">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index-2.html">About <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="event.html">Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gallery.html">Gallery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="top-dj.html">Top DJ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="schedule.html">Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog.html">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="faq.html">Faq</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- footer end -->
+</div>
+<!-- footer end -->
 
-    <!-- jquery -->
-    <script src="assets/js/jquery.js"></script>
-    <!-- bootstrap -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- owl carousel -->
-    <script src="assets/js/owl.carousel.js"></script>
-    <!-- magnific popup -->
-    <script src="assets/js/jquery.magnific-popup.js"></script>
-    <!-- way poin js-->
-    <script src="assets/js/waypoints.min.js"></script>
-    <!-- wow js-->
-    <script src="assets/js/wow.min.js"></script>
-    <!-- main -->
-    <script src="assets/js/main.js"></script>
+<!-- jquery -->
+<script src="assets/js/jquery.js"></script>
+<!-- bootstrap -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- owl carousel -->
+<script src="assets/js/owl.carousel.js"></script>
+<!-- magnific popup -->
+<script src="assets/js/jquery.magnific-popup.js"></script>
+<!-- way poin js-->
+<script src="assets/js/waypoints.min.js"></script>
+<!-- wow js-->
+<script src="assets/js/wow.min.js"></script>
+<!-- main -->
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

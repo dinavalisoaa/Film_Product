@@ -118,7 +118,7 @@ public class PlanningController {
         plan.setlScene(se);
         plan.setPlanning(dao, Date.valueOf(debut), Date.valueOf(fin));
 
-        m.addAttribute("plateau", plan.plateauDistinct());
+//        m.addAttribute("plateau", plan.plateauDistinct());
         m.addAttribute("planning", plan);
         m.addAttribute("debut", debut);
 
@@ -166,7 +166,7 @@ public class PlanningController {
         PlannificationService service = new PlannificationService(dao);
        int i= service.getLastVague();
         service.genererAll(lPlanning,Date.valueOf(debut),Date.valueOf(fin),i);
-        m.addAttribute("plateau", plan.plateauDistinct());
+//        m.addAttribute("plateau", plan.plateauDistinct());
         m.addAttribute("planning", plan);
 
         return "redirect:vague";

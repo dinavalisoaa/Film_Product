@@ -20,17 +20,27 @@ public class Main {
         for (int i = 0; i < liste.size(); i++) {
             date.getlScene().add(liste.get(i));
         }
-        date.setPlanning(dao, Date.valueOf("2023-03-18"), Date.valueOf("2023-03-22"));
-        System.out.println(date.getlPlanning().size());
-        System.out.println(date.getlScene().size());
+//        date.setPlanning(dao, Date.valueOf("2023-03-21"), Date.valueOf("2023-03-24"));
+//        System.out.println(date.getlPlanning().size());
+//        System.out.println(date.getlScene().size());
 
-        for (int i = 0; i < date.getlPlanning().size(); i++) {
-            System.out.println(date.getlPlanning().get(i).toString());
-           // System.out.println(date.getlPlanning().get(i).getDate().getTime().toString());
-
+//        for (int i = 0; i < date.getlPlanning().size(); i++) {
+//            System.out.println(date.getlPlanning().get(i).toString());
+//
+//        }
+        Recherche ch=new Recherche();
+//        ch
+        RechercheService recher=new RechercheService(dao);
+                List<Recherche> list = recher.recherche(ch, "a");
+                for (int i = 0; i < list.size(); i++) {
+            Recherche get = list.get(i);
+            
+                    System.out.println(get.getNom());
+                    
         }
+
         for(int i = 0; i<date.getlDate().size(); i++){
-            System.out.println(":"+date.getlDate().get(i).getTime().toString());
+//            System.out.println(":"+date.getlDate().get(i).getTime().toString());
         }
     }
 }

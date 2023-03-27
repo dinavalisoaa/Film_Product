@@ -171,7 +171,23 @@ public class PlateauService {
             throw e;
         }
         return list;
-    }public List<Plateau> allPlateauInDispo(double latitude,double longitude,String date1) {
+    }
+//     List<Plateau> indisponible = ps.allPlateauInDispo(disp.getLatitude(), disp.getLongitude(), dateFormat.format(debutP.getTime()));
+      public boolean isDispo(int id,double latitude,double longitude,String date1) {
+        List<Plateau> list = null;
+        try {
+          list = dao.findBySql(" from Plateau where id="+id+" and id in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2) ORDER BY haversine_distance("+latitude+", "+longitude+", latitude, longitude) ASC");
+          } catch (Exception e) {
+            throw e;
+        }
+        if(list.size()>0){
+        return false;
+        }
+        return true;
+               
+//        return ;
+    }         
+     public List<Plateau> allPlateauInDispo(double latitude,double longitude,String date1) {
         List<Plateau> list = null;
         try {
           list = dao.findBySql(" from Plateau where id  in (select plateauId from PlateauIndisponible where date('"+date1+"') between date1 and date2) ORDER BY haversine_distance("+latitude+", "+longitude+", latitude, longitude) ASC");

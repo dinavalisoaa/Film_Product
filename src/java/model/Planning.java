@@ -22,7 +22,29 @@ public class Planning {
     int sceneId;
     LocalDateTime debut;
     LocalDateTime fin;
+    int dispo;
+    String raison;
 
+    public String getRaison() {
+        if(raison==null){
+        return "";
+        }
+        return raison;
+    }
+
+    public void setRaison(String raison) {
+        this.raison = raison;
+    }
+    
+
+    public int getDispo() {
+        return dispo;
+    }
+
+    public void setDispo(int dispo) {
+        this.dispo = dispo;
+    }
+    
     public Planning() {
     }
 
@@ -93,7 +115,7 @@ public class Planning {
 
     @Override
     public String toString() {
-        return "Planning{" + "sceneId=" + sceneId + ", debut=" + debut.toString() + ", fin=" + fin.toString() + "}";
+        return "Planning{" + "sceneId=" + sceneId + ", debut=" + debut.toString() + ", fin=" + fin.toString() +", Raison="+raison+ "}";
     }
 
 }

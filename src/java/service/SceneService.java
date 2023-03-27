@@ -72,7 +72,7 @@ public class SceneService {
 
 //     select *from scene where id in (select sceneid from dialogue where personnageid in(select personnageid from personnageindisponible where date('2023-03-21') between date1 and date2));
     public List<Scene> listeScene(int idFilm) {
-        String req = "from Scene where id in(1, 2, 3, 5, 6,10,11,13,14,15,16,17) order by numero";
+        String req = "from Scene where filmId="+idFilm+" order by numero";
         List list = null;
         try {
             list = dao.findBySql(req);
@@ -134,7 +134,7 @@ public class SceneService {
     public List<Scene> allScene() {
         List<Scene> list = null;
         try {
-            list = dao.findBySql("from Scene where id!=1 ");
+            list = dao.findBySql("from Scene  ");
         } catch (Exception e) {
             throw e;
         }

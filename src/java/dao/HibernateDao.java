@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import model.Scene;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.type.StandardBasicTypes;
@@ -230,14 +231,31 @@ public class HibernateDao {
         return ry;
     }
 //    List<Pla
-
+//Criteria createCriteria(Class type, String string);
+    public List findBySql2(Class zz,String req) {
+        List liste = null;//new List();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            liste = session.createCriteria(zz,req).list();
+            System.out.println("Req: " + req);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return liste;
+    }
+    
     public List findBySql(String req) {
         List liste = null;//new List();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
             liste = session.createQuery(req).list();
-            System.out.println("Req: " + req);
+//            System.out.println("Req: " + liste.get(0);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
