@@ -54,6 +54,10 @@ public class RechercheController {
         if (req.getParameter("motcle") != null) {
             motCle = req.getParameter("motcle");
         }
+        String dis="";
+        if(!motCle.equals("")){
+        dis+="'"+motCle+"'";
+        }
         if (req.getParameter("datefin") != null&&!req.getParameter("datefin").equals("")) {
             datefin = (req.getParameter("datefin"));
             pl.setFinPlan(Date.valueOf(datefin));
@@ -86,6 +90,8 @@ public class RechercheController {
         }
         List<Recherche> list = recher.recherche(pl, motCle);
         m.addAttribute("valiny", list);
+        
+        m.addAttribute("mot",dis);
         return "recherche_avance";
     }
 }

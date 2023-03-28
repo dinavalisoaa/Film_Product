@@ -174,7 +174,7 @@
                                                 Dialogue elem = Dialogue.get(id);
                                                 {
                                         %>
-                                        <div class="card">
+                                        <div class="card" style="color: white">
                                             <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-img">
                                                     <img src="<%=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
@@ -205,7 +205,30 @@
                                 <%                             }
                                 %>
 
-
+                                <div class="card" style="
+    background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
+    background-size: 100%;
+    z-index: -1;
+    opacity: .25;">
+                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                        <div class="part-img">
+                                            <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
+                                        </div>
+                                        <div class="part-text">
+                                            <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
+                                            <p><%//=elem.getContenu()%></p>
+                                        </div>
+                                    </div>
+                                    <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div style="font-size: 30px" class="part-text">
+                                                <br/>
+                                                <span class="time"><i class="fas fa-clock"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
                             </div>
                         </div>
                     </div>

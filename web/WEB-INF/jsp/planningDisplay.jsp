@@ -88,7 +88,6 @@
                         <div class="col-xl-8 col-lg-8">
                             <div class="section-title text-center">
                                 <h2>Planning
-                                <%=lPlanning.size()%>
                             </h2>
 
                             <h3>

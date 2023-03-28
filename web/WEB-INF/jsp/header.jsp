@@ -43,7 +43,12 @@
                 <div class="col-xl-4 col-lg-4 d-xl-flex d-lg-flex align-items-center">
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
-                                <h1 href="index.html">E-FILM</h1>
+                                <div class="add-space section-title text-center">
+                                    <h2 style="font-size:55px;margin-top: 30px;">
+                                       E-FILM
+                                    </h2> 
+                                    
+                                </div>  
                         </div>
                         <div class="d-xl-none d-lg-none d-block col-6">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -74,7 +79,24 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="vague">Plannification</a>
+                                    </li>   <li class="nav-item">
+                                        <form action="recherche" method="get" style="margin-top: 10px;color: white;">
+                                <li class="nav-item">
+
+                                    <input class="form-control"  style="width: 200px;border-style: none;" placeholder="RECHERCHE" type="text" name="motcle"/>
+
+                                </li>
+                                <li class="nav-item">
+
+                                    <input class="btn btn-dark"  style="width: 200px;" placeholder="RECHERCHE" type="submit" name="motcle"/>
+
+                                </li>
+                                <li class="nav-item">
+
+
+                            </form> 
                                     </li>
+                                     
                                   
                                 </ul>
                             </div>

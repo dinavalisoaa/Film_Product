@@ -6,48 +6,18 @@
 package controller;
 
 import dao.HibernateDao;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import javax.servlet.http.Part;
 import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import service.FilmService;
 import service.PersonnageService;
-import service.PlateauService;
+import service.SceneService;
 
 /**
  *
@@ -58,7 +28,8 @@ public class PersonnageController {
 
     @Autowired
     HibernateDao dao;
- @RequestMapping(value = "/liste_personnage")
+
+    @RequestMapping(value = "/liste_personnage")
     public String liste_plateau(HttpServletRequest rq, Model m) {
         PersonnageService service = new PersonnageService(dao);
 //        service.
@@ -80,12 +51,36 @@ public class PersonnageController {
         m.addAttribute("personnage", liste);
         m.addAttribute("dispo", nD);
         m.addAttribute("date", date);
-        m.addAttribute("etat","0");
+        m.addAttribute("etat", "0");
         m.addAttribute("service", service);
 
         return "dispo_personnage";
     }
- @RequestMapping(value = "/liste_personnage_dispo")
+
+    @RequestMapping(value = "/liste_personnage_scene")
+    public String liste_personnage_scene(HttpServletRequest rq, Model m) {
+        PersonnageService service = new PersonnageService(dao);
+//        service.
+        List<Personnage> nD = null;
+        List<Personnage> liste = service.allPersonnage(Integer.parseInt(rq.getParameter("sceneId")));
+        String date = LocalDate.now().toString();
+//       m.addr
+        SceneService men = new SceneService(dao);
+        Scene c = men.getScene(Integer.parseInt(rq.getParameter("sceneId")));
+        m.addAttribute("scene", c);
+        m.addAttribute("mois",rq.getParameter("mois"));
+        String d1 = LocalDate.parse(rq.getParameter("debut").split(" ")[0]).format(DateTimeFormatter.ofPattern("d MMM uuuu"));
+        String d2 = LocalDate.parse(rq.getParameter("fin").split(" ")[0]).format(DateTimeFormatter.ofPattern("d MMM uuuu"));
+
+        m.addAttribute("debut", d1 + " " + rq.getParameter("debut").split(" ")[1]);
+        m.addAttribute("fin", d1 + " " + rq.getParameter("fin").split(" ")[1]);
+
+        m.addAttribute("personnage", liste);
+
+        return "liste_personnage_scene";
+    }
+
+    @RequestMapping(value = "/liste_personnage_dispo")
     public String liste_plateaus(HttpServletRequest rq, Model m) {
         PersonnageService service = new PersonnageService(dao);
 //        service.
@@ -112,6 +107,7 @@ public class PersonnageController {
 
         return "dispo_personnage";
     }
+
     @RequestMapping(value = "/personnage")
     public String pagePersonnage(Model m) {
         PersonnageService service = new PersonnageService(dao);
@@ -125,15 +121,16 @@ public class PersonnageController {
         PersonnageService service = new PersonnageService(dao);
         String file = req.getParameter("photo");
         String id_s = req.getParameter("id");
-        int id=Integer.valueOf(id_s);
+        int id = Integer.valueOf(id_s);
         String photo = "data:image/png;base64, " + PersonnageService.convert(JourFerie.file() + "\\" + file);
         String nom = req.getParameter("nom");
         Personnage p = new Personnage();
 //        p.setNom(nom);
 //        p.setPhoto(photo);
-        service.update("update Personnage set photo='"+photo+"', nom='"+nom+"' where id="+id);
+        service.update("update Personnage set photo='" + photo + "', nom='" + nom + "' where id=" + id);
         return "redirect:personnage";
     }
+
     @RequestMapping(value = "/add_personnage_indispo")
     public String add_indispo(HttpServletRequest req, Model m) {
         PersonnageService service = new PersonnageService(dao);
@@ -145,6 +142,7 @@ public class PersonnageController {
         return "redirect:liste_personnage";
     }
 //add_personnage_indispo
+
     @RequestMapping(value = "/add_personnage")
     public String addPlateau(HttpServletRequest req, Model m) {
         PersonnageService service = new PersonnageService(dao);

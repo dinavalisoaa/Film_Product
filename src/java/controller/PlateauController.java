@@ -15,6 +15,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import service.FilmService;
+import service.PersonnageService;
 import service.PlateauService;
 import service.SceneService;
 
@@ -107,7 +109,20 @@ public class PlateauController {
 
     @RequestMapping(value = "/pdf")
     public String pdf(HttpServletRequest req, Model m) {
-       m.addAttribute("DDD","12345678");
+        FilmService sf = new FilmService(dao);
+        SceneService ss = new SceneService(dao);
+        PlateauService ps = new PlateauService(dao);
+        PersonnageService perS = new PersonnageService(dao);
+        Scene sP= ss.getSceneById(Integer.parseInt(req.getParameter("sceneId")));
+//        sP.ge
+    m.addAttribute("mois", req.getParameter("mois"));
+        m.addAttribute("film", sf.getFilmById(sP.getFilmId()).getTitre());
+        m.addAttribute("plateau", ps.getPlateauById(sP.getPlateauId()).getNom());
+        m.addAttribute("scene", ss.getSceneById(Integer.parseInt(req.getParameter("sceneId"))).getTitre());
+        m.addAttribute("personnage", perS.getPersonnageById(Integer.parseInt(req.getParameter("personnageId"))));
+        m.addAttribute("debut", req.getParameter("debut"));
+        m.addAttribute("fin", req.getParameter("fin"));
+
         return "pdf";
     }
 

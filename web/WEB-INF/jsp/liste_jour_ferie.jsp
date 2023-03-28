@@ -24,7 +24,8 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> Dgocky â DJ Party & Night Club HTML Template </title>
+            <title> 
+            </title>
             <!-- favicon -->
             <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
             <!-- bootstrap -->
@@ -57,73 +58,81 @@
                 </div>
             </div>
             <jsp:include page="header.jsp"></jsp:include>
-            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">
-                                    <a href="#" class="btn btn-danger">
-                                        CONFIG
-                                    </a>
-                                </span> 
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Blog Details</span>
+                <div class="breadcrump">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="breadcrump-content">
+                                  
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- breadcrump end -->
-<div class="gallery">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-8 col-lg-8">
-                            <div class="add-space section-title text-center">
-                                <h2 style="font-size: 30px">Jour Ferie
-                                </h2>
-                                <!--                                
-                                --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
+                <!-- breadcrump end -->
+                <div class="gallery">
+                    <div class="container">
+                        <div class="breadcrump-content" >
+                            <div style="margin-top: -10px">
+                                    <a href="/" class="btn btn-success">
+                                      Heure de travail
+                                    </a>
+                                    <a href="/" class="btn btn-danger">
+                                      Temps de preparation
+                                    </a>
+                             <a href="/" class="btn btn-success">
+                                      Temps de pause
+                                    </a>
+                                </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-xl-8 col-lg-8">
+                                <div class="add-space section-title text-center">
+                                    <h2 style="font-size: 30px">Jour Ferie
+                                    </h2>
+                                    <!--                                
+                                    --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
 
 
-                            </div>
-                            <div class="comment-area">
-                               
-                                <h2>
-                                  
-                                </h2>
-                                <p>
-                                    <!--<button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>-->
-                                    <a href='#' class="btn btn-success"onclick="openPopup()" >Ajouter</a>
-                                </p>
-                                <style>
-                                    .containera {
-                                        display: grid;
-                                        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-                                        grid-auto-rows: minmax(80px, auto);
-                                        gap: 20px;
-                                    }
+                                </div>
+                                <div class="comment-area">
 
-                                </style>
-                                <div class="containera">
-                                    <%
-                                        for (int idx = 0; idx < dispo.size(); idx++) {
+                                    <h2>
+
+                                    </h2>
+                                    <p>
+                                        <!--<button style="width: 100px" onclick="openPopup()" class="btn btn-theme">Add</button>-->
+                                        <a href='#' class="btn btn-success"onclick="openPopup()" >Ajouter</a>
+                                    </p>
+                                    <style>
+                                        .containera {
+                                            display: grid;
+                                            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+                                            grid-auto-rows: minmax(80px, auto);
+                                            gap: 20px;
+                                        }
+
+                                    </style>
+                                    <div class="containera">
+                                    <%                                        for (int idx = 0; idx < dispo.size(); idx++) {
                                             JourFerie elem = dispo.get(idx);
                                     %>
 
                                     <div class="box1"> <div class="">
                                             <div class="part-img">
-                                                <img src="assets/img/banner-bottom-img.jpg" alt="">
+                                                
+
+                                                <img src="assets/img/Organizing projects-cuate.svg" alt="">
                                             </div>
                                             <div class="part-text">
                                                 <span class="commentor-name">
-                                                    <h2 style="font-size: 30px"> <%=elem.getJour()%>/<%=JourFerie.mois(elem.getMois()-1) %>
-</h2>
+                                                    <h2 style="font-size: 30px"> <%=elem.getJour()%>/<%=JourFerie.mois(elem.getMois() - 1)%>
+                                                    </h2>
                                                 </span>
                                                 <p>
-                                                 
+
                                                 </p>
-                                               
+
                                             </div>
                                         </div></div>
                                         <%
@@ -150,7 +159,7 @@
                                 <a href="index-2.html"><img src="assets/img/logo.png" alt=""></a>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -167,17 +176,17 @@
                                 <label for="formFile">JourFerie</label>
                                 <p>
 
-                                       </p> 
+                                </p> 
 
                         </div>
                         <div class="idea-form">
                             <label>Mois</label>
                             <select name='mois' class='form-control'>
                                 <%
-                                for (int i = 0; i < 12; i++) {
-                                        %>
-                                        <option value="<%=i+1%>"><%=JourFerie.mois(i) %></option>
-                                        <%
+                                    for (int i = 0; i < 12; i++) {
+                                %>
+                                <option value="<%=i + 1%>"><%=JourFerie.mois(i)%></option>
+                                <%
                                     }
                                 %>
                             </select>
@@ -187,10 +196,10 @@
                             <label>Jour</label>
                             <select name="jour" class='form-control'>
                                 <%
-                                for (int i = 0; i < 31; i++) {
-                                        %>
-                                        <option value="<%=i+1%>"><%=i+1%></option>
-                                        <%
+                                    for (int i = 0; i < 31; i++) {
+                                %>
+                                <option value="<%=i + 1%>"><%=i + 1%></option>
+                                <%
                                     }
                                 %>
                             </select>

@@ -50,19 +50,7 @@
             <!-- header end -->
 
             <!-- breadcrump begin -->
-            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Gallery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="gallery">
                 <div class="container">
                     <div class="row justify-content-center">

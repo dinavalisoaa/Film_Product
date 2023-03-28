@@ -1,3 +1,6 @@
+<%@page import="java.time.Month"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="service.SceneService"%>
 <%@page import="service.PlannificationService"%>
 <%@page import="java.sql.Date"%>
@@ -111,8 +114,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-3 col-lg-3">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="nav grid-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
                                 <a class="nav-link" id="v-pills-home-tab-<%=0%>" data-toggle="pill" href="#DINA<%=date.get(0)%>" role="tab"
                                    aria-controls="v-pills-home-<%=0%>" aria-selected="true">Date 1: <%=date.get(0)%>
@@ -125,7 +128,9 @@
                                         Date elem = date.get(idx);
                                 %>
                                 <a class="nav-link" id="v-pills-home-tab-<%=idx%>" data-toggle="pill" href="#DINA<%=elem%>" role="tab"
-                                   aria-controls="v-pills-home-<%=idx%>" aria-selected="false">Date <%=idx + 1%>: <%=elem%>
+                                   aria-controls="v-pills-home-<%=idx%>" aria-selected="false">
+                                     <%=LocalDate.parse(elem.toString()).format(DateTimeFormatter.ofPattern("d MMM uuuu"))%>
+                           
                                     <span class="month-count"><%=elem%>
                                     </span></a>
 
@@ -135,7 +140,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-9 col-lg-9">
+                        <div class="col-xl-12 col-lg-12">
                             <a href='#' class="btn btn-success"onclick="openModal('add')" >Ajouter</a>
 
                             <div class="tab-content" id="v-pills-tabContent">
@@ -147,6 +152,7 @@
                                 <div class="tab-pane show fade" id="DINA<%=elems%>" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                     <div id="accordion">
                                         <div class="card">
+                                            
                                             <div class="card-header collapsed" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <!--                                                <div class="part-text">
                                                                                                     <a href="dialogue_formulaire?idScene<%//=elems %>">
@@ -187,15 +193,12 @@
                                                     <span class="month-count">
                                                         <a href='#' class="btn btn-primary"onclick="openModal(<%=elem.getId()%>)" >Modifier</a>
                                                     </span>
+                                                     <span class="month-count">
+                                                         <a href='liste_personnage_scene?mois= <%=Month.of(elem.getDatedebut().getMonth()+1).name()   %>&debut=<%=elem.getDatedebut() %>&fin=<%=elem.getDatefin()%>&sceneId=<%=elem.getSceneid() %>' class="btn btn-primary" >Liste des personnages</a>
+                                                    </span>
                                                 </a>
                                             </div>
-                                            <div id="collapseThree<%=id%>" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p>Plateau: <%=plateauservice.getPlateauById(elem.getPlateauid()).getNom()%></p>
-                                                    <p><%=plateauservice.getPlateauById(elem.getPlateauid()).getLongitude()%> - <%=plateauservice.getPlateauById(elem.getPlateauid()).getLatitude()%></p>
-                                                </div>
-                                            </div>
-                                        </div> 
+//                                                                                    </div> 
 
                                         <div class="idea-full"  id="idea-full-<%=elem.getId()%>">
                                             <div class="idea-main-card" id="idea-main-card">

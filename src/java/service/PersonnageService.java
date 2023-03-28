@@ -95,6 +95,14 @@ public class PersonnageService {
             throw e;
         }
         return list;
+    } public List<Personnage> allPersonnage(int scene) {
+        List<Personnage> list = null;
+        try {
+            list = dao.findBySql("from Personnage where id in (select personnageId from Dialogue where sceneId="+scene+")");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
     }
     
     public static String convert(String file) {
