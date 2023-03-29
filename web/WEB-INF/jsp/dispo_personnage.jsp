@@ -74,7 +74,11 @@
                                 <h2 style="font-size: 30px">
                                     Disponibilite personnages
                                 </h2>
-                                <!--                                
+                                <div class="part-img">
+                                        <img style="height:300px" src="assets/img/Cancelled event-amico.svg" alt="">
+                                    </div>
+                                <!--    
+                                
                                 --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
 
 

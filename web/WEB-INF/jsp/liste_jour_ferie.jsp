@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6">
                                 <div class="breadcrump-content">
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -73,26 +73,28 @@
                 <div class="gallery">
                     <div class="container">
                         <div class="breadcrump-content" >
-                            <div style="margin-top: -10px">
-                                    <a href="/" class="btn btn-success">
-                                      Heure de travail
-                                    </a>
-                                    <a href="/" class="btn btn-danger">
-                                      Temps de preparation
-                                    </a>
-                             <a href="/" class="btn btn-success">
-                                      Temps de pause
-                                    </a>
-                                </div>
+
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-xl-8 col-lg-8">
                                 <div class="add-space section-title text-center">
                                     <h2 style="font-size: 30px">Jour Ferie
                                     </h2>
-                                    <!--                                
-                                    --><button style="width: 100px;height: 2px;" onclick="openPopup()" class="btn btn-th.eme"></button>
+                                    <img src="assets/img/Home cinema-amico.svg" style="height:330px" alt=""/>
 
+                                    <!--                                
+                                    -->
+                                    <div style="margin-top: -10px">
+                                        <a href="/" class="btn btn-success">
+                                            Heure de travail +
+                                        </a>
+                                        <a href="/" class="btn btn-danger">
+                                            Temps de preparation +
+                                        </a>
+                                        <a href="/" class="btn btn-success">
+                                            Temps de pause +
+                                        </a>
+                                    </div>
 
                                 </div>
                                 <div class="comment-area">
@@ -120,9 +122,9 @@
 
                                     <div class="box1"> <div class="">
                                             <div class="part-img">
-                                                
 
-                                                <img src="assets/img/Organizing projects-cuate.svg" alt="">
+
+                                                <img src="assets/img/Events-bro.svg" alt="">
                                             </div>
                                             <div class="part-text">
                                                 <span class="commentor-name">

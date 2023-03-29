@@ -82,14 +82,18 @@
                                         Recherche Avance
                                     </h2> 
                                     <h3 style="font-size: 30px;color: white">
-                                       "${mot}"
-                                    </h3> 
-                                </div>  
-                                <form action="recherche" method="get">
-                                    <div class="row">
-                                        <table class="table">
-                                            <tr>
-                                                <th>MOT CLE </th>
+                                        "${mot}"
+                                </h3> 
+                                <div class="part-img">
+                                    <img style="height:270px;width:600px;"  src="assets/img/Search engines-rafiki.svg" alt="">
+
+                                </div>
+                            </div>  
+                            <form action="recherche" method="get">
+                                <div class="row">
+                                    <table class="table">
+                                        <tr>
+                                            <th>MOT CLE </th>
                                             <th>DATE DEBUT</th>
                                             <th>DATE Fin</th>
                                             <th>Plateau</th>
@@ -241,29 +245,29 @@
                                 </div>
                             </div>
                         </div><div class="card" style="
-    background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
-    background-size: 100%;
-    z-index: -1;
-    opacity: .25;">
-                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
-                                        <div class="part-img">
-                                            <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
-                                        </div>
-                                        <div class="part-text">
-                                            <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
-                                            <p><%//=elem.getContenu()%></p>
-                                        </div>
-                                    </div>
-                                    <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <div style="font-size: 30px" class="part-text">
-                                                <br/>
-                                                <span class="time"><i class="fas fa-clock"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
+                                   background-size: 100%;
+                                   z-index: -1;
+                                   opacity: .25;">
+                            <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                <div class="part-img">
+                                    <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
+                                </div>
+                                <div class="part-text">
+                                    <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
+                                    <p><%//=elem.getContenu()%></p>
+                                </div>
                             </div>
+                            <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div style="font-size: 30px" class="part-text">
+                                        <br/>
+                                        <span class="time"><i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -279,34 +283,34 @@
                             </div>
                             <div class="col-xl-7 col-lg-8">
                                 <div class="footer-menu">
-<!--                                    <nav class="navbar navbar-expand-lg">
-                                        <ul class="navbar-nav">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="index-2.html">About <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="event.html">Event</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="gallery.html">Gallery</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="top-dj.html">Top DJ</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="schedule.html">Schedule</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="blog.html">Blog</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="faq.html">Faq</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="contact.html">Contact</a>
-                                            </li>
-                                        </ul>
-                                    </nav>-->
+                                    <!--                                    <nav class="navbar navbar-expand-lg">
+                                                                            <ul class="navbar-nav">
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="index-2.html">About <span class="sr-only">(current)</span></a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="event.html">Event</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="gallery.html">Gallery</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="top-dj.html">Top DJ</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="schedule.html">Schedule</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="blog.html">Blog</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="faq.html">Faq</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link" href="contact.html">Contact</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </nav>-->
                                 </div>
                             </div>
                         </div>

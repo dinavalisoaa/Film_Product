@@ -12,12 +12,12 @@
 <%@page import="model.Plateau"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <%
-            List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
-            List<Plateau> dispo = (List<Plateau>) request.getAttribute("dispo");
-            PlateauService vice=(PlateauService)request.getAttribute("service");
+<%
+    List<Plateau> plateau = (List<Plateau>) request.getAttribute("plateau");
+    List<Plateau> dispo = (List<Plateau>) request.getAttribute("dispo");
+    PlateauService vice = (PlateauService) request.getAttribute("service");
 
-        %> 
+%> 
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -65,19 +65,19 @@
             <!-- header end -->
 
             <!-- breadcrump begin -->
-<!--            <div class="breadcrump">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="breadcrump-content">
-                                <span class="page-name">Home</span>
-                                <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                                <span class="page-name">Gallery</span>
+            <!--            <div class="breadcrump">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="breadcrump-content">
+                                            <span class="page-name">Home</span>
+                                            <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                                            <span class="page-name">Gallery</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+                        </div>-->
             <div class="gallery">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -180,7 +180,10 @@
                                             Plateau elem = dispo.get(idx);
                                     %>
                                     <tr>
-                                        <td><%=elem.getNom()%></td>      
+                                        <td>
+                                            <img   style="height: 200px;width: 200px"  src="assets/img/Recording a movie-cuate.svg"/>
+
+                                            <%=elem.getNom()%></td>      
                                         <td>
                                             <%
                                                 if (request.getAttribute("etat").equals("0")) {
@@ -221,17 +224,17 @@
                                         <label for="formFile">Plateau</label>
                                         <p>
 
-                                             <select name="plateauId"class="form-control">
-                                        <%
-                                            for (int i = 0; i < plateau.size(); i++) {
-                                                Plateau teau = plateau.get(i);
-                                        %>
-                                        <option value="<%=teau.getId()%>"><%=teau.getNom()%></option>
-                                        <%%>
-                                        <%
-                                            }
-                                        %>
-                                    </select>  </p> 
+                                            <select name="plateauId"class="form-control">
+                                                <%
+                                                    for (int i = 0; i < plateau.size(); i++) {
+                                                        Plateau teau = plateau.get(i);
+                                                %>
+                                                <option value="<%=teau.getId()%>"><%=teau.getNom()%></option>
+                                                <%%>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>  </p> 
 
                                 </div>
                                 <div class="idea-form">
@@ -269,27 +272,28 @@
                     </div>
                 </div>
             </div>
-<script src='assets/dist/jspdf.debug.js'></script>
-	<script src='assets/libs/html2pdf.js'></script>
-	<script>
+            <script src='assets/dist/jspdf.debug.js'></script>
+            <script src='assets/libs/html2pdf.js'></script>
+            <script>
 
-        var pdf = new jsPDF('p', 'pt', 'letter');
-        var canvas = pdf.canvas;
-        canvas.height = 72 * 11;
-        canvas.width=72 * 8.5;;
-      
-        html2pdf(document.body, pdf, function(pdf) {
-                var iframe = document.createElement('iframe');
-                iframe.setAttribute('style','position:absolute;right:0; top:0; bottom:0; height:100%; width:100%');
-                document.body.appendChild(iframe);
-                iframe.src = pdf.output('datauristring');
+                                    var pdf = new jsPDF('p', 'pt', 'letter');
+                                    var canvas = pdf.canvas;
+                                    canvas.height = 72 * 11;
+                                    canvas.width = 72 * 8.5;
+                                    ;
 
-               //var div = document.createElement('pre');
-               //div.innerText=pdf.output();
-               //document.body.appendChild(div);
-            }
-        );
-</script>
+                                    html2pdf(document.body, pdf, function (pdf) {
+                                        var iframe = document.createElement('iframe');
+                                        iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:100%');
+                                        document.body.appendChild(iframe);
+                                        iframe.src = pdf.output('datauristring');
+
+                                        //var div = document.createElement('pre');
+                                        //div.innerText=pdf.output();
+                                        //document.body.appendChild(div);
+                                    }
+                                    );
+            </script>
             <script src="assets/js/index.js"></script>
             <script src="assets/js/jquery.js"></script>
             <!-- bootstrap -->

@@ -100,7 +100,7 @@
                                         <div class="part-img">
 
 
-                                            <img style="height:400px;width:600px;"  src="assets/img/Data report-bro.svg" alt="">
+                                            <img style="height:400px;width:600px;"  src="assets/img/Dark analytics-amico.svg" alt="">
                                         </div>
                                     </div>
                                     <div class="con2" style="margin-right: -100px">

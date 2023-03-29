@@ -104,7 +104,7 @@
                         <div class="col-xl-8 col-lg-8">
                             <div class="add-space section-title text-center">
                                 <h2 style="font-size: 30px">
-                                   Scene
+                                   Scene et Action
                                 </h2>  <a class="btn btn-danger"href="planningForm?idFilm=${filmId}" 
                              <span class="time"><i class="fas fa-clock"></i>Plannifer      
                             </a>
@@ -113,7 +113,12 @@
                                         ADD+
                                     </span></a>
                                 
-
+                              
+                                   <div class="part-img">
+                                                                            <img style="height:270px;width:230px" src="assets/img/Group discussion-rafiki.svg"/>
+  
+                                                                            <img style="height:240px" src="assets/img/Recording a movie-pana.svg"/>
+                                   </div>
                             </div>
 <!--                            <div class="section-title text-center">
                                 

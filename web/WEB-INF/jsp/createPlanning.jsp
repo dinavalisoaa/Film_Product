@@ -3,7 +3,7 @@
 <%@page import="model.Scene"%>
 <%
     List<Scene> scene = (List<Scene>) request.getAttribute("scene");
-    SceneService vice=(SceneService)request.getAttribute("ser");
+    SceneService vice = (SceneService) request.getAttribute("ser");
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -49,16 +49,19 @@
         <jsp:include page="header.jsp"></jsp:include>
             <!-- header end -->
 
-       
+
             <div class="gallery">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-8 col-lg-8">
                             <div class="add-space section-title text-center">
-                               <h2 style="font-size: 50px">
+                                <h2 style="font-size: 50px">
                                     Generate Planning
                                 </h2>
-                                
+                                <div class="part-img">
+                                    <img style="width:200px;height:200px"src="assets/img/Events-bro.svg"/>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,11 +69,11 @@
                     <div class="intervalle">
                         <div>
                             <label for="date1">Debut</label>
-                            <input class="form-control" id="date1" type="date" name="debut">
+                            <input class="form-control" id="date1" type="date" name="debut" required="true">
                         </div>
                         <div>
                             <label for="date1">Fin</label>
-                            <input class="form-control" id="date1" type="date" name="fin">
+                            <input class="form-control" id="date1" type="date" name="fin" required="true">
                         </div>
                     </div>
                     <br/>
@@ -82,82 +85,82 @@
 
                         <% for (int idx = 0; idx < scene.size(); idx++) {%>
                         <div class="col-xl-4 col-lg-4 col-sm-6">
-                           
-                                <%
-                                    
-                               if(vice.isPlanned(scene.get(idx).getId())){
-                                %>
-                                <div class="single-img" id="card-scene">
-                                    
-                                    
+
+                            <%
+
+                                if (vice.isPlanned(scene.get(idx).getId())) {
+                            %>
+                            <div class="single-img" id="card-scene">
+
+
                                 <input type="submit"  class="btn btn-danger"   class="single-img"  value="PLANNIFIER" disabled="true"/>
                                 <p style="color: white"><%= scene.get(idx).getTitre()%></p>
                                 <%
-                                }else{
+                                } else {
                                 %>
-                                 <div class="single-img" id="card-scene">
-                                 <input type="checkbox" name="scene[]" style="width: 200px;height:20px" class="single-img"  value="<%= scene.get(idx).getId()%>">
-                                <b style="color: white"><%= scene.get(idx).getTitre()%></b>
-                               
-                                <% }
-                                %>
+                                <div class="single-img" id="card-scene">
+                                    <input type="checkbox" name="scene[]" style="width: 200px;height:20px" class="single-img"  value="<%= scene.get(idx).getId()%>">
+                                    <b style="color: white"><%= scene.get(idx).getTitre()%></b>
+
+                                    <% }
+                                    %>
+                                </div>
+                                </input>
                             </div>
-                            </input>
-                        </div>
-                        <% }%>  <div class="card" style="
-    background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
-    background-size: 100%;
-    z-index: -1;
-    opacity: .25;">
-                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
-                                        <div class="part-img">
-                                            <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
-                                        </div>
-                                        <div class="part-text">
-                                            <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
-                                            <p><%//=elem.getContenu()%></p>
+                            <% }%>  <div class="card" style="
+                                 background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
+                                 background-size: 100%;
+                                 z-index: -1;
+                                 opacity: .25;">
+                                <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                    <div class="part-img">
+                                        <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
+                                    </div>
+                                    <div class="part-text">
+                                        <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
+                                        <p><%//=elem.getContenu()%></p>
+                                    </div>
+                                </div>
+                                <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div style="font-size: 30px" class="part-text">
+                                            <br/>
+                                            <span class="time"><i class="fas fa-clock"></i>
+                                            </span>
                                         </div>
                                     </div>
-                                    <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <div style="font-size: 30px" class="part-text">
-                                                <br/>
-                                                <span class="time"><i class="fas fa-clock"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
                             </div><div class="card" style="
-    background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
-    background-size: 100%;
-    z-index: -1;
-    opacity: .25;">
-                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
-                                        <div class="part-img">
-                                            <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
-                                        </div>
-                                        <div class="part-text">
-                                            <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
-                                            <p><%//=elem.getContenu()%></p>
+                                       background-image: -webkit-linear-gradient(0deg, #ff6975 0%, #d34d94 56%, #a730b2 100%);
+                                       background-size: 100%;
+                                       z-index: -1;
+                                       opacity: .25;">
+                                <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%//=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
+                                    <div class="part-img">
+                                        <img src="<%//=d.getPersonnage(elem.getPersonnageId()).getPhoto()%>" alt="">
+                                    </div>
+                                    <div class="part-text">
+                                        <p style="color: white"><%//=d.getPersonnage(elem.getPersonnageId()).getNom()%>
+                                        <p><%//=elem.getContenu()%></p>
+                                    </div>
+                                </div>
+                                <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div style="font-size: 30px" class="part-text">
+                                            <br/>
+                                            <span class="time"><i class="fas fa-clock"></i>
+                                            </span>
                                         </div>
                                     </div>
-                                    <div id="collapseThree<%//=id%>" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <div style="font-size: 30px" class="part-text">
-                                                <br/>
-                                                <span class="time"><i class="fas fa-clock"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
                             </div>
-                    </div>
-                    <div class="form-scene-item">
-                        <button type="submit">CREER</button>
-                    </div>    
+                        </div>
+                        <div class="form-scene-item">
+                            <button type="submit">CREER</button>
+                        </div>    
                 </form>
             </div>
-                    
+
         </div>
     </div>
     <!-- gallery begin -->

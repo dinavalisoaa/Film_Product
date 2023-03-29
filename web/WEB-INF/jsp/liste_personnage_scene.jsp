@@ -73,6 +73,12 @@
                                     Personnage du scene
 
                                 </h2>
+                                
+                               
+                             
+                                <div class="part-img">
+                                    <img style="height:400px" src="assets/img/New team members-rafiki.svg" alt="">
+                                </div>
                                 <h4 style="color:white">
                                     "${scene.getTitre()}"
 
@@ -126,7 +132,7 @@
 
 
                                         <td>
-                                            <a href="pdf?mois=${mois}&sceneId=${scene.getId()}&debut=${debut}&fin${fin}&personnageId=<%=elem.getId() %>" class="btn btn-success">
+                                            <a href="pdf?mois=${mois}&sceneId=${scene.getId()}&debut=${debut}&fin${fin}&personnageId=<%=elem.getId()%>" class="btn btn-success">
                                                 Envoyer e-mail
                                             </a> 
 

@@ -110,6 +110,12 @@
                                 <h2 style="font-size: 40px">
                                         Plannifications detaillés
                                 </h2> 
+                                <h2  style="font-size:30px">
+                                   Planning <%=Month.of(date.get(0).getMonth()+1).name() %>
+                                </h2>
+                                <div class="part-img">
+                                    <img style="width:350px;height:320px" src="assets/img/Film rolls-rafiki.svg"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,7 +181,7 @@
                                             </div>
                                             <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree<%=id%>" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-img">
-                                                    <img src="assets/img/gallery-3.jpg" alt="">
+                                                    <img src="assets/img/Film rolls-amico.svg" alt="">
                                                 </div>
                                                 <div class="part-text">
                                                     <h3>

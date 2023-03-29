@@ -44,9 +44,12 @@
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
                                 <div class="add-space section-title text-center">
+                                    <a href="/">
                                     <h2 style="font-size:55px;margin-top: 30px;">
                                         E-FILM
                                     </h2> 
+                                        
+                                    </a>
 
                                 </div>  
                             </div>

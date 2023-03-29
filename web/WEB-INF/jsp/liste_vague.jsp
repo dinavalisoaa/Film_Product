@@ -1,3 +1,4 @@
+<%@page import="java.time.Month"%>
 <%@page import="service.PlannificationService"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
@@ -118,6 +119,12 @@
                                             </style>
 
                                             <div class="containera">
+                                                 <h4 style="font-size: 30px"> 
+                                                                Planning mensuel
+                                                                <p>
+                                                                
+
+                                                                </p>   </h4>
                                             <%                                        for (int idx = 0; idx < dispo.size(); idx++) {
                                                     int elem = dispo.get(idx);
                                             %>
@@ -127,23 +134,12 @@
                                                     </div>
                                                     <div class="part-text">
                                                         <span class="commentor-name">
-                                                            <h4 style="font-size: 30px"> 
-
-                                                                <p>
-                                                                    Planning entre
-
-                                                                </p>   </h4>
+                                                           
                                                             <a href="#" class="btn btn-danger">
-                                                                <%=service.getPlannification(elem).getDebut()%>
+                                                                   Planning  <%=Month.of(service.getPlannification(elem).getDebut().getMonth() + 1).name()%>
 
                                                             </a>
-                                                            >
-                                                            <a href="#" class="btn btn-danger">
-                                                                <%=service.getPlannification(elem).getFin()%>
 
-
-
-                                                            </a>
 
                                                         </span>
                                                         <a href="liste_plannification?vague=<%=elem%>" class="btn btn-primary">
