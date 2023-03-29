@@ -162,7 +162,7 @@
             <h3>email:<a href="#">${personnage.getEmail()}</a></h3>
 
 
-            <table class='CSSTableGenerator'>
+            <table class='CSSTableGenerator' style="font-size: 30px;">
                 <tr>
                     <td>Date et heure debut
 

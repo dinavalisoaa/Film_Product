@@ -105,7 +105,7 @@
                             <div class="add-space section-title text-center">
                                 <h2 style="font-size: 30px">
                                    Scene
-                                </h2>  <a class="btn btn-danger"href="planningForm?idFilm=<%=scene.get(0).getId()%>" 
+                                </h2>  <a class="btn btn-danger"href="planningForm?idFilm=${filmId}" 
                              <span class="time"><i class="fas fa-clock"></i>Plannifer      
                             </a>
                              <a class="btn btn-secondary"href="scene?film=<%=scene.get(0).getId()%>" 

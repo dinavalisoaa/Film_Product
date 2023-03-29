@@ -107,6 +107,7 @@ public class SceneController {
         }
         m.addAttribute("plateau", liste);
         m.addAttribute("scene", scene);
+        m.addAttribute("filmId", idFilm);
         m.addAttribute("service",service);  
         m.addAttribute("diS",dia);    
   

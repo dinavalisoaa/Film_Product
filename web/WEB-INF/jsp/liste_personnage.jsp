@@ -24,7 +24,7 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> Dgocky â DJ Party & Night Club HTML Template </title>
+            <title> E-FILM </title>
             <!-- favicon -->
             <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
             <!-- bootstrap -->

@@ -48,6 +48,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import service.FilmService;
+import service.V_StatMoisService;
 
 /**
  *
@@ -62,6 +63,13 @@ public class FilmController {
     @RequestMapping(value = "/")
     public String index(Model m) {
         return "redirect:choix_film";
+    }
+
+     @RequestMapping(value = "/dashboard")
+    public String dashboard(Model m) {
+         V_StatMoisService ser=new V_StatMoisService(dao);
+         m.addAttribute("data",ser.allV_StatMois());
+        return "dashboard";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)

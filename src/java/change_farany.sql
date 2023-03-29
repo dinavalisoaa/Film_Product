@@ -98,3 +98,18 @@ from v_plannification v
 select *from v_plannification_personnage v left join personnageIndisponible PI
 on PI.personnageId=v.personnageId
 
+create view v_stat_mois_1
+as select count(*) as nbre,extract(month from datedebut)as mois from plannification group by extract(month from datedebut);
+
+create view V_StatMois_1 
+as select count(*) as nbre,extract(month from datedebut)as mois from plannification group by extract(month from datedebut);
+
+create view v_indispo as select count(*) as nbre,extract(month from date1)as mois from personnageindisponible group by extract(month from date1)
+
+create view v_indispo_plateau as select count(*) as nbre,extract(month from date1)as mois from plateauindisponible group by extract(month from date1)
+
+
+create view v_statmois as select v1.mois,v1.nbre as planning,coalesce(v2.nbre,0)as personnage,coalesce(v3.nbre,0) as plateau from v_indispo v2 right join v_statmois_1 v1 on v1.mois=v2.mois right join v_indispo_plateau v3 on v3.mois=v1.mois;
+
+create view v_stat_jour
+as select count(*) as nbre,extract(day from datedebut)as mois from plannification group by extract(day from datedebut);
