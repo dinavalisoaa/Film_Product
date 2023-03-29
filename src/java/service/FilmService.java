@@ -59,7 +59,17 @@ public class FilmService {
         return list;
     }
     
-    
+
+public List<Film> allFilmBy() {
+        List<Film> list = null;
+        try {
+            list = dao.findBySql("from Film order by id asc");
+        } catch (Exception e) {
+            throw e;
+        }
+        return list;
+    }
+        
     public static String convert(String file) {
         String base64 = null;
         final ByteArrayOutputStream os = new ByteArrayOutputStream();

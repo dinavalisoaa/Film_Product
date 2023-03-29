@@ -62,7 +62,10 @@ public class FilmController {
 
     @RequestMapping(value = "/")
     public String index(Model m) {
-        return "redirect:choix_film";
+           FilmService service = new FilmService(dao);
+        List<Film> liste = service.allFilmBy();
+        m.addAttribute("film", liste);
+        return "redirect:home";
     }
 
      @RequestMapping(value = "/dashboard")
@@ -128,11 +131,16 @@ public class FilmController {
     @RequestMapping(value = "/choix_film")
     public String choixFilm(Model m) {
         FilmService service = new FilmService(dao);
-        List<Film> liste = service.allFilm();
+        List<Film> liste = service.allFilmBy();
         m.addAttribute("film", liste);
         return "choix_film";
     }
 
+      @RequestMapping(value = "/home")
+    public String home(Model m) {
+       
+        return "home";
+    }
     @RequestMapping(value = "/film")
     public String pageFilm(Model m) {
         return "ajout_filmN";

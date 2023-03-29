@@ -161,7 +161,7 @@
                                         <div class="card">
                                             <div class="card-header collapsed" aria-expanded="false" aria-controls="collapseThree" role="button">
                                                 <div class="part-text">
-                                                    <a  class="btn btn-primary" href="dialogue_formulaire?idScene<%=elems.getId()%>">
+                                                    <a  class="btn btn-primary" href="dialogue_formulaire?idScene=<%=elems.getId()%>">
                                                         Ajouter dialogue
                                                     </a>
                                                 </div>
