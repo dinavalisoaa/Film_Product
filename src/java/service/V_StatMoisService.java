@@ -93,7 +93,7 @@ public class V_StatMoisService {
     public List<V_StatMois> allV_StatMois() {
         List<V_StatMois> list = null;
         try {
-            list = dao.findBySql("from V_StatMois  ");
+            list = dao.findBySql("from V_StatMois order by mois asc");
         } catch (Exception e) {
             throw e;
         }

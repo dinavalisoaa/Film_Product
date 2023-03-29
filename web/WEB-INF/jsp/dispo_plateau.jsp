@@ -185,20 +185,27 @@
 
                                             <%=elem.getNom()%></td>      
                                         <td>
-                                            <%
-                                                if (request.getAttribute("etat").equals("0")) {
-                                                    out.println(vice.getById(elem.getId()).getDate1() + " ->");
-                                                    out.println(vice.getById(elem.getId()).getDate2());
-
-                                                } else {
-                                            %><a href="#" class="btn btn-success">
+                                            <%   if (Integer.valueOf(request.getAttribute("etat").toString()) == 1) {
+                                            %>
+                                               <a href="#" class="btn btn-success">
 
 
                                                 DISPO
-                                            </a>  
+                                            </a>
+                                            <%
+                                            } else {
+                                                out.println(vice.getById(elem.getId()).getDate1() + " ->");
+                                                out.println(vice.getById(elem.getId()).getDate2());
+                                            %>
+                                            <a href="#" class="btn btn-danger">
+
+
+                                                DISPO
+                                            </a>
                                             <%
                                                 }
                                             %>
+
 
                                         </td>
                                     </tr>

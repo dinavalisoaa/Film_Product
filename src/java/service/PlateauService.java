@@ -79,7 +79,7 @@ public class PlateauService {
  public PlateauIndisponible getById(int id) {
         List<PlateauIndisponible> list = null;
         try {
-            list = dao.findBySql("from plateauindisponible where plateauid="+id);
+            list = dao.findBySql("from PlateauIndisponible where plateauid="+id);
         } catch (Exception e) {
            
             throw e;
